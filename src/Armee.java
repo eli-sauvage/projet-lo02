@@ -24,8 +24,8 @@ public class Armee {
 
     @Override
     public String toString() {
-        String ret = "";
-        for(int i=0; i<etudiants.length; i++)ret+="#" + i + " " + etudiants[i].toString() + "\n";
+        String ret = "\nARMEE : ----------------------\n";
+        for(int i=0; i<etudiants.length; i++)ret+="|  #" + i + " " + etudiants[i].toString() + "\n";
         return ret;
     }
 }

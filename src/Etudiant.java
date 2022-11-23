@@ -4,8 +4,6 @@ public class Etudiant {
     private boolean auCombat;
     private Strategies strategie;
 
-
-    
     public Etudiant() {
         this.credits = 30;
     }
@@ -68,8 +66,8 @@ public class Etudiant {
     }
     @Override
     public String toString() {
-        return "Etudiant [credits=" + credits + ", dexterité=" + dexterité + ", force=" + force + ", resistance="
-                + resistance + ", consitution=" + consitution + ", initiative=" + initiative + ", auCombat=" + auCombat
-                + ", strategie=" + strategie + "]";
+        return "Etudiant [credits=" + credits + ", dex=" + dexterité + ", for=" + force + ", res="
+                + resistance + ", con=" + consitution + ", ini=" + initiative + ", combat=" + auCombat
+                + ", strat=" + strategie + "]";
     }
 }
