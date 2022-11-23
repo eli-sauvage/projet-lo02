@@ -1,7 +1,7 @@
 import java.util.*;
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Bienvenue dans C\'est du brutal !");
+        System.out.println("Bienvenue dans C\'est du brutals !");
         menu();
     }
     private static void menu(){
