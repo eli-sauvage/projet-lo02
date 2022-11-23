@@ -32,7 +32,7 @@ public class App {
     }
     private static void lancerPartie(){
         System.out.println("lancement de la partie");
-        while(true){}
+        new Partie();
     }
     private static void printRegles(){
         System.out.println("regles : ...");

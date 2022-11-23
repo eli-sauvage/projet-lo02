@@ -1,21 +1,12 @@
 public class Partie {
-    private Joueur[] joueurs;
+    private Joueur[] joueurs = new Joueur[2];
     private ChampDeBataille champ;
 
-    public ChampDeBataille getChamp() {
-        return champ;
+    public Partie() {
+        champ = new ChampDeBataille();
+        joueurs[0] = new Joueur();
+        joueurs[1] = new Joueur();
+        System.out.println(joueurs[0]);
     }
 
-    public void setChamp(ChampDeBataille champ) {
-        this.champ = champ;
-    }
-
-    public Joueur[] getJoueurs() {
-        return joueurs;
-    }
-
-    public void setJoueurs(Joueur[] joueurs) {
-        this.joueurs = joueurs;
-    }
-    
 }

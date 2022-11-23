@@ -1,11 +1,14 @@
 
 public class Etudiant {
-    private int credits, dexterité, force, resistance, consitution, initiative;
+    protected int credits, dexterité, force, resistance, consitution, initiative;
     private boolean auCombat;
     private Strategies strategie;
 
 
     
+    public Etudiant() {
+        this.credits = 30;
+    }
     public void soigner(Etudiant etudiant){
 
     }
@@ -62,5 +65,11 @@ public class Etudiant {
     }
     public void setStrategie(Strategies strategie) {
         this.strategie = strategie;
+    }
+    @Override
+    public String toString() {
+        return "Etudiant [credits=" + credits + ", dexterité=" + dexterité + ", force=" + force + ", resistance="
+                + resistance + ", consitution=" + consitution + ", initiative=" + initiative + ", auCombat=" + auCombat
+                + ", strategie=" + strategie + "]";
     }
 }
