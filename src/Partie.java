@@ -1,4 +1,3 @@
-import java.util.*;
 public class Partie {
     private Joueur[] joueurs = new Joueur[2];
     private ChampDeBataille champ;

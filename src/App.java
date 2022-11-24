@@ -1,4 +1,3 @@
-import java.util.*;
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Bienvenue dans C\'est du brutal!");

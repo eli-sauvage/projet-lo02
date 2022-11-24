@@ -1,0 +1,11 @@
+repartition à la main des stats / strat
+ETAPE 2
+    répartition sur le champ de bataille
+ETAPE 3
+    melée -> calcul des etudiants victorieux pour chaque zone
+    a voir comment on fait
+ETAPE 4 - treve
+    affectation des reservistes
+    redeployement
+    nb de crédits / zone
+ETAPE 5 - répétition des étapes 3&4
