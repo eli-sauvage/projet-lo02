@@ -1,7 +1,7 @@
 
 public class Etudiant {
     protected int credits, dexterité, force, resistance, consitution, initiative;
-    private boolean auCombat;
+    private boolean reserviste;
     private Strategies strategie;
 
     public Etudiant() {
@@ -28,11 +28,17 @@ public class Etudiant {
     public void setDexterité(int dexterité) {
         this.dexterité = dexterité;
     }
+    public void incrDexterité(){
+        this.dexterité++;
+    }
     public int getForce() {
         return force;
     }
     public void setForce(int force) {
         this.force = force;
+    }
+    public void incrForce(){
+        this.force++;
     }
     public int getResistance() {
         return resistance;
@@ -40,11 +46,17 @@ public class Etudiant {
     public void setResistance(int resistance) {
         this.resistance = resistance;
     }
+    public void incrResistance(){
+        this.resistance++;
+    }
     public int getConsitution() {
         return consitution;
     }
     public void setConsitution(int consitution) {
         this.consitution = consitution;
+    }
+    public void incrConstitution(){
+        this.consitution++;
     }
     public int getInitiative() {
         return initiative;
@@ -52,11 +64,14 @@ public class Etudiant {
     public void setInitiative(int initiative) {
         this.initiative = initiative;
     }
-    public boolean isAuCombat() {
-        return auCombat;
+    public void incrInitiative(){
+        this.initiative++;
     }
-    public void setAuCombat(boolean auCombat) {
-        this.auCombat = auCombat;
+    public boolean isReserviste() {
+        return reserviste;
+    }
+    public void setReserviste(boolean auCombat) {
+        this.reserviste = auCombat;
     }
     public Strategies getStrategie() {
         return strategie;
@@ -67,7 +82,7 @@ public class Etudiant {
     @Override
     public String toString() {
         return "Etudiant [credits=" + credits + ", dex=" + dexterité + ", for=" + force + ", res="
-                + resistance + ", con=" + consitution + ", ini=" + initiative + ", combat=" + auCombat
+                + resistance + ", con=" + consitution + ", ini=" + initiative + ", reserviste=" + reserviste
                 + ", strat=" + strategie + "]";
     }
 }
