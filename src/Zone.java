@@ -21,5 +21,11 @@ public class Zone {
     }
 
     
+    
+    public void calculCombat(){
+        //on ordonne les etudiants par initiative
+        ArrayList<Etudiant> combattants = new ArrayList<>();
+        
 
+    }
 }
