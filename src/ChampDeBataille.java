@@ -11,20 +11,22 @@ public class ChampDeBataille {
     public Zone getZones(int i) {
         return zones[i];
     }
-    public void repartirTroupes(Etudiant[] armeeJoueur){
-        System.out.println("souhaitez vous :\n1 - repartir les 20 étudiants aleatoirement\n2 - les repartir à la main");
+
+    public void repartirTroupes(Etudiant[] armeeJoueur,int joueurSelect){
+        System.out.println("souhaitez vous :\n1 - repartir les 20 etudiants aleatoirement\n2 - les repartir à la main");
         String reponse = Utils.sc.nextLine();
         if (reponse.equals("1")) {
-            //repatition sur les zones
-    public void repartirTroupes(armeeJoueur){
-        repartirTroupeAleatoirement();
+            //repartition aléatoire des etudiants sur les zones
+            repartirTroupeAleatoirement(armeeJoueur,joueurSelect);
             String msg = "";
             do {
-                System.out.println("repartition effectuee\n1 - afficher votre armee\n2 - continuer");
+                System.out.println("reparition terminee\n1 - afficher la repartition\n2 - continuer");
                 msg = Utils.sc.nextLine();
                 if (msg.equals("1")) {
-                    //affichage du contenue des 5 zones
-                    System.out.println(this);
+                    //afficher repartition
+                    System.out.println("23");
+                    afficherCombattants(joueurSelect);
+                    
                 }
             } while (!msg.equals("2"));
         } 
@@ -34,17 +36,18 @@ public class ChampDeBataille {
         } 
         else {
             System.out.println("eureur");
-            
         }
     }
-    public void repartirTroupeAleatoirement(Etudiant[] armeeJoueur){
+    public void repartirTroupeAleatoirement(Etudiant[] armeeJoueur,int joueurSelect){
         for (int i = 0; i < 20; i++) {
             // répartit les 20 étudiants aléatoirement sur les 5 zones 
             int zoneChoisie = (int) Math.floor(Math.random() * 5);
-            zones[zoneChoisie].getCombatantsJ1() = armeeJoueur[i];
-           
+            zones[zoneChoisie].getCombatantsJ(joueurSelect).add(armeeJoueur[i]);
         }
     }
-
-    
+    public void afficherCombattants(int joueurSelect){
+        for (int i = 0; i < 5; i++) {
+            System.out.println(zones[i].getCombatantsJ(joueurSelect).size());
+        }
+    }
 }
