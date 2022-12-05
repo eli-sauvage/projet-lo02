@@ -1,6 +1,6 @@
 
 public class Etudiant {
-    protected int credits, dexterité, force, resistance, consitution, initiative;
+    protected int credits, dexterite, force, resistance, consitution, initiative;
     private boolean reserviste;
     private Strategies strategie;
 
@@ -22,14 +22,14 @@ public class Etudiant {
     public void setCredits(int credits) {
         this.credits = credits;
     }
-    public int getDexterité() {
-        return dexterité;
+    public int getDexterite() {
+        return dexterite;
     }
-    public void setDexterité(int dexterité) {
-        this.dexterité = dexterité;
+    public void setDexterite(int dexterite) {
+        this.dexterite = dexterite;
     }
-    public void incrDexterité(){
-        this.dexterité++;
+    public void incrDexterite(){
+        this.dexterite++;
     }
     public int getForce() {
         return force;
@@ -81,7 +81,7 @@ public class Etudiant {
     }
     @Override
     public String toString() {
-        return "Etudiant [credits=" + credits + ", dex=" + dexterité + ", for=" + force + ", res="
+        return "Etudiant [credits=" + credits + ", dex=" + dexterite + ", for=" + force + ", res="
                 + resistance + ", con=" + consitution + ", ini=" + initiative + ", reserviste=" + reserviste
                 + ", strat=" + strategie + "]";
     }

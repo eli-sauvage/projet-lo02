@@ -17,7 +17,7 @@ public class Armee {
             if (stat == 0)
                 this.etudiants[etu].incrForce();
             else if (stat == 1)
-                this.etudiants[etu].incrDexterité();
+                this.etudiants[etu].incrDexterite();
             else if (stat == 2)
                 this.etudiants[etu].incrResistance();
             else if (stat == 3)
@@ -26,7 +26,7 @@ public class Armee {
                 this.etudiants[etu].incrInitiative();
         }
         for (int i = 0; i < 20; i++) {// choisit une stratedie aleatoire
-            Strategies strat = (Math.random() > .5) ? Strategies.défensif : Strategies.offensif;
+            Strategies strat = (Math.random() > .5) ? Strategies.defensif : Strategies.offensif;
             this.etudiants[i].setStrategie(strat);
         }
     }
@@ -38,17 +38,19 @@ public class Armee {
             statsAleatoires();
             String msg = "";
             do {
-                System.out.println("parametrage terminé\n1 - afficher votre armée\n2 - continuer");
+                System.out.println("parametrage fini\n1 - afficher votre armee\n2 - continuer");
                 msg = Utils.sc.nextLine();
                 if (msg.equals("1")) {
                     System.out.println(this);
                 }
             } while (!msg.equals("2"));
-        } else if (reponse.equals("2")) {
+        } 
+        else if (reponse.equals("2")) {
             System.out.println("TODO");
             parametrageTroupes();
-        } else {
-            System.out.println("commande inconnue");
+        } 
+        else {
+            System.out.println("eureur");
             parametrageTroupes();
         }
     }

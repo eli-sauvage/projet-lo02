@@ -1,4 +1,4 @@
 
 public enum Strategies{
-    offensif, défensif
+    offensif, defensif
 }

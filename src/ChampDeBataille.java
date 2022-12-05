@@ -1,11 +1,17 @@
 public class ChampDeBataille {
-    private Zone[] zones;
+    private Zone[] zones = new Zone[5];
 
-    public Zone[] getZones() {
-        return zones;
+    public void initZones() {
+        //initialisation du champ de bataille avec les 5 zones 
+        for (int i = 0; i < 5; i++){
+            zones[i] = new Zone(i);
+        }
+        return;
     }
+    public Zone getZones(int i) {
+        return zones[i];
+    }
+    
 
-    public void setZones(Zone[] zones) {
-        this.zones = zones;
-    }
+    
 }
