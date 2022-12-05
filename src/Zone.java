@@ -21,11 +21,22 @@ public class Zone {
     }
 
     
-    
+
     public void calculCombat(){
         //on ordonne les etudiants par initiative
         ArrayList<Etudiant> combattants = new ArrayList<>();
-        
+        combattants.addAll(combatantsJ1);
+        combattants.addAll(combatantsJ2);
+        Collections.sort(combattants, new Comparator<Etudiant>() {
+            @Override
+            public int compare(Etudiant e1, Etudiant e2){
+                if(e1.initiative > e2.initiative) return -1;
+                else return 1;
+            }
+        });
+        System.out.println(combattants);
 
     }
+
+    
 }

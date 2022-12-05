@@ -10,14 +10,21 @@ public class Partie {
         Utils.clearConsole();
         System.out.println("--------------JOUEUR 1--------------");
         joueurs[0].getArmee().parametrageTroupes();
-        joueurs[0].getArmee().choisirReservistes();
+        //joueurs[0].getArmee().choisirReservistes();
         System.out.println("---------PLACEMENT SUR LES ZONES JOUEUR 1---------");
-        champ.repartirTroupes(joueurs[0].getArmee().getEtudiants());
+
         Utils.clearConsole();
         System.out.println("--------------JOUEUR 2--------------");
         joueurs[1].getArmee().parametrageTroupes();
-        joueurs[1].getArmee().choisirReservistes();
+        //joueurs[1].getArmee().choisirReservistes();
 
+        champ.initZones();
+
+        for (Etudiant e : joueurs[0].getArmee().getEtudiants())
+            champ.addToZone(0, 1, e);
+        for (Etudiant e : joueurs[1].getArmee().getEtudiants())
+            champ.addToZone(0, 2, e);
+        champ.getZones(0).calculCombat();
     }
 
 }
