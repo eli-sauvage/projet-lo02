@@ -1,4 +1,3 @@
-
 public class Etudiant {
     protected int credits, dexterite, force, resistance, consitution, initiative;
     private boolean reserviste;
@@ -8,10 +7,20 @@ public class Etudiant {
         this.credits = 30;
     }
     public void soigner(Etudiant etudiant){
-
+        int x = (int)Math.random() * 100;
+        if(x < 20 + this.dexterite * 6){//soin réussi
+            int soin = (int)Math.floor(Math.random()*0.6*(10+etudiant.consitution));
+            etudiant.setCredits(etudiant.getCredits() + soin);
+        }
     }
     public void attaquer(Etudiant etudiant){
-        
+        int x = (int)Math.random() * 100;
+        int degatReference = 10;
+        double coeffDegats = Math.max(0, Math.min(100, 10*force - 5 * etudiant.resistance)) /100;
+        if(x < 40 + 3*dexterite){//attaque réussie
+            int degats = (int)Math.floor(Math.random() * (1 + coeffDegats) * degatReference);
+            etudiant.setCredits(etudiant.getCredits() - degats);
+        }
     }
 
 
@@ -20,7 +29,14 @@ public class Etudiant {
         return credits;
     }
     public void setCredits(int credits) {
-        this.credits = credits;
+        if(this.credits + credits > 30 + this.consitution){
+            this.credits = 30;
+        }else if(this.credits + credits <= 0){
+            this.credits = 0;
+            //TODO : mort
+        }else{
+            this.credits = credits;
+        }
     }
     public int getDexterite() {
         return dexterite;

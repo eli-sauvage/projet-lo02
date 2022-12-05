@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Zone {
     private Etudiant[] combatantsJ1, combatantsJ2;
     private int typeZone;
@@ -26,4 +28,10 @@ public class Zone {
         this.combatantsJ2 = combatantsJ2;
     }
 
+    public void calculCombat(){
+        //on ordonne les etudiants par initiative
+        ArrayList<Etudiant> combattants = new ArrayList<>();
+        
+
+    }
 }
