@@ -1,10 +1,10 @@
 public class Joueur {
     private Armee armee;
+    private int numeroJoueur;
 
-    
-
-    public Joueur() {
-        armee = new Armee();
+    public Joueur(int numero) {
+        this.numeroJoueur = numero;
+        armee = new Armee(numeroJoueur);
         armee.initDefaut();
     }
 

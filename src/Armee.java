@@ -1,13 +1,19 @@
 public class Armee {
     private Etudiant[] etudiants;
+    private int joueur;
+    
+    public Armee(int joueur) {
+        this.joueur = joueur;
+    }
 
     public void initDefaut() {
+        int id = 0;
         etudiants = new Etudiant[20];
         for (int i = 0; i < 15; i++)
-            etudiants[i] = new Etudiant();
+            etudiants[i] = new Etudiant(joueur, id++);
         for (int i = 15; i < 19; i++)
-            etudiants[i] = new EtudiantElite();
-        etudiants[19] = new MaitreDuGobi();
+            etudiants[i] = new EtudiantElite(joueur, id++);
+        etudiants[19] = new MaitreDuGobi(joueur, id++);
     }
 
     public void statsAleatoires() {
@@ -26,7 +32,7 @@ public class Armee {
                 this.etudiants[etu].incrInitiative();
         }
         for (int i = 0; i < 20; i++) {// choisit une stratedie aleatoire
-            Strategies strat = (Math.random() > .5) ? Strategies.defensif : Strategies.offensif;
+            Strategies strat = (Math.random() > .7) ? Strategies.defensif : Strategies.offensif;
             this.etudiants[i].setStrategie(strat);
         }
     }

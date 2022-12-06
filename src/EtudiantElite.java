@@ -2,7 +2,8 @@
 
 public class EtudiantElite extends Etudiant {
     
-    public EtudiantElite() {
+    public EtudiantElite(int joueur, int id) {
+        super(joueur, id);
         this.force = 1;
         this.dexterite = 1;
         this.resistance = 1;

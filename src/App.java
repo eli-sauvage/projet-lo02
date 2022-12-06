@@ -1,5 +1,6 @@
 public class App {
     public static void main(String[] args) throws Exception {
+        Utils.removeLogfiles();
         System.out.println("Bienvenue dans C\'est du brutal!");
         menu();
         Utils.sc.close();
