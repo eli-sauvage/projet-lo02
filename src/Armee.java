@@ -1,7 +1,9 @@
+import java.util.*;
+
 public class Armee {
     private Etudiant[] etudiants;
     private int joueur;
-    
+
     public Armee(int joueur) {
         this.joueur = joueur;
     }
@@ -50,12 +52,10 @@ public class Armee {
                     System.out.println(this);
                 }
             } while (!msg.equals("2"));
-        } 
-        else if (reponse.equals("2")) {
+        } else if (reponse.equals("2")) {
             System.out.println("TODO");
             parametrageTroupes();
-        } 
-        else {
+        } else {
             System.out.println("eureur");
             parametrageTroupes();
         }
@@ -101,16 +101,36 @@ public class Armee {
         while (!rep.equals("2")) {
             System.out.println("les reservistes ont été mis à jour\n1 - afficher l'armee\n2 - continuer");
             rep = Utils.sc.nextLine();
-            if(rep.equals("1"))System.out.println(this);
+            if (rep.equals("1"))
+                System.out.println(this);
         }
+    }
+
+    public void reservistesAleatoires() {
+        ArrayList<Integer> indiceReserviste = new ArrayList<>();
+        while (indiceReserviste.size() < 5) {
+            int i = (int) Math.floor(Math.random() * 20);
+            if (!indiceReserviste.contains(i))
+                indiceReserviste.add(i);
+        }
+        for (int i : indiceReserviste)
+            this.etudiants[i].setReserviste(true);
+    }
+
+    public void affecterReservistes() {
+        ArrayList<Etudiant> reservistes = new ArrayList<>(Arrays.asList(etudiants));
+        reservistes.removeIf(e -> (!e.isReserviste()));
+        System.out.println("voici vos étudiants reservistes");
+        for (Etudiant e : reservistes)
+            System.out.println("| " + e);
+    }
+
+    public void redeployerSurvivants() {
+
     }
 
     public Etudiant[] getEtudiants() {
         return etudiants;
-    }
-
-    public void setEtudiants(Etudiant[] etudiants) {
-        this.etudiants = etudiants;
     }
 
     @Override

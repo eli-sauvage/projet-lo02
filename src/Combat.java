@@ -30,7 +30,7 @@ public class Combat implements Runnable {
     }
 
     public void run() {
-        do {
+        do { //tant que pas de gagnant (ou qu'un autre combat soit fini)
             Combat fini = null;
             Iterator<Combat> c = autresCombats.iterator();
             while (c.hasNext()) {
@@ -39,7 +39,7 @@ public class Combat implements Runnable {
                     fini = comb;
             }
             if (fini != null) {
-                System.out.println("arret car le combat " + fini.zone + " est fini");
+                //System.out.println("arret car le combat " + fini.zone + " est fini");
                 return;
             }
             combattants.removeIf(e -> (e.credits == 0));
@@ -122,8 +122,9 @@ public class Combat implements Runnable {
                 gagnant = 0;
             // System.out.println("------FIN TOUR" + nbTours++ + "
             // -------------------------------");
+            Utils.sleep(50);
         } while (gagnant == 0);
-        System.out.println("combat de la zone " + zone + " termine");
+        System.out.println("combat de la zone \"" + Utils.zoneIndexToString(zone) + "\" termine, gagnant : joueur" + gagnant);
     }
 
     public boolean finished() {

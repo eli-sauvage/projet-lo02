@@ -1,5 +1,6 @@
 public class Etudiant {
     protected int credits, dexterite, force, resistance, consitution, initiative, joueur, id;
+    private Zone zone;
     private boolean reserviste;
     private Strategies strategie;
 
@@ -125,11 +126,20 @@ public class Etudiant {
         this.strategie = strategie;
     }
 
+    public void setZone(Zone zone) {
+        this.zone = zone;
+    }
+
+    public Zone getZone() {
+        return this.zone;
+    }
+
     @Override
     public String toString() {
-        return "Etudiant j" + joueur + "#" + id + " [credits=" + credits + ", dex=" + dexterite + ", for=" + force
-                + ", res="
-                + resistance + ", con=" + consitution + ", ini=" + initiative + ", reserviste=" + reserviste
-                + ", strat=" + strategie + "]";
+        return "Etudiant j" + joueur + "#" + id + ( this.zone != null ? " z:" + Utils.zoneIndexToString(this.zone.getIndiceZone()) : "")+ " [credits=" + credits + ", d=" + dexterite
+                + ", f=" + force
+                + ", r="
+                + resistance + ", c=" + consitution + ", i=" + initiative + ", reserv=" + reserviste
+                + ", strat=" + strategie.toString().charAt(0) + "]";
     }
 }

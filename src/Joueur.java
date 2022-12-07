@@ -16,6 +16,10 @@ public class Joueur {
         this.armee = armee;
     }
 
+    public int getNumero(){
+        return this.numeroJoueur;
+    }
+
     @Override
     public String toString() {
         return "Joueur [armee=" + armee + "]";
