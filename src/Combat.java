@@ -25,23 +25,17 @@ public class Combat implements Runnable {
         t.start();
     }
 
-    public State getState(){
+    public State getState() {
         return this.t.getState();
     }
 
     public void run() {
-        do { //tant que pas de gagnant (ou qu'un autre combat soit fini)
-            Combat fini = null;
-            Iterator<Combat> c = autresCombats.iterator();
-            while (c.hasNext()) {
-                Combat comb = c.next();
-                if (comb.finished())
-                    fini = comb;
-            }
-            if (fini != null) {
-                //System.out.println("arret car le combat " + fini.zone + " est fini");
-                return;
-            }
+        if(combattants.isEmpty())return; //pas de gagnant si pas de combattants
+        ArrayList<Etudiant> offensifs = new ArrayList<>();
+        offensifs.addAll(combattants);
+        offensifs.removeIf(e->(e.getStrategie() == Strategies.defensif));
+        if(offensifs.isEmpty())return;//si il n'y a que du soin -> egalité
+        do { // tant que pas de gagnant (ou qu'un autre combat soit fini)
             combattants.removeIf(e -> (e.credits == 0));
             Collections.sort(combattants, new Comparator<Etudiant>() {
                 @Override
@@ -54,8 +48,20 @@ public class Combat implements Runnable {
             });
             Iterator<Etudiant> i = combattants.iterator();
             while (i.hasNext()) {
+                Combat fini = null;
+                Iterator<Combat> c = autresCombats.iterator();
+                while (c.hasNext()) {
+                    Combat comb = c.next();
+                    if (comb.finished())
+                        fini = comb;
+                }
+                if (fini != null) {
+                    // System.out.println("arret car le combat " + fini.zone + " est fini");
+                    return;
+                }
                 Etudiant etu = i.next();
-                if(etu.credits == 0) continue;
+                if (etu.credits == 0)
+                    continue;
                 // ------------recherche de l'etudiant cible----------
                 ArrayList<Etudiant> combattantsCopy = new ArrayList<>();
                 combattantsCopy.addAll(combattants);
@@ -82,23 +88,23 @@ public class Combat implements Runnable {
                         }
                     });
                     // ------attaque/soins--------------
-                    int score = 0; 
+                    int score = 0;
                     if (etu.getStrategie() == Strategies.offensif)
                         score = etu.attaquer(cible);
                     else if (etu.getStrategie() == Strategies.defensif)
                         score = etu.soigner(cible);
                     String msg = etu + ((etu.getStrategie() == Strategies.offensif) ? "\nattaque\n" : "\nsoigne\n")
-                            + cible + ": " + score +  
+                            + cible + ": " + score +
                             "\n----------------------------------";
                     try {
-                        BufferedWriter writer = new BufferedWriter(new FileWriter(Integer.toString(zone) + ".log", true));
+                        BufferedWriter writer = new BufferedWriter(
+                                new FileWriter(Integer.toString(zone) + ".log", true));
                         writer.append(msg + "\n");
-
                         writer.close();
                     } catch (Exception e) {
-
                     }
-
+                    if (cible.getCredits() == 0)
+                        System.out.println(etu + "\n a tue \n " + cible);
                 }
             }
             // ---------determination si joueur gagnant------------
@@ -122,9 +128,10 @@ public class Combat implements Runnable {
                 gagnant = 0;
             // System.out.println("------FIN TOUR" + nbTours++ + "
             // -------------------------------");
-            Utils.sleep(50);
+            Utils.sleep(100);
         } while (gagnant == 0);
-        System.out.println("combat de la zone \"" + Utils.zoneIndexToString(zone) + "\" termine, gagnant : joueur" + gagnant);
+        System.out.println(
+                "combat de la zone \"" + Utils.zoneIndexToString(zone) + "\" termine, gagnant : joueur" + gagnant);
     }
 
     public boolean finished() {
