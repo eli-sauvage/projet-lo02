@@ -2,6 +2,10 @@ import java.io.*;
 import java.util.*;
 public class Utils{
     public static final Scanner sc = new Scanner(System.in);
+    public static String input(){
+        System.out.print(">");
+        return Utils.sc.nextLine();
+    }
     public static void clearConsole(){
         for(int i=0;i<50;i++)System.out.println();
     }

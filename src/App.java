@@ -1,3 +1,5 @@
+import java.awt.*;
+import java.io.*;
 public class App {
     public static void main(String[] args) throws Exception {
         Utils.removeLogfiles();
@@ -5,8 +7,10 @@ public class App {
         menu();
         Utils.sc.close();
     }
-    private static void menu(){
-        System.out.println("1 - lancer une partie\n2 - lancer une partie avec les armées aléatoires\n3 - voir les règles\n4 - quitter");
+
+    private static void menu() {
+        System.out.println(
+                "1 - lancer une partie\n2 - lancer une partie avec les armées aléatoires\n3 - voir les règles\n4 - quitter");
         switch (Utils.sc.nextLine()) {
             case "1":
                 lancerPartie(true);
@@ -25,12 +29,23 @@ public class App {
                 break;
         }
     }
-    private static void lancerPartie(boolean reparition){
+
+    private static void lancerPartie(boolean reparition) {
         System.out.println("lancement de la partie");
         new Partie(reparition);
     }
-    private static void printRegles(){
-        System.out.println("regles : ...");
+
+    private static void printRegles() {
+        System.out.println("ouverture des regles");        
+        File file = new File(System.getProperty("user.dir") + "/regles.pdf");
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.open(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         menu();
     }
 }
