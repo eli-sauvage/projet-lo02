@@ -11,9 +11,9 @@ public class Partie {
         champ = new ChampDeBataille();
         champ.initZones();
 
-        if(repartition){
+        if(repartition){//a la main
             setup();
-        }else{
+        }else{ //aleatoire
             joueurs[0].getArmee().statsAleatoires();
             joueurs[1].getArmee().statsAleatoires();
 
@@ -58,16 +58,14 @@ public class Partie {
         Utils.clearConsole();
         System.out.println("--------------JOUEUR 1--------------");
         joueurs[0].getArmee().parametrageTroupes();
-        //joueurs[0].getArmee().choisirReservistes();
+        joueurs[0].getArmee().choisirReservistes();
         System.out.println("---------PLACEMENT SUR LES ZONES JOUEUR 1---------");
         champ.repartirTroupes(joueurs[0]);
         Utils.clearConsole();
         System.out.println("--------------JOUEUR 2--------------");
         joueurs[1].getArmee().parametrageTroupes();
-        //joueurs[1].getArmee().choisirReservistes();
+        joueurs[1].getArmee().choisirReservistes();
         System.out.println("---------PLACEMENT SUR LES ZONES JOUEUR 2---------");
         champ.repartirTroupes(joueurs[1]);
-        //---------------------------------------------------------------------
-
     }
 }
