@@ -2,7 +2,8 @@
 
 public class MaitreDuGobi extends Etudiant{
 
-    public MaitreDuGobi() {
+    public MaitreDuGobi(int joueur, int id) {
+        super(joueur, id);
         this.force = 2;
         this.dexterite = 2;
         this.resistance = 2;

@@ -1,19 +1,27 @@
+import java.awt.*;
+import java.io.*;
 public class App {
     public static void main(String[] args) throws Exception {
+        Utils.removeLogfiles();
         System.out.println("Bienvenue dans C\'est du brutal!");
         menu();
         Utils.sc.close();
     }
-    private static void menu(){
-        System.out.println("1 - lancer une partie\n2 - voir les règles\n3 - quitter");
+
+    private static void menu() {
+        System.out.println(
+                "1 - lancer une partie\n2 - lancer une partie avec les armées aléatoires\n3 - voir les règles\n4 - quitter");
         switch (Utils.sc.nextLine()) {
             case "1":
-                lancerPartie();
+                lancerPartie(true);
                 break;
             case "2":
-                printRegles();
+                lancerPartie(false);
                 break;
             case "3":
+                printRegles();
+                break;
+            case "4":
                 break;
             default:
                 System.out.println("commande non reconnue");
@@ -21,12 +29,23 @@ public class App {
                 break;
         }
     }
-    private static void lancerPartie(){
+
+    private static void lancerPartie(boolean reparition) {
         System.out.println("lancement de la partie");
-        new Partie();
+        new Partie(reparition);
     }
-    private static void printRegles(){
-        System.out.println("regles : ...");
+
+    private static void printRegles() {
+        System.out.println("ouverture des regles");        
+        File file = new File(System.getProperty("user.dir") + "/regles.pdf");
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.open(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         menu();
     }
 }
