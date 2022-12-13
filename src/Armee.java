@@ -41,17 +41,17 @@ public class Armee {
 
     public void parametrageTroupes() {
         System.out.println("souhaitez vous :\n1 - répartir les 400pts aléatoirement\n2 - les répartir à la main");
-        String reponse = Utils.sc.nextLine();
+        String reponse = Utils.input();
         if (reponse.equals("1")) {
             statsAleatoires();
             String msg = "";
             do {
-                System.out.println("parametrage fini\n1 - afficher votre armee\n2 - continuer");
-                msg = Utils.sc.nextLine();
+                System.out.println("parametrage fini\n1 - afficher votre armee\nENTREE - continuer");
+                msg = Utils.input();
                 if (msg.equals("1")) {
                     System.out.println(this);
                 }
-            } while (!msg.equals("2"));
+            } while (!msg.isEmpty());
         } else if (reponse.equals("2")) {
             System.out.println("TODO");
             parametrageTroupes();
@@ -64,7 +64,7 @@ public class Armee {
     public void choisirReservistes() {
         System.out.println(
                 "choix des reservistes\n| entrez les indices des étudiants reservistes séparés par des espaces\n| entrez \"a\" pour afficher votre armée");
-        String[] mots = Utils.sc.nextLine().split(" ");
+        String[] mots = Utils.input().split(" ");
         if (Utils.<String>containsArray(mots, "a")) {// verif si on doit afficher l'armee
             System.out.println(this);
             choisirReservistes();
@@ -98,9 +98,9 @@ public class Armee {
             etudiants[indice].setReserviste(true);
         }
         String rep = "";
-        while (!rep.equals("2")) {
-            System.out.println("les reservistes ont été mis à jour\n1 - afficher l'armee\n2 - continuer");
-            rep = Utils.sc.nextLine();
+        while (!rep.isEmpty()) {
+            System.out.println("les reservistes ont été mis à jour\n1 - afficher l'armee\nENTREE - continuer");
+            rep = Utils.input();
             if (rep.equals("1"))
                 System.out.println(this);
         }
@@ -116,18 +116,8 @@ public class Armee {
         for (int i : indiceReserviste)
             this.etudiants[i].setReserviste(true);
     }
+    
 
-    public void affecterReservistes() {
-        ArrayList<Etudiant> reservistes = new ArrayList<>(Arrays.asList(etudiants));
-        reservistes.removeIf(e -> (!e.isReserviste()));
-        System.out.println("voici vos étudiants reservistes");
-        for (Etudiant e : reservistes)
-            System.out.println("| " + e);
-    }
-
-    public void redeployerSurvivants() {
-
-    }
 
     public Etudiant[] getEtudiants() {
         return etudiants;

@@ -6,10 +6,37 @@ public class Zone {
   private int indiceZone;  // 1 = BU, 2 = BDE, 3 = QA, 4 = HI, 5 = HS
   private Combat combat;
   private int controlee = 0; //0 = personne
+  private String nomZone;
 
 
-  public Zone(int type) {
-    this.indiceZone = type;
+  public String getNomZone() {
+    return nomZone;
+  }
+
+  public int getControlee() {
+    return controlee;
+  }
+
+  public void setControlee(int controlee) {
+    this.controlee = controlee;
+  }
+  /*
+  public void calculerControlee(){
+    int survivantJ1 = 0, survivantJ2 = 0;
+    for(Etudiant e:combatantsJ1){
+      if(e.getCredits()>0)survivantJ1++;
+    }
+    for(Etudiant e:combatantsJ2){
+      if(e.getCredits()>0)survivantJ2++;
+    }
+    if(survivantJ1 > 0 && survivantJ2 == 0)controlee = 1;
+    if(survivantJ2 > 0 && survivantJ1 == 0)controlee = 2;
+    System.out.println("ZONE " + indiceZone + " CONTROLEE");
+  }
+ */
+  public Zone(int indice) {
+    this.indiceZone = indice;
+    this.nomZone = Utils.zoneIndexToString(indice);
     combatantsJ1 = new ArrayList<Etudiant>();
     combatantsJ2 = new ArrayList<Etudiant>();
   }
@@ -29,8 +56,11 @@ public class Zone {
 
   public Combat getCombat() {
     if (this.combat == null)
-      this.combat = new Combat(combatantsJ1, combatantsJ2, indiceZone);
+      this.combat = new Combat(combatantsJ1, combatantsJ2, this);
     return this.combat;
+  }
+  public void resetCombat(){
+    this.combat = null;
   }
 
   public void lancerCombat(ArrayList<Combat> combatsEnCours) {

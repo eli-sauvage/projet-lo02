@@ -1,32 +1,28 @@
 import java.awt.*;
 import java.io.*;
+
 public class App {
     public static void main(String[] args) throws Exception {
         Utils.removeLogfiles();
-        System.out.println("Bienvenue dans C\'est du brutal!");
         menu();
         Utils.sc.close();
     }
 
     private static void menu() {
-        System.out.println(
-                "1 - lancer une partie\n2 - lancer une partie avec les armées aléatoires\n3 - voir les règles\n4 - quitter");
-        switch (Utils.sc.nextLine()) {
-            case "1":
+        String msg = "";
+        while (!msg.equals("4")) {
+            System.out.println("Bienvenue dans C\'est du brutal!");
+            System.out.println(
+                    "1 - lancer une partie\n2 - lancer une partie avec les armées aléatoires\n3 - voir les règles\n4 - quitter");
+            msg = Utils.input();
+            if (msg.equals("1"))
                 lancerPartie(true);
-                break;
-            case "2":
+            else if (msg.equals("2"))
                 lancerPartie(false);
-                break;
-            case "3":
-                printRegles();
-                break;
-            case "4":
-                break;
-            default:
+            else if (msg.equals("3"))
+                printRegles(false);
+            else
                 System.out.println("commande non reconnue");
-                menu();
-                break;
         }
     }
 
@@ -35,15 +31,18 @@ public class App {
         new Partie(reparition);
     }
 
-    private static void printRegles() {
-        System.out.println("ouverture des regles");        
-        File file = new File(System.getProperty("user.dir") + "/regles.pdf");
+    private static void printRegles(boolean inSrc) {
+        System.out.println("ouverture des regles");
+        File file =
+                new File(System.getProperty("user.dir") + (inSrc ? "/src" : "") + "/regles.pdf");
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
         if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
             try {
                 desktop.open(file);
             } catch (Exception e) {
                 e.printStackTrace();
+                if (!inSrc)
+                    printRegles(true);
             }
         }
         menu();
