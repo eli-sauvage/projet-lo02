@@ -43,7 +43,7 @@ public class Utils {
         else if (zone == 3)
             return "Halle Indus";
         else if (zone == 4)
-            return "Hallse Sportive";
+            return "Halle Sportive";
         else
             return "";
     }

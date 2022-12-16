@@ -81,6 +81,10 @@ public class ChampDeBataille {
                 }
             }
         }
+        System.out.println("les etudiants ont bien ete assignes aux zones");
+        Utils.attendreEntree("afficher votre armee");
+        System.out.println(joueur.getArmee());
+        Utils.attendreEntree("continuer");
     }
 
     public void redeployerParmi(Joueur joueur, ArrayList<Etudiant> etudiants) throws Exception {
@@ -125,8 +129,8 @@ public class ChampDeBataille {
     }
 
     public void affecterReservistes(Joueur joueur) {
-        String msg = "";
-        while (!msg.equals("2")) {
+        String msg = "qsdfsqdfqsdfqsd";
+        while (!msg.equals("")) {
             System.out.println("-----");
             ArrayList<Etudiant> reservistes = new ArrayList<>(Arrays.asList(joueur.getArmee().getEtudiants()));
             reservistes.removeIf(e -> (!e.isReserviste()));
@@ -154,8 +158,8 @@ public class ChampDeBataille {
         }
     }
     public void redeployerSurvivants(Joueur joueur) {
-                String msg = "";
-        while (!msg.equals("2")) {
+        String msg = "sdfsdfsqfsdfqsdfqsdf";
+        while (!msg.equals("")) {
             System.out.println("-----");
             ArrayList<Etudiant> survivants = new ArrayList<>(Arrays.asList(joueur.getArmee().getEtudiants()));
             survivants.removeIf(e -> (e.isReserviste()));//on retire les reservistes

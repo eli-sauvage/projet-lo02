@@ -21,7 +21,7 @@ public class App {
                 lancerPartie(false);
             else if (msg.equals("3"))
                 printRegles(false);
-            else
+            else if(!msg.equals("4"))
                 System.out.println("commande non reconnue");
         }
     }
