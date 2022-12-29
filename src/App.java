@@ -12,18 +12,18 @@ public class App {
         GUI window = new GUI();
 		window.menu.setVisible(true);
         System.out.println("1 - lancer une partie\n2 - lancer une partie avec les armées aléatoires\n3 - voir les règles\n4 - quitter");
-        /* 
+       
         switch (Utils.sc.nextLine()) {
             case "1":
                 lancerPartie(true);
-            case (msg.equals("2"))
+            
+            case "2":
                 lancerPartie(false);
-            case (msg.equals("3"))
+            
+            case "3":
                 printRegles(false);
-            case(!msg.equals("4"))
-                System.out.println("commande non reconnue");
+            
         }
-        */
     }
 
     public static void lancerPartie(boolean reparition) {
