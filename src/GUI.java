@@ -1,29 +1,5 @@
-
-
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import java.awt.Color;
-
-import java.awt.Font;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
-import javax.swing.SpringLayout;
-
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.*;
+import java.awt.event.*;
 
 public class GUI {
 

@@ -11,9 +11,9 @@ public class Partie {
         champ = new ChampDeBataille();
         champ.initZones();
 
-        if(repartition){//a la main
+        if (repartition) {// a la main
             setup();
-        }else{ //aleatoire
+        } else { // aleatoire
             joueurs[0].getArmee().statsAleatoires();
             joueurs[1].getArmee().statsAleatoires();
 
@@ -31,30 +31,100 @@ public class Partie {
 
         Utils.clearConsole();
         System.out.println("---DEBUT DE LA PARTIE---");
-        System.out.println("appuyer sur ENTREE pour lancer le combat");
-        Utils.sc.nextLine();
+        combats();
+        int gagnant = chercherGagnant();
+        while (gagnant == 0) {
+            treve(joueurs[0]);
+            treve(joueurs[1]);
+            combats();
+            gagnant = chercherGagnant();
+        }
+        System.out.println("---------LA PARTIE EST TERMINEE------------");
+        System.out.println();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@                            @");
+        System.out.println("@      GAGNANT  :    J" + gagnant + "      @");
+        System.out.println("@                            @");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        Utils.attendreEntree("retouner au menu");
+    }
 
+    public void combats() {
+        Utils.attendreEntree("lancer le combat");
+        ArrayList<Zone> zonesDeCombat = new ArrayList<>();
+        zonesDeCombat.addAll(Arrays.asList(champ.getZones()));
+        zonesDeCombat.removeIf(z -> (z.getControlee() != 0));// on retire si zone controllee
+        for (Zone z : zonesDeCombat)// remise à zero des combats précedents
+            z.resetCombat();
         ArrayList<Combat> combats = new ArrayList<>();
-        for (int i = 0; i < 5; i++)
-            combats.add(champ.getZone(i).getCombat());
-        for (int i = 0; i < 5; i++)
-            champ.getZone(i).lancerCombat(combats);
-
+        for (Zone z : zonesDeCombat)
+            combats.add(z.getCombat());
+        for (Zone z : zonesDeCombat)// obligé de le faire en deux temps car il faut d'abord la liste de tous les
+                                    // combats avant de pouvoir les lancer
+            z.lancerCombat(combats);
         boolean combatsFinis = false;
         while (!combatsFinis) {
             combatsFinis = true;
-            for (int i = 0; i < 5; i++)
-                if (champ.getZone(0).getCombat().getState() != State.TERMINATED) //tous les threads doivent etre termines
+            for (Zone z : zonesDeCombat)
+                if (z.getCombat().getState() != State.TERMINATED) // tous les threads doivent etre termines
                     combatsFinis = false;
         }
-        Utils.sleep(25);//on laisse le temps a tous les threads de bien s'arreter
-        System.out.println("appyez sur ENTREE pour continuer");
-        Utils.sc.nextLine();
-        //-------------TREVE-------------------------
-        new Treve(champ, joueurs);
+        Utils.sleep(150);// on laisse le temps a tous les threads de bien s'arreter
+        Utils.attendreEntree("avoir les status des Zones");
+        System.out.println();
+        for (Zone z : champ.getZones()) {
+            int c = z.getControlee();
+            if (c == 0)
+                System.out.println("zone " + z.getNomZone() + " pas controllee");
+            else
+                System.out.println("zone " + z.getNomZone() + " controllee par J" + c);
+        }
+        Utils.attendreEntree("lancer la treve");
+        Utils.clearConsole();
     }
 
-    private void setup(){
+    public void treve(Joueur joueur) {
+        Utils.clearConsole();
+        System.out.println("----------------------TREVE--------------------");
+        System.out.println("-------------JOUEUR " + joueur.getNumero() + "-----------");
+        String msg = "";
+        do {
+            System.out.println(
+                    "souhaitez vous : \n| 1 - affecter un reserviste\n| 2 - redeployer des survivants\n| 3 - afficher votre armee\n| ENTREE - continuer");
+            msg = Utils.input();
+            if (msg.equals("1"))
+                champ.affecterReservistes(joueur);
+            if (msg.equals("2"))
+                champ.redeployerSurvivants(joueur);
+            ;
+            if (msg.equals("3"))
+                System.out.println(joueur.getArmee());
+        } while (!msg.isEmpty());
+    }
+
+    public int chercherGagnant() {
+        ArrayList<Zone> zonesJ1 = new ArrayList<>(); // zones controllees par J1
+        ArrayList<Zone> zonesJ2 = new ArrayList<>(); // zones controllees par J2
+        for (Zone z : champ.getZones()) {
+            if (z.getControlee() == 1)
+                zonesJ1.add(z);
+            if (z.getControlee() == 2)
+                zonesJ2.add(z);
+        }
+        if (zonesJ1.size() == 3 && zonesJ2.size() == 3) {
+            System.out.println("EGALITE");
+            return 3;
+        }
+        if (zonesJ1.size() > 2)
+            return 1;
+        else if (zonesJ2.size() > 2)
+            return 2;
+        else
+            return 0;
+
+    }
+
+    private void setup() {
         Utils.clearConsole();
         System.out.println("--------------JOUEUR 1--------------");
         joueurs[0].getArmee().parametrageTroupes();

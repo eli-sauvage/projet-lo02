@@ -6,10 +6,10 @@ public class Combat implements Runnable {
     private ArrayList<Etudiant> combattants;
     private int gagnant = 0;// 0 = aucun gagnant
     private Thread t;
-    private int zone;
+    private Zone zone;
     private ArrayList<Combat> autresCombats;
 
-    public Combat(ArrayList<Etudiant> etudiantsJ1, ArrayList<Etudiant> etudiantsJ2, int zone) {
+    public Combat(ArrayList<Etudiant> etudiantsJ1, ArrayList<Etudiant> etudiantsJ2, Zone zone) {
         this.combattants = new ArrayList<>();
         this.combattants.addAll(etudiantsJ1);
         this.combattants.addAll(etudiantsJ2);
@@ -29,12 +29,35 @@ public class Combat implements Runnable {
         return this.t.getState();
     }
 
+    public Combat chercherCombatFini() {
+        Combat fini = null;
+        Iterator<Combat> c = autresCombats.iterator();
+        while (c.hasNext()) {
+            Combat comb = c.next();
+            if (comb.finished())
+                fini = comb;
+        }
+        return fini;
+    }
+
     public void run() {
-        if(combattants.isEmpty())return; //pas de gagnant si pas de combattants
+        if (combattants.isEmpty()) {
+            System.out.println(
+                    "egalité dans la zone " + zone.getIndiceZone() + " car pas de combattants");
+            while (chercherCombatFini() != null) {
+            }
+            return; //pas de gagnant si pas de combattants
+        }
         ArrayList<Etudiant> offensifs = new ArrayList<>();
         offensifs.addAll(combattants);
-        offensifs.removeIf(e->(e.getStrategie() == Strategies.defensif));
-        if(offensifs.isEmpty())return;//si il n'y a que du soin -> egalité
+        offensifs.removeIf(e -> (e.getStrategie() == Strategies.defensif));
+        if (offensifs.isEmpty()) {
+            System.out.println("egalité dans la zone " + zone.getIndiceZone()
+                    + " car tous les etudiants sont defensifs");
+            while (chercherCombatFini() != null) {
+            }
+            return;//si il n'y a que du soin -> egalité
+        }
         do { // tant que pas de gagnant (ou qu'un autre combat soit fini)
             combattants.removeIf(e -> (e.credits == 0));
             Collections.sort(combattants, new Comparator<Etudiant>() {
@@ -48,15 +71,9 @@ public class Combat implements Runnable {
             });
             Iterator<Etudiant> i = combattants.iterator();
             while (i.hasNext()) {
-                Combat fini = null;
-                Iterator<Combat> c = autresCombats.iterator();
-                while (c.hasNext()) {
-                    Combat comb = c.next();
-                    if (comb.finished())
-                        fini = comb;
-                }
+                Combat fini = chercherCombatFini();
                 if (fini != null) {
-                    // System.out.println("arret car le combat " + fini.zone + " est fini");
+                    //System.out.println("arret car le combat " + fini.zone.getIndiceZone() + " est fini");
                     return;
                 }
                 Etudiant etu = i.next();
@@ -93,18 +110,19 @@ public class Combat implements Runnable {
                         score = etu.attaquer(cible);
                     else if (etu.getStrategie() == Strategies.defensif)
                         score = etu.soigner(cible);
-                    String msg = etu + ((etu.getStrategie() == Strategies.offensif) ? "\nattaque\n" : "\nsoigne\n")
-                            + cible + ": " + score +
-                            "\n----------------------------------";
+                    String msg = etu
+                            + ((etu.getStrategie() == Strategies.offensif) ? "\nattaque\n"
+                                    : "\nsoigne\n")
+                            + cible + ": " + score + "\n----------------------------------";
                     try {
-                        BufferedWriter writer = new BufferedWriter(
-                                new FileWriter(Integer.toString(zone) + ".log", true));
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(
+                                Integer.toString(zone.getIndiceZone()) + ".log", true));
                         writer.append(msg + "\n");
                         writer.close();
                     } catch (Exception e) {
                     }
                     if (cible.getCredits() == 0)
-                        System.out.println(etu + "\n a tue \n " + cible);
+                        System.out.println(etu + "\n| a tue \n| " + cible);
                 }
             }
             // ---------determination si joueur gagnant------------
@@ -130,8 +148,9 @@ public class Combat implements Runnable {
             // -------------------------------");
             Utils.sleep(100);
         } while (gagnant == 0);
-        System.out.println(
-                "combat de la zone \"" + Utils.zoneIndexToString(zone) + "\" termine, gagnant : joueur" + gagnant);
+        System.out.println("combat de la zone \"" + Utils.zoneIndexToString(zone.getIndiceZone())
+                + "\" termine, gagnant : joueur" + gagnant);
+        zone.setControlee(gagnant);
     }
 
     public boolean finished() {

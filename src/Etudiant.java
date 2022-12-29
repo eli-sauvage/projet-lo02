@@ -44,7 +44,6 @@ public class Etudiant {
             this.credits = 30 + this.consitution;
         } else if (this.credits + credits <= 0) {
             this.credits = 0;
-            // TODO : mort
         } else {
             this.credits += credits;
         }
@@ -114,8 +113,8 @@ public class Etudiant {
         return reserviste;
     }
 
-    public void setReserviste(boolean auCombat) {
-        this.reserviste = auCombat;
+    public void setReserviste(boolean reserviste) {
+        this.reserviste = reserviste;
     }
 
     public Strategies getStrategie() {
