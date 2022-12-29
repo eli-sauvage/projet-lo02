@@ -9,6 +9,8 @@ public class App {
     }
 
     private static void menu() {
+        GUI window = new GUI();
+		window.menu.setVisible(true);
         System.out.println(
                 "1 - lancer une partie\n2 - lancer une partie avec les armées aléatoires\n3 - voir les règles\n4 - quitter");
         switch (Utils.sc.nextLine()) {
@@ -30,7 +32,7 @@ public class App {
         }
     }
 
-    private static void lancerPartie(boolean reparition) {
+    public static void lancerPartie(boolean reparition) {
         System.out.println("lancement de la partie");
         new Partie(reparition);
     }
