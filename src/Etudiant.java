@@ -3,12 +3,16 @@ public class Etudiant {
     private Zone zone;
     private boolean reserviste;
     private Strategies strategie;
+    private String nom;
 
     public Etudiant(int joueur, int id) {
         this.credits = 30;
         this.joueur = joueur;
         this.id = id;
+        this.nom = "Etudiant " + (id+1);
     }
+
+
 
     public int soigner(Etudiant etudiant) {
         int x = (int) Math.random() * 100;
@@ -37,6 +41,14 @@ public class Etudiant {
     // ----------getters/setters-------------
     public int getCredits() {
         return credits;
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public void addCredits(int credits) {
@@ -131,6 +143,10 @@ public class Etudiant {
 
     public Zone getZone() {
         return this.zone;
+    }
+
+    public boolean getReserviste() {
+        return this.reserviste;
     }
 
     @Override

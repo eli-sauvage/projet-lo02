@@ -1,34 +1,19 @@
 import java.awt.*;
 import java.io.*;
 
+
+
 public class App {
     public static void main(String[] args) throws Exception {
         Utils.removeLogfiles();
-        menu();
+        lancerPartie(true);
         Utils.sc.close();
-    }
-
-    private static void menu() {
-        GUI window = new GUI();
-		window.menu.setVisible(true);
-        System.out.println("1 - lancer une partie\n2 - lancer une partie avec les armées aléatoires\n3 - voir les règles\n4 - quitter");
-       
-        switch (Utils.sc.nextLine()) {
-            case "1":
-                lancerPartie(true);
-            
-            case "2":
-                lancerPartie(false);
-            
-            case "3":
-                printRegles(false);
-            
-        }
     }
 
     public static void lancerPartie(boolean reparition) {
         System.out.println("lancement de la partie");
-        new Partie(reparition);
+        new GUI();
+
     }
 
     private static void printRegles(boolean inSrc) {
@@ -45,6 +30,7 @@ public class App {
                     printRegles(true);
             }
         }
-        menu();
+        
     }
+    
 }

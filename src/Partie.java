@@ -3,34 +3,30 @@ import java.util.*;
 
 public class Partie {
     private Joueur[] joueurs = new Joueur[2];
-    private ChampDeBataille champ;
+    private ChampDeBataille champ = new ChampDeBataille();
 
     public Partie(boolean repartition) {
+        System.out.println("Init Partie");
         joueurs[0] = new Joueur(1);
         joueurs[1] = new Joueur(2);
-        champ = new ChampDeBataille();
         champ.initZones();
+        System.out.println(this.joueurs[0].getNumero());
+		//window.menu.setVisible(true);
+        
+    /* 
+        joueurs[0].getArmee().statsAleatoires();
+        joueurs[1].getArmee().statsAleatoires();
 
-        if (repartition) {// a la main
-            setup();
-        } else { // aleatoire
-            joueurs[0].getArmee().statsAleatoires();
-            joueurs[1].getArmee().statsAleatoires();
+        joueurs[0].getArmee().reservistesAleatoires();
+        joueurs[1].getArmee().reservistesAleatoires();
 
-            joueurs[0].getArmee().reservistesAleatoires();
-            joueurs[1].getArmee().reservistesAleatoires();
-
-            champ.repartirTroupeAleatoirement(joueurs[0].getArmee().getEtudiants(), 1);
-            champ.repartirTroupeAleatoirement(joueurs[1].getArmee().getEtudiants(), 2);
-
-            System.out.println(joueurs[0].getArmee());
-            System.out.println("-----------------------------");
-            System.out.println(joueurs[1].getArmee());
-
-        }
-
-        Utils.clearConsole();
-        System.out.println("---DEBUT DE LA PARTIE---");
+        champ.repartirTroupeAleatoirement(joueurs[0].getArmee().getEtudiants(), 1);
+        champ.repartirTroupeAleatoirement(joueurs[1].getArmee().getEtudiants(), 2);
+    */
+        
+       
+        //System.out.println("---DEBUT DE LA PARTIE---");
+        /* 
         combats();
         int gagnant = chercherGagnant();
         while (gagnant == 0) {
@@ -46,7 +42,7 @@ public class Partie {
         System.out.println("@      GAGNANT  :    J" + gagnant + "      @");
         System.out.println("@                            @");
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        Utils.attendreEntree("retouner au menu");
+        Utils.attendreEntree("retouner au menu");*/
     }
 
     public void combats() {
@@ -124,7 +120,11 @@ public class Partie {
 
     }
 
-    private void setup() {
+    public void setup() {
+        System.out.println("ddsqsdfdsf---");
+        
+        
+        /* 
         Utils.clearConsole();
         System.out.println("--------------JOUEUR 1--------------");
         joueurs[0].getArmee().parametrageTroupes();
@@ -136,6 +136,14 @@ public class Partie {
         joueurs[1].getArmee().parametrageTroupes();
         joueurs[1].getArmee().choisirReservistes();
         System.out.println("---------PLACEMENT SUR LES ZONES JOUEUR 2---------");
-        champ.repartirTroupes(joueurs[1]);
+        champ.repartirTroupes(joueurs[1]);*/
+    }
+    
+    public Joueur getJoueur(int i){
+        return this.joueurs[i];
+    }
+    
+    public ChampDeBataille getChamp(){
+        return champ;
     }
 }

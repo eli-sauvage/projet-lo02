@@ -1,9 +1,10 @@
 public class Joueur {
     private Armee armee;
     private int numeroJoueur;
-
+    private String branche;
     public Joueur(int numero) {
         this.numeroJoueur = numero;
+        System.out.println("init joueur");
         armee = new Armee(numeroJoueur);
         armee.initDefaut();
     }
@@ -14,6 +15,10 @@ public class Joueur {
 
     public void setArmee(Armee armee) {
         this.armee = armee;
+    }
+
+    public void setBranche(String  branche) {
+        this.branche = branche;
     }
 
     public int getNumero(){

@@ -1,1 +1,1 @@
-GUI
+Partie

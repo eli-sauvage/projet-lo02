@@ -19,6 +19,7 @@ public class Armee {
     }
 
     public void statsAleatoires() {
+        System.out.println("stat aleatoire");
         for (int i = 0; i < 400; i++) {// répartit les 400 points aléatoirement dans l'armée
             int etu = (int) Math.floor(Math.random() * 20);
             int stat = (int) Math.floor(Math.random() * 5);
