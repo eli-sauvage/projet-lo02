@@ -1,7 +1,7 @@
+package models;
 public class Joueur {
     private Armee armee;
     private int numeroJoueur;
-    private String branche;
     public Joueur(int numero) {
         this.numeroJoueur = numero;
         System.out.println("init joueur");
@@ -17,9 +17,6 @@ public class Joueur {
         this.armee = armee;
     }
 
-    public void setBranche(String  branche) {
-        this.branche = branche;
-    }
 
     public int getNumero(){
         return this.numeroJoueur;

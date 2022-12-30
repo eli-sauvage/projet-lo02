@@ -1,83 +1,46 @@
+package views;
+//import models.*;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Map;
+import controllers.*;
 
-import javax.swing.border.LineBorder;
-import javax.xml.crypto.URIReference;
-import javax.xml.transform.stream.StreamSource;
-import javax.swing.*;
+import models.*;
 
-public class GUI {
-
-	public Joueur currentJoueur;
-
-	public  JFrame menu = new JFrame();
-	public  JFrame interfaceArmee = new JFrame();
+public class ArmeeView {
+    
+    public  JFrame interfaceArmee = new JFrame();
 	private  JTextField textField;
-	private  Choice selectionBranche;
 
-	private  TextField force;
-	private  TextField dexterite;
-	private  TextField resistance;
-	private  TextField constitution;
-	private  TextField initiative;
+	private  JSpinner force;
+	private  JSpinner dexterite;
+	private  JSpinner resistance;
+	private  JSpinner constitution;
+	private  JSpinner initiative;
 	private  Choice choice;
 	private  Choice strategy;
 	private  Choice choixEtudiant;
 	private  JCheckBox reserviste;
-	private  TextField pointsDistribuer;
-	private  TextField nom;
-	private  Choice programme;
+	private  JLabel pointsDistribuer;
+	private JLabel lblElite;
+	//private  TextField nom;
+	//private  Choice programme;
 	private Color bgColor = new Color(255, 128, 192);
-	public Partie game = new Partie(true);
-	
-	public GUI() {
-		System.out.println("Start GUI");
-		interfaceMenu();
-	}
 
-	
-	private void interfaceMenu() {
-		//menu 
-		menu.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 30));
-		menu.getContentPane().setBackground(bgColor);
-		menu.setBounds(10, 10, 1500, 800);
-		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JLabel label1 = new JLabel("C'est du brutal !");
-		label1.setBounds(583, 43, 284, 37);
-		label1.setHorizontalAlignment(SwingConstants.CENTER);
-		label1.setFont(new Font("Tahoma", Font.BOLD, 30));
-		JButton btnStart = new JButton("Demarrer une partie");
-		btnStart.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnStart.setBounds(614, 228, 212, 44);
-		menu.getContentPane().setLayout(null);
-		menu.getContentPane().add(label1);
-		menu.getContentPane().add(btnStart);
-		JButton btnRules = new JButton("Afficher les règles");
-		btnRules.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnRules.setBounds(614, 402, 212, 44);
-		menu.getContentPane().add(btnRules);
-		JLabel label2 = new JLabel("Eli Sauvage - Esteban Mercier");
-		label2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label2.setBounds(1191, 688, 219, 37);
-		menu.getContentPane().add(label2);	
-		menu.setVisible(true);
-		//action listeners menu
-		btnStart.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-					System.out.println("start");	
-					configPartie();
-					game.setup();	
-			}
-		});
-		btnRules.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-					System.out.println("rules");
-			}
-		});	
-	}
-		
-	private void affInterfaceArmee(Joueur joueur,int indiceJoueur){
+    private ArmeController controller;
+
+    public ArmeeView(ArmeController controller) {
+        this.controller = controller;
+		affInterfaceArmee();
+    }
+
+    public void fermer(){
+        interfaceArmee.setVisible(false);
+    }
+
+    private void affInterfaceArmee(){
 		//interface armee
 		
 		System.out.println("print interface armee");
@@ -97,29 +60,10 @@ public class GUI {
 		textField.setBounds(572, 47, 96, 19);
 		interfaceArmee.add(textField);
 		textField.setColumns(10);
-		//choix branche du joueur
-		JLabel label13 = new JLabel("Branche");
-		label13.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label13.setBounds(745, 53, 66, 13);
-		interfaceArmee.add(label13);
-		selectionBranche = new Choice();
-		selectionBranche.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		selectionBranche.setBounds(810, 42, 72, 34);
-		selectionBranche.add("ISI");
-		selectionBranche.add("GM");
-		selectionBranche.add("A2I");
-		selectionBranche.add("RT");
-		selectionBranche.add("MTE");
-		selectionBranche.add("GI");
-		selectionBranche.add("MM");
-		interfaceArmee.add(selectionBranche);
 
-
-
-		
 
 		//selection etudiants
-		JLabel lblElite = new JLabel("Etudiants");
+		 lblElite = new JLabel("Etudiants");
 		lblElite.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblElite.setBounds(200, 200, 117, 37);
 		interfaceArmee.add(lblElite);
@@ -127,7 +71,7 @@ public class GUI {
 		choixEtudiant.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		choixEtudiant.setBounds(400, 299, 224, 31);
 		for (int i = 0; i < 20; i++) {
-			choixEtudiant.add(joueur.getArmee().getEtudiants()[i].getNom());
+			choixEtudiant.add(controller.getNomEtudiant(i));
 		}
 		interfaceArmee.add(choixEtudiant);
 		//image joueur en cours
@@ -151,14 +95,14 @@ public class GUI {
 
 
 		// Compteur des points à distribuer
-		JLabel lblNewLabel_4 = new JLabel("Points a distribuer");
+		JLabel lblNewLabel_4 = new JLabel("Points a distribuer : ");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_4.setBounds(72, 300, 192, 26);
 		interfaceArmee.add(lblNewLabel_4);
-		pointsDistribuer = new TextField();
+		pointsDistribuer = new JLabel();
 		pointsDistribuer.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		pointsDistribuer.setText("400");
-		pointsDistribuer.setBounds(297, 300, 61, 37);
+		pointsDistribuer.setBounds(250, 300, 61, 26);
 		interfaceArmee.add(pointsDistribuer);
 
 		// Force
@@ -166,9 +110,8 @@ public class GUI {
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_5.setBounds(193, 389, 61, 37);
 		interfaceArmee.add(lblNewLabel_5);
-		force = new TextField();
+		force = new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));
 		force.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		force.setText("0");
 		force.setBounds(297, 389, 61, 37);
 		interfaceArmee.add(force);
 
@@ -177,9 +120,8 @@ public class GUI {
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_6.setBounds(159, 432, 105, 37);
 		interfaceArmee.add(lblNewLabel_6);
-		dexterite = new TextField();
+		dexterite= new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));;
 		dexterite.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		dexterite.setText("0");
 		dexterite.setBounds(297, 432, 61, 37);
 		interfaceArmee.add(dexterite);
 
@@ -188,20 +130,19 @@ public class GUI {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_7.setBounds(147, 479, 117, 37);
 		interfaceArmee.add(lblNewLabel_7);
-		resistance = new TextField();
+		resistance= new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));;
 		resistance.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		resistance.setText("0");
 		resistance.setBounds(297, 475, 61, 37);
 		interfaceArmee.add(resistance);
+        
 
 		// Constitution
 		JLabel lblNewLabel_8 = new JLabel("Constitution");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_8.setBounds(136, 522, 128, 37);
 		interfaceArmee.add(lblNewLabel_8);
-		constitution = new TextField();
+		constitution= new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));;
 		constitution.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		constitution.setText("0");
 		constitution.setBounds(297, 518, 61, 37);
 		interfaceArmee.add(constitution);
 
@@ -210,9 +151,8 @@ public class GUI {
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_9.setBounds(171, 569, 93, 29);
 		interfaceArmee.add(lblNewLabel_9);
-		initiative = new TextField();
+		initiative= new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));;
 		initiative.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		initiative.setText("0");
 		initiative.setBounds(297, 561, 61, 37);
 		interfaceArmee.add(initiative);
 
@@ -279,32 +219,32 @@ public class GUI {
 		//bouton random stats
 		randomStats.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("random ");
-			    joueur.getArmee().statsAleatoires();
-				joueur.getArmee().reservistesAleatoires();
-				//game.getChamp().repartirTroupeAleatoirement(joueur.getArmee().getEtudiants(), indiceJoueur);
-				//refresh
-				final Etudiant selectedEtudiant = joueur.getArmee().getEtudiants()[choixEtudiant.getSelectedIndex()];
-				force.setText(Integer.toString(selectedEtudiant.getForce()));
-				dexterite.setText(Integer.toString(selectedEtudiant.getDexterite()));
-				constitution.setText(Integer.toString(selectedEtudiant.getConsitution()));
-				resistance.setText(Integer.toString(selectedEtudiant.getResistance()));
-				initiative.setText(Integer.toString(selectedEtudiant.getInitiative()));
-				reserviste.setSelected(selectedEtudiant.getReserviste());
-				randomStats.setEnabled(false);	
+                controller.randomStats();
+				update();
 			}
 		});
 		validation.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.out.println("BTN appliquer ");
-				final Etudiant selectedEtudiant = joueur.getArmee().getEtudiants()[choixEtudiant.getSelectedIndex()];
-				//set de tout les stats de l'étudiant a l'affichage
-				selectedEtudiant.setForce(Integer.parseInt(force.getText()));
-				selectedEtudiant.setDexterite(Integer.parseInt(dexterite.getText()));
-				selectedEtudiant.setResistance(Integer.parseInt(resistance.getText()));
-				selectedEtudiant.setInitiative(Integer.parseInt(initiative.getText()));
-				selectedEtudiant.setConsitution(Integer.parseInt(constitution.getText()));
-				selectedEtudiant.setReserviste(reserviste.isSelected());		
+                String stratStr = 	strategy.getSelectedItem();
+                Strategies strat = null;
+                if(stratStr.equals("offensif")) strat = Strategies.offensif;
+                if(stratStr.equals("defensif")) strat = Strategies.defensif;
+                //-----TODO---------------------------------------------
+                if(stratStr.equals("offensif")) strat = Strategies.defensif;
+
+                controller.appliquerStats(
+                    choixEtudiant.getSelectedIndex(), 
+					(int)force.getValue(),
+                    //(int)force.getValue();, 
+                    (int)dexterite.getValue(),
+                    (int)resistance.getValue(),
+                    (int)initiative.getValue(),
+                    (int)constitution.getValue(),
+                    reserviste.isSelected(), 
+                    strat);
+				
+				pointsDistribuer.setText(Integer.toString(controller.getPointsRestants()));
 			}
 		});
 		ok.addActionListener(new ActionListener() {
@@ -312,47 +252,28 @@ public class GUI {
 				System.out.println("OKKKK");
 			}
 		});
-		selectionBranche.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				String str = selectionBranche.getItem(selectionBranche.getSelectedIndex());
-				joueur.setBranche(str);
-				System.out.println(str);
-			}
-		});
 		choixEtudiant.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				System.out.println(choixEtudiant.getSelectedIndex());
-				final Etudiant selectedEtudiant = joueur.getArmee().getEtudiants()[choixEtudiant.getSelectedIndex()];
-				//set de tout les stats de l'étudiant a l'affichage
-				force.setText(Integer.toString(selectedEtudiant.getForce()));
-				dexterite.setText(Integer.toString(selectedEtudiant.getDexterite()));
-				constitution.setText(Integer.toString(selectedEtudiant.getConsitution()));
-				resistance.setText(Integer.toString(selectedEtudiant.getResistance()));
-				initiative.setText(Integer.toString(selectedEtudiant.getInitiative()));
-				reserviste.setSelected(selectedEtudiant.getReserviste());
-				//update image 
-				if(selectedEtudiant instanceof MaitreDuGobi) lblElite.setText("Maitre du Gobi");
-				else if(selectedEtudiant instanceof EtudiantElite) lblElite.setText("Etudiant Elite"); 
-				else 	lblElite.setText("Etudiant");
-				
+				update();
 			}
 		});
 	}
-    
-	private void configPartie(){
-		//joueur 1 choisi son armée
-		menu.setVisible(false);
-		affInterfaceArmee(game.getJoueur(0),0);
+	public void update(){
+		final Etudiant selectedEtudiant = controller.getEtudiant(choixEtudiant.getSelectedIndex());
+		// set de tout les stats de l'étudiant a l'affichage
+		force.setValue(selectedEtudiant.getForce());
+		System.out.println(selectedEtudiant.getDexterite());
+		dexterite.setValue(selectedEtudiant.getDexterite());
+		constitution.setValue(selectedEtudiant.getConsitution());
+		resistance.setValue(selectedEtudiant.getResistance());
+		initiative.setValue(selectedEtudiant.getInitiative());
+		reserviste.setSelected(selectedEtudiant.getReserviste());
+		// update image
+		if (selectedEtudiant instanceof MaitreDuGobi)
+			lblElite.setText("Maitre du Gobi");
+		else if (selectedEtudiant instanceof EtudiantElite)
+			lblElite.setText("Etudiant Elite");
+		else
+			lblElite.setText("Etudiant");
 	}
-
-	
-
 }
-	
-
-   
-    
-
-
-
-

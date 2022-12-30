@@ -1,3 +1,4 @@
+package models;
 public class Etudiant {
     protected int credits, dexterite, force, resistance, consitution, initiative, joueur, id;
     private Zone zone;
@@ -10,6 +11,7 @@ public class Etudiant {
         this.joueur = joueur;
         this.id = id;
         this.nom = "Etudiant " + (id+1);
+        this.resetStats();
     }
 
 
@@ -36,6 +38,14 @@ public class Etudiant {
             return degats;
         }
         return 0;
+    }
+
+    public void resetStats(){
+        this.force = 0;
+        this.resistance = 0;
+        this.consitution = 0;
+        this.dexterite = 0;
+        this.initiative = 0;
     }
 
     // ----------getters/setters-------------

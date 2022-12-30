@@ -1,19 +1,24 @@
+package models;
 import java.lang.Thread.State;
 import java.util.*;
+
+import controllers.ArmeController;
+import controllers.MenuController;
 
 public class Partie {
     private Joueur[] joueurs = new Joueur[2];
     private ChampDeBataille champ = new ChampDeBataille();
 
     public Partie(boolean repartition) {
+       MenuController mc =  new MenuController();
+       mc.display();
         System.out.println("Init Partie");
         joueurs[0] = new Joueur(1);
         joueurs[1] = new Joueur(2);
         champ.initZones();
-        System.out.println(this.joueurs[0].getNumero());
-		//window.menu.setVisible(true);
-        
-    /* 
+        ArmeController ac = new ArmeController(joueurs[0]);
+        ac.display();
+        /*
         joueurs[0].getArmee().statsAleatoires();
         joueurs[1].getArmee().statsAleatoires();
 
@@ -22,11 +27,9 @@ public class Partie {
 
         champ.repartirTroupeAleatoirement(joueurs[0].getArmee().getEtudiants(), 1);
         champ.repartirTroupeAleatoirement(joueurs[1].getArmee().getEtudiants(), 2);
-    */
-        
+        */
        
-        //System.out.println("---DEBUT DE LA PARTIE---");
-        /* 
+        System.out.println("---DEBUT DE LA PARTIE---");
         combats();
         int gagnant = chercherGagnant();
         while (gagnant == 0) {
@@ -42,7 +45,7 @@ public class Partie {
         System.out.println("@      GAGNANT  :    J" + gagnant + "      @");
         System.out.println("@                            @");
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        Utils.attendreEntree("retouner au menu");*/
+        Utils.attendreEntree("retouner au menu");
     }
 
     public void combats() {
