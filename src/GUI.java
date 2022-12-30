@@ -114,7 +114,11 @@ public class GUI {
 		selectionBranche.add("MM");
 		interfaceArmee.add(selectionBranche);
 
-		//selection elites
+
+
+		
+
+		//selection etudiants
 		JLabel lblElite = new JLabel("Etudiants");
 		lblElite.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblElite.setBounds(200, 200, 117, 37);
@@ -126,6 +130,25 @@ public class GUI {
 			choixEtudiant.add(joueur.getArmee().getEtudiants()[i].getNom());
 		}
 		interfaceArmee.add(choixEtudiant);
+		//image joueur en cours
+		JPanel panelImage = new JPanel();
+		panelImage.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+		panelImage.setBackground(Color.CYAN);
+		panelImage.setBounds(79, 102, 70, 122);
+		panelImage.setLayout(new GridLayout(1, 1, 0, 0)); // politique de placement des composants dans ce panel
+		JButton jb1 = new JButton(); // pour représenter un personnage, utilisation d'un JButton
+		panelImage.add(jb1);
+		jb1.setForeground(bgColor);
+		Image imEtudiant = new ImageIcon("ressources\\etudiant.png").getImage();
+		Image imElite = new ImageIcon("ressources\\etudiant.png").getImage();
+		Image imMaitre = new ImageIcon("ressources\\etudiant.png").getImage();
+
+		interfaceArmee.add(panelImage);
+
+
+
+
+
 
 		// Compteur des points à distribuer
 		JLabel lblNewLabel_4 = new JLabel("Points a distribuer");
@@ -307,6 +330,10 @@ public class GUI {
 				resistance.setText(Integer.toString(selectedEtudiant.getResistance()));
 				initiative.setText(Integer.toString(selectedEtudiant.getInitiative()));
 				reserviste.setSelected(selectedEtudiant.getReserviste());
+				//update image 
+				if(selectedEtudiant instanceof MaitreDuGobi) lblElite.setText("Maitre du Gobi");
+				else if(selectedEtudiant instanceof EtudiantElite) lblElite.setText("Etudiant Elite"); 
+				else 	lblElite.setText("Etudiant");
 				
 			}
 		});

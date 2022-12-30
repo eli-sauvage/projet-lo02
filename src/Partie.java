@@ -123,20 +123,6 @@ public class Partie {
     public void setup() {
         System.out.println("ddsqsdfdsf---");
         
-        
-        /* 
-        Utils.clearConsole();
-        System.out.println("--------------JOUEUR 1--------------");
-        joueurs[0].getArmee().parametrageTroupes();
-        joueurs[0].getArmee().choisirReservistes();
-        System.out.println("---------PLACEMENT SUR LES ZONES JOUEUR 1---------");
-        champ.repartirTroupes(joueurs[0]);
-        Utils.clearConsole();
-        System.out.println("--------------JOUEUR 2--------------");
-        joueurs[1].getArmee().parametrageTroupes();
-        joueurs[1].getArmee().choisirReservistes();
-        System.out.println("---------PLACEMENT SUR LES ZONES JOUEUR 2---------");
-        champ.repartirTroupes(joueurs[1]);*/
     }
     
     public Joueur getJoueur(int i){
