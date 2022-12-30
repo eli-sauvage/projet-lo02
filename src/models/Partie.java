@@ -16,7 +16,7 @@ public class Partie {
         joueurs[0] = new Joueur(1);
         joueurs[1] = new Joueur(2);
         champ.initZones();
-        ArmeController ac = new ArmeController(joueurs[0]);
+        ArmeController ac = new ArmeController(joueurs[0], champ);
         ac.display();
         /*
         joueurs[0].getArmee().statsAleatoires();

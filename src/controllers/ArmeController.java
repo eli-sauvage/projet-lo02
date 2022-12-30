@@ -6,8 +6,10 @@ import models.*;
 public class ArmeController {
     private boolean running = true;
     private Joueur joueur;
-    public ArmeController(Joueur joueur) {
+    private ChampDeBataille champ;
+    public ArmeController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
+        this.champ = champ;
     }
     ArmeeView armeeV;
 
@@ -51,7 +53,7 @@ public class ArmeController {
         }
         return 454-total; //454 = 400 + (4*1+5) elite+ (4*2+10) gobi
     }
-    
+
     public void randomStats(){
         Etudiant[] etudiants = joueur.getArmee().getEtudiants();
         for(Etudiant e:etudiants){
@@ -76,5 +78,15 @@ public class ArmeController {
             Strategies strat = (Math.random() > .7) ? Strategies.defensif : Strategies.offensif;
             etudiants[i].setStrategie(strat);
         }
+        //zone au hasard
+        for(Etudiant e:etudiants){
+             if (e.isReserviste())
+                continue;
+            int zoneChoisie = (int) Math.floor(Math.random() * 5);
+            //int zoneChoisie = (int) Math.floor(Math.random() * 2);
+            champ.getZones()[zoneChoisie].getCombatantsJ(joueur.getNumero()).add(e);
+            e.setZone(champ.getZones()[zoneChoisie]);
+        }
+
     }
 }

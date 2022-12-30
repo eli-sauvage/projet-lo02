@@ -1,5 +1,5 @@
 package views;
-//import models.*;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
@@ -10,39 +10,39 @@ import controllers.*;
 import models.*;
 
 public class ArmeeView {
-    
-    public  JFrame interfaceArmee = new JFrame();
-	private  JTextField textField;
 
-	private  JSpinner force;
-	private  JSpinner dexterite;
-	private  JSpinner resistance;
-	private  JSpinner constitution;
-	private  JSpinner initiative;
-	private  Choice choice;
-	private  Choice strategy;
-	private  Choice choixEtudiant;
-	private  JCheckBox reserviste;
-	private  JLabel pointsDistribuer;
+	public JFrame interfaceArmee = new JFrame();
+	private JTextField textField;
+
+	private JSpinner force;
+	private JSpinner dexterite;
+	private JSpinner resistance;
+	private JSpinner constitution;
+	private JSpinner initiative;
+	private Choice zone;
+	private Choice strategy;
+	private Choice choixEtudiant;
+	private JCheckBox reserviste;
+	private JLabel pointsDistribuer;
 	private JLabel lblElite;
-	//private  TextField nom;
-	//private  Choice programme;
+	// private TextField nom;
+	// private Choice programme;
 	private Color bgColor = new Color(255, 128, 192);
 
-    private ArmeController controller;
+	private ArmeController controller;
 
-    public ArmeeView(ArmeController controller) {
-        this.controller = controller;
+	public ArmeeView(ArmeController controller) {
+		this.controller = controller;
 		affInterfaceArmee();
-    }
+	}
 
-    public void fermer(){
-        interfaceArmee.setVisible(false);
-    }
+	public void fermer() {
+		interfaceArmee.setVisible(false);
+	}
 
-    private void affInterfaceArmee(){
-		//interface armee
-		
+	private void affInterfaceArmee() {
+		// interface armee
+
 		System.out.println("print interface armee");
 		interfaceArmee.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		interfaceArmee.setBounds(10, 10, 1500, 800);
@@ -61,9 +61,8 @@ public class ArmeeView {
 		interfaceArmee.add(textField);
 		textField.setColumns(10);
 
-
-		//selection etudiants
-		 lblElite = new JLabel("Etudiants");
+		// selection etudiants
+		lblElite = new JLabel("Etudiants");
 		lblElite.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblElite.setBounds(200, 200, 117, 37);
 		interfaceArmee.add(lblElite);
@@ -74,7 +73,7 @@ public class ArmeeView {
 			choixEtudiant.add(controller.getNomEtudiant(i));
 		}
 		interfaceArmee.add(choixEtudiant);
-		//image joueur en cours
+		// image joueur en cours
 		JPanel panelImage = new JPanel();
 		panelImage.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 		panelImage.setBackground(Color.CYAN);
@@ -88,11 +87,6 @@ public class ArmeeView {
 		Image imMaitre = new ImageIcon("ressources\\etudiant.png").getImage();
 
 		interfaceArmee.add(panelImage);
-
-
-
-
-
 
 		// Compteur des points à distribuer
 		JLabel lblNewLabel_4 = new JLabel("Points a distribuer : ");
@@ -120,7 +114,8 @@ public class ArmeeView {
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_6.setBounds(159, 432, 105, 37);
 		interfaceArmee.add(lblNewLabel_6);
-		dexterite= new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));;
+		dexterite = new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));
+		;
 		dexterite.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		dexterite.setBounds(297, 432, 61, 37);
 		interfaceArmee.add(dexterite);
@@ -130,18 +125,19 @@ public class ArmeeView {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_7.setBounds(147, 479, 117, 37);
 		interfaceArmee.add(lblNewLabel_7);
-		resistance= new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));;
+		resistance = new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));
+		;
 		resistance.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		resistance.setBounds(297, 475, 61, 37);
 		interfaceArmee.add(resistance);
-        
 
 		// Constitution
 		JLabel lblNewLabel_8 = new JLabel("Constitution");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_8.setBounds(136, 522, 128, 37);
 		interfaceArmee.add(lblNewLabel_8);
-		constitution= new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));;
+		constitution = new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));
+		;
 		constitution.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		constitution.setBounds(297, 518, 61, 37);
 		interfaceArmee.add(constitution);
@@ -151,7 +147,8 @@ public class ArmeeView {
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_9.setBounds(171, 569, 93, 29);
 		interfaceArmee.add(lblNewLabel_9);
-		initiative= new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));;
+		initiative = new JSpinner(new SpinnerNumberModel(0, 0, 400, 1));
+		;
 		initiative.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		initiative.setBounds(297, 561, 61, 37);
 		interfaceArmee.add(initiative);
@@ -161,15 +158,13 @@ public class ArmeeView {
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_10.setBounds(422, 389, 117, 37);
 		interfaceArmee.add(lblNewLabel_10);
-		choice = new Choice();
-		choice.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		choice.setBounds(562, 392, 224, 31);
-		choice.add("BDE");
-		choice.add("Bibliothéque");
-		choice.add("Quartier administratif");
-		choice.add("Halle industrielle");
-		choice.add("Halle sportive");
-		interfaceArmee.add(choice);
+		zone = new Choice();
+		zone.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		zone.setBounds(562, 392, 224, 31);
+		for (int i = 0; i < 5; i++) {
+			zone.add(Utils.zoneIndexToString(i));
+		}
+		interfaceArmee.add(zone);
 
 		// type de stratégie
 		JLabel lblNewLabel_11 = new JLabel("Strategie");
@@ -190,7 +185,7 @@ public class ArmeeView {
 		reserviste.setForeground(Color.BLACK);
 		reserviste.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		reserviste.setBounds(579, 513, 187, 26);
-		
+
 		interfaceArmee.add(reserviste);
 
 		JButton ok = new JButton("OK");
@@ -207,7 +202,7 @@ public class ArmeeView {
 		validation.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		validation.setBounds(300, 650, 150, 80);
 		interfaceArmee.add(validation);
-	
+
 		JPanel panel = new JPanel();
 		panel.setBackground(bgColor);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
@@ -215,35 +210,37 @@ public class ArmeeView {
 		interfaceArmee.add(panel);
 		interfaceArmee.setVisible(true);
 
-
-		//bouton random stats
-		randomStats.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-                controller.randomStats();
+		// bouton random stats
+		randomStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.randomStats();
 				update();
 			}
 		});
-		validation.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		validation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				System.out.println("BTN appliquer ");
-                String stratStr = 	strategy.getSelectedItem();
-                Strategies strat = null;
-                if(stratStr.equals("offensif")) strat = Strategies.offensif;
-                if(stratStr.equals("defensif")) strat = Strategies.defensif;
-                //-----TODO---------------------------------------------
-                if(stratStr.equals("offensif")) strat = Strategies.defensif;
+				String stratStr = strategy.getSelectedItem();
+				Strategies strat = null;
+				if (stratStr.equals("offensif"))
+					strat = Strategies.offensif;
+				if (stratStr.equals("defensif"))
+					strat = Strategies.defensif;
+				// -----TODO---------------------------------------------
+				if (stratStr.equals("offensif"))
+					strat = Strategies.defensif;
 
-                controller.appliquerStats(
-                    choixEtudiant.getSelectedIndex(), 
-					(int)force.getValue(),
-                    //(int)force.getValue();, 
-                    (int)dexterite.getValue(),
-                    (int)resistance.getValue(),
-                    (int)initiative.getValue(),
-                    (int)constitution.getValue(),
-                    reserviste.isSelected(), 
-                    strat);
-				
+				controller.appliquerStats(
+						choixEtudiant.getSelectedIndex(),
+						(int) force.getValue(),
+						// (int)force.getValue();,
+						(int) dexterite.getValue(),
+						(int) resistance.getValue(),
+						(int) initiative.getValue(),
+						(int) constitution.getValue(),
+						reserviste.isSelected(),
+						strat);
+
 				pointsDistribuer.setText(Integer.toString(controller.getPointsRestants()));
 			}
 		});
@@ -258,9 +255,11 @@ public class ArmeeView {
 			}
 		});
 	}
-	public void update(){
+
+	public void update() {
 		final Etudiant selectedEtudiant = controller.getEtudiant(choixEtudiant.getSelectedIndex());
 		// set de tout les stats de l'étudiant a l'affichage
+		zone.select(selectedEtudiant.getZone().getIndiceZone());
 		force.setValue(selectedEtudiant.getForce());
 		System.out.println(selectedEtudiant.getDexterite());
 		dexterite.setValue(selectedEtudiant.getDexterite());
