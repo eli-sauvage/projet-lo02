@@ -1,5 +1,6 @@
 package models;
 import java.util.*;
+import controllers.*;
 
 public class Zone {
 
@@ -55,9 +56,9 @@ public class Zone {
     return indiceZone;
   }
 
-  public Combat getCombat() {
+  public Combat getCombat(CombatsController cc) {
     if (this.combat == null)
-      this.combat = new Combat(combatantsJ1, combatantsJ2, this);
+      this.combat = new Combat(combatantsJ1, combatantsJ2, this, cc);
     return this.combat;
   }
   public void resetCombat(){

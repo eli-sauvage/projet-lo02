@@ -1,4 +1,5 @@
 package models;
+
 import java.lang.Thread.State;
 import java.util.*;
 
@@ -11,8 +12,8 @@ public class Partie {
     private ChampDeBataille champ = new ChampDeBataille();
 
     public Partie(boolean repartition) {
-       MenuController mc =  new MenuController();
-       mc.display();
+        MenuController mc = new MenuController();
+        mc.display();
         System.out.println("Init Partie");
         joueurs[0] = new Joueur(1);
         joueurs[1] = new Joueur(2);
@@ -22,16 +23,16 @@ public class Partie {
         ac = new ArmeController(joueurs[1], champ);
         ac.display();
         /*
-        joueurs[0].getArmee().statsAleatoires();
-        joueurs[1].getArmee().statsAleatoires();
+         * joueurs[0].getArmee().statsAleatoires();
+         * joueurs[1].getArmee().statsAleatoires();
+         * 
+         * joueurs[0].getArmee().reservistesAleatoires();
+         * joueurs[1].getArmee().reservistesAleatoires();
+         * 
+         * champ.repartirTroupeAleatoirement(joueurs[0].getArmee().getEtudiants(), 1);
+         * champ.repartirTroupeAleatoirement(joueurs[1].getArmee().getEtudiants(), 2);
+         */
 
-        joueurs[0].getArmee().reservistesAleatoires();
-        joueurs[1].getArmee().reservistesAleatoires();
-
-        champ.repartirTroupeAleatoirement(joueurs[0].getArmee().getEtudiants(), 1);
-        champ.repartirTroupeAleatoirement(joueurs[1].getArmee().getEtudiants(), 2);
-        */
-       
         System.out.println("---DEBUT DE LA PARTIE---");
         combats();
         int gagnant = chercherGagnant();
@@ -53,23 +54,24 @@ public class Partie {
 
     public void combats() {
         ArrayList<Zone> zonesDeCombat = new ArrayList<>();
+        CombatsController cc = new CombatsController();
         zonesDeCombat.addAll(Arrays.asList(champ.getZones()));
         zonesDeCombat.removeIf(z -> (z.getControlee() != 0));// on retire si zone controllee
         for (Zone z : zonesDeCombat)// remise à zero des combats précedents
             z.resetCombat();
         ArrayList<Combat> combats = new ArrayList<>();
         for (Zone z : zonesDeCombat)
-            combats.add(z.getCombat());
+            combats.add(z.getCombat(cc));
+        boolean combatsFinis = false;
+        cc.init(zonesDeCombat, combats);
+        cc.display();
         for (Zone z : zonesDeCombat)// obligé de le faire en deux temps car il faut d'abord la liste de tous les
                                     // combats avant de pouvoir les lancer
             z.lancerCombat(combats);
-        boolean combatsFinis = false;
-        CombatsController cc = new CombatsController(zonesDeCombat, combats);
-        cc.display();
         while (!combatsFinis) {
             combatsFinis = true;
             for (Zone z : zonesDeCombat)
-                if (z.getCombat().getState() != State.TERMINATED) // tous les threads doivent etre termines
+                if (z.getCombat(null).getState() != State.TERMINATED) // tous les threads doivent etre termines
                     combatsFinis = false;
         }
         cc.combatsFinis();
@@ -130,14 +132,14 @@ public class Partie {
 
     public void setup() {
         System.out.println("ddsqsdfdsf---");
-        
+
     }
-    
-    public Joueur getJoueur(int i){
+
+    public Joueur getJoueur(int i) {
         return this.joueurs[i];
     }
-    
-    public ChampDeBataille getChamp(){
+
+    public ChampDeBataille getChamp() {
         return champ;
     }
 }

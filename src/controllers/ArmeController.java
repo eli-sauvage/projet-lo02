@@ -79,8 +79,7 @@ public class ArmeController {
             e.setZone(null);
         }
         for(Zone z:champ.getZones()){
-            z.getCombatantsJ(1).clear();
-            z.getCombatantsJ(2).clear();
+            z.getCombatantsJ(joueur.getNumero()).clear();
         }
 
         for (int i = 0; i < 400; i++) {// répartit les 400 points aléatoirement dans l'armée
