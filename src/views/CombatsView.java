@@ -17,15 +17,15 @@ public class CombatsView {
 
     public CombatsView(CombatsController controller) {
         this.controller = controller;
-        System.out.println("interface combats");
-        frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(10, 10, 1500, 800);
-        frame.getContentPane().setBackground(bgColor);
-        frame.setLayout(null);
-        ImageIcon icone = new ImageIcon("ressources/map.png");
-        JLabel image = new JLabel(icone);
-        frame.add(image);
+        // System.out.println("interface combats");
+        // frame = new JFrame();
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setBounds(10, 10, 1500, 800);
+        // frame.getContentPane().setBackground(bgColor);
+        // frame.setLayout(null);
+        // ImageIcon icone = new ImageIcon("ressources/map.png");
+        // JLabel image = new JLabel(icone);
+        // frame.add(image);
 
         try {
             File file = new File("ressources/map.png");
