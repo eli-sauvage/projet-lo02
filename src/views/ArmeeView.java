@@ -54,23 +54,17 @@ public class ArmeeView {
 		label11.setBounds(46, 35, 400, 31);
 		label11.setFont(new Font("Tahoma", Font.BOLD, 25));
 		interfaceArmee.add(label11);
-		// JLabel label12 = new JLabel("Nom Joueur ");
-		// label12.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		// label12.setBounds(460, 48, 102, 13);
-		// interfaceArmee.add(label12);
-		// textField = new JTextField();
-		// textField.setBounds(572, 47, 96, 19);
-		// interfaceArmee.add(textField);
-		// textField.setColumns(10);
+		
 
 		// selection etudiants
-		lblElite = new JLabel("Etudiants");
+		lblElite = new JLabel("Type : Etudiant");
 		lblElite.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblElite.setBounds(200, 200, 117, 37);
+		lblElite.setBounds(550, 300, 300, 26);
 		interfaceArmee.add(lblElite);
+		//liste etudiants
 		choixEtudiant = new Choice();
 		choixEtudiant.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		choixEtudiant.setBounds(400, 299, 224, 31);
+		choixEtudiant.setBounds(300, 300, 224, 31);
 		for (int i = 0; i < 20; i++) {
 			choixEtudiant.add(controller.getNomEtudiant(i));
 		}
@@ -81,13 +75,11 @@ public class ArmeeView {
 		panelImage.setBackground(Color.CYAN);
 		panelImage.setBounds(79, 102, 70, 122);
 		panelImage.setLayout(new GridLayout(1, 1, 0, 0)); // politique de placement des composants dans ce panel
-		JButton jb1 = new JButton(); // pour représenter un personnage, utilisation d'un JButton
-		panelImage.add(jb1);
-		jb1.setForeground(bgColor);
+		JButton imageEtudiant = new JButton(); // pour représenter un personnage, utilisation d'un JButton
+		panelImage.add(imageEtudiant);
+		imageEtudiant.setForeground(bgColor);
 		Image imEtudiant = new ImageIcon("ressources\\etudiant.png").getImage();
-		Image imElite = new ImageIcon("ressources\\etudiant.png").getImage();
-		Image imMaitre = new ImageIcon("ressources\\etudiant.png").getImage();
-
+		imageEtudiant.setIcon(new ImageIcon(imEtudiant));
 		interfaceArmee.add(panelImage);
 
 		// Compteur des points à distribuer
@@ -212,14 +204,11 @@ public class ArmeeView {
 
 		interfaceArmee.add(reserviste);
 
-		JButton ok = new JButton("OK");
-		ok.setBounds(711, 545, 40, 30);
-		ok.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		interfaceArmee.add(ok);
+		
 
 		JButton randomStats = new JButton("Stats Aleatoire");
-		randomStats.setBounds(600, 650, 250, 80);
-		randomStats.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		randomStats.setBounds(500, 650, 250, 80);
+		randomStats.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		interfaceArmee.add(randomStats);
 
 		JButton appliquer = new JButton("Appliquer");
@@ -229,7 +218,7 @@ public class ArmeeView {
 
 		JButton valider = new JButton("Valider");
 		valider.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		valider.setBounds(900, 650, 150, 80);
+		valider.setBounds(800, 650, 150, 80);
 		interfaceArmee.add(valider);
 
 		JPanel panel = new JPanel();
@@ -296,11 +285,6 @@ public class ArmeeView {
 				}
 			}
 		});
-		ok.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("OKKKK");
-			}
-		});
 		choixEtudiant.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				update();
@@ -324,10 +308,10 @@ public class ArmeeView {
 		reserviste.setSelected(selectedEtudiant.getReserviste());
 		// update image
 		if (selectedEtudiant instanceof MaitreDuGobi)
-			lblElite.setText("Maitre du Gobi");
+			lblElite.setText("Type : Maitre du Gobi");
 		else if (selectedEtudiant instanceof EtudiantElite)
-			lblElite.setText("Etudiant Elite");
+			lblElite.setText("Type : Etudiant Elite");
 		else
-			lblElite.setText("Etudiant");
+			lblElite.setText("Type : Etudiant");
 	}
 }
