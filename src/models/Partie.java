@@ -18,6 +18,8 @@ public class Partie {
         champ.initZones();
         ArmeController ac = new ArmeController(joueurs[0], champ);
         ac.display();
+        ac = new ArmeController(joueurs[1], champ);
+        ac.display();
         /*
         joueurs[0].getArmee().statsAleatoires();
         joueurs[1].getArmee().statsAleatoires();

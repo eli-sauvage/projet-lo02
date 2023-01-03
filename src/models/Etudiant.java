@@ -46,6 +46,7 @@ public class Etudiant {
         this.consitution = 0;
         this.dexterite = 0;
         this.initiative = 0;
+        this.reserviste = false;
     }
 
     // ----------getters/setters-------------

@@ -1,16 +1,21 @@
 package controllers;
 
 import views.*;
+
+import java.util.ArrayList;
+
 import models.*;
 
 public class ArmeController {
     private boolean running = true;
     private Joueur joueur;
     private ChampDeBataille champ;
+
     public ArmeController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
         this.champ = champ;
     }
+
     ArmeeView armeeV;
 
     public void display() {
@@ -21,8 +26,12 @@ public class ArmeController {
         armeeV.fermer();
     }
 
+    public String getNumeroJoueur(){
+        return Integer.toString(joueur.getNumero());
+    }
 
-    public void appliquerStats(int indiceEtu, int f, int d, int r, int i, int c, boolean reserviste, Strategies strat){
+    public void appliquerStats(int indiceEtu, int f, int d, int r, int i, int c, boolean reserviste, Strategies strat,
+            int zoneIndex) {
         Etudiant e = joueur.getArmee().getEtudiants()[indiceEtu];
         e.setForce(f);
         e.setDexterite(d);
@@ -31,32 +40,40 @@ public class ArmeController {
         e.setConsitution(c);
         e.setReserviste(reserviste);
         e.setStrategie(strat);
-        //TODO : gérer si total > 400 (msg erreur par exp)
+        if(!e.isReserviste()){//pas de zone si reserviste
+            try {// possibilité d'un champ null
+                e.setZone(champ.getZone(zoneIndex));
+                champ.getZone(zoneIndex).getCombatantsJ(joueur.getNumero()).add(e);
+            } catch (Exception exept) {
+            }
+        }
+
+        // TODO : gérer si total > 400 (msg erreur par exp)
     }
-    public Etudiant getEtudiant(int i){
+
+    public Etudiant getEtudiant(int i) {
         return joueur.getArmee().getEtudiants()[i];
     }
-    public String getNomEtudiant(int indiceEtu){
+
+    public String getNomEtudiant(int indiceEtu) {
         return joueur.getArmee().getEtudiants()[indiceEtu].getNom();
     }
-    public void valider(){
-        running = false;
-    }
-    public int getPointsRestants(){
+
+    public int getPointsRestants() {
         int total = 0;
-        for(Etudiant e:joueur.getArmee().getEtudiants()){
-            total+= e.getConsitution();
-            total+=e.getDexterite();
+        for (Etudiant e : joueur.getArmee().getEtudiants()) {
+            total += e.getConsitution();
+            total += e.getDexterite();
             total += e.getForce();
             total += e.getInitiative();
             total += e.getResistance();
         }
-        return 454-total; //454 = 400 + (4*1+5) elite+ (4*2+10) gobi
+        return 454 - total; // 454 = 400 + (4*1+5) elite+ (4*2+10) gobi
     }
 
-    public void randomStats(){
+    public void randomStats() {
         Etudiant[] etudiants = joueur.getArmee().getEtudiants();
-        for(Etudiant e:etudiants){
+        for (Etudiant e : etudiants) {
             e.resetStats();
         }
 
@@ -78,15 +95,41 @@ public class ArmeController {
             Strategies strat = (Math.random() > .7) ? Strategies.defensif : Strategies.offensif;
             etudiants[i].setStrategie(strat);
         }
-        //zone au hasard
-        for(Etudiant e:etudiants){
-             if (e.isReserviste())
+        // zone au hasard
+        for (Etudiant e : etudiants) {
+            if (e.isReserviste())
                 continue;
             int zoneChoisie = (int) Math.floor(Math.random() * 5);
-            //int zoneChoisie = (int) Math.floor(Math.random() * 2);
+            // int zoneChoisie = (int) Math.floor(Math.random() * 2);
             champ.getZones()[zoneChoisie].getCombatantsJ(joueur.getNumero()).add(e);
             e.setZone(champ.getZones()[zoneChoisie]);
         }
+        // reservistes aléatoires
+        ArrayList<Integer> indiceReserviste = new ArrayList<>();
+        while (indiceReserviste.size() < 5) {
+            int i = (int) Math.floor(Math.random() * 20);
+            if (!indiceReserviste.contains(i))
+                indiceReserviste.add(i);
+        }
+        for (int i : indiceReserviste)
+            etudiants[i].setReserviste(true);
+        System.out.println(etudiants[0].getReserviste());
+    }
 
+    public void valider() throws Exception {
+        int nbReservistes = 0, i = 0;
+        for (Etudiant e : joueur.getArmee().getEtudiants()) {
+            i++;
+            if (e.getReserviste())
+                nbReservistes++;
+            if (e.getZone() == null && !e.getReserviste())
+                throw new Exception("l'etudiant " + i + "n'a pas été affecté à une zone");
+        }
+        if (nbReservistes != 5)
+            throw new Exception("vous devez selectionner exactement 5 réservistes");
+        if (getPointsRestants() != 0)
+            throw new Exception("vous devez répartir les 400 points");
+        System.out.println("validation armée J" + joueur.getNumero());
+        running = false;
     }
 }
