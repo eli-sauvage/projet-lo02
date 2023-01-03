@@ -84,9 +84,9 @@ public class ArmeeView {
 		JButton jb1 = new JButton(); // pour représenter un personnage, utilisation d'un JButton
 		panelImage.add(jb1);
 		jb1.setForeground(bgColor);
-		Image imEtudiant = new ImageIcon("ressources\\etudiant.png").getImage();
-		Image imElite = new ImageIcon("ressources\\etudiant.png").getImage();
-		Image imMaitre = new ImageIcon("ressources\\etudiant.png").getImage();
+		// Image imEtudiant = new ImageIcon("ressources\\etudiant.png").getImage();
+		// Image imElite = new ImageIcon("ressources\\etudiant.png").getImage();
+		// Image imMaitre = new ImageIcon("ressources\\etudiant.png").getImage();
 
 		interfaceArmee.add(panelImage);
 

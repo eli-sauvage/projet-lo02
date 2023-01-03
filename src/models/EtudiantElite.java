@@ -19,6 +19,7 @@ public class EtudiantElite extends Etudiant {
         this.resistance = 1;
         this.consitution = 5;
         this.initiative = 1;
+        this.setReserviste(false);
     }
 
 }

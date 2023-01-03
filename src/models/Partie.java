@@ -3,6 +3,7 @@ import java.lang.Thread.State;
 import java.util.*;
 
 import controllers.ArmeController;
+import controllers.CombatsController;
 import controllers.MenuController;
 
 public class Partie {
@@ -51,7 +52,6 @@ public class Partie {
     }
 
     public void combats() {
-        Utils.attendreEntree("lancer le combat");
         ArrayList<Zone> zonesDeCombat = new ArrayList<>();
         zonesDeCombat.addAll(Arrays.asList(champ.getZones()));
         zonesDeCombat.removeIf(z -> (z.getControlee() != 0));// on retire si zone controllee
@@ -64,12 +64,15 @@ public class Partie {
                                     // combats avant de pouvoir les lancer
             z.lancerCombat(combats);
         boolean combatsFinis = false;
+        CombatsController cc = new CombatsController(zonesDeCombat, combats);
+        cc.display();
         while (!combatsFinis) {
             combatsFinis = true;
             for (Zone z : zonesDeCombat)
                 if (z.getCombat().getState() != State.TERMINATED) // tous les threads doivent etre termines
                     combatsFinis = false;
         }
+        cc.combatsFinis();
         Utils.sleep(150);// on laisse le temps a tous les threads de bien s'arreter
         Utils.attendreEntree("avoir les status des Zones");
         System.out.println();

@@ -20,6 +20,7 @@ public class MaitreDuGobi extends Etudiant{
         this.resistance = 2;
         this.consitution = 10;
         this.initiative = 2;
+        this.setReserviste(false);
     }
     
 }

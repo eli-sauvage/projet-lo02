@@ -147,7 +147,7 @@ public class Combat implements Runnable {
                 gagnant = 0;
             // System.out.println("------FIN TOUR" + nbTours++ + "
             // -------------------------------");
-            Utils.sleep(100);
+            Utils.sleep(500);
         } while (gagnant == 0);
         System.out.println("combat de la zone \"" + Utils.zoneIndexToString(zone.getIndiceZone())
                 + "\" termine, gagnant : joueur" + gagnant);

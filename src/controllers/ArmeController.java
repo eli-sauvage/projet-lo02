@@ -3,6 +3,7 @@ package controllers;
 import views.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import models.*;
 
@@ -26,7 +27,7 @@ public class ArmeController {
         armeeV.fermer();
     }
 
-    public String getNumeroJoueur(){
+    public String getNumeroJoueur() {
         return Integer.toString(joueur.getNumero());
     }
 
@@ -40,7 +41,7 @@ public class ArmeController {
         e.setConsitution(c);
         e.setReserviste(reserviste);
         e.setStrategie(strat);
-        if(!e.isReserviste()){//pas de zone si reserviste
+        if (!e.isReserviste()) {// pas de zone si reserviste
             try {// possibilité d'un champ null
                 e.setZone(champ.getZone(zoneIndex));
                 champ.getZone(zoneIndex).getCombatantsJ(joueur.getNumero()).add(e);
@@ -75,6 +76,11 @@ public class ArmeController {
         Etudiant[] etudiants = joueur.getArmee().getEtudiants();
         for (Etudiant e : etudiants) {
             e.resetStats();
+            e.setZone(null);
+        }
+        for(Zone z:champ.getZones()){
+            z.getCombatantsJ(1).clear();
+            z.getCombatantsJ(2).clear();
         }
 
         for (int i = 0; i < 400; i++) {// répartit les 400 points aléatoirement dans l'armée
@@ -95,15 +101,6 @@ public class ArmeController {
             Strategies strat = (Math.random() > .7) ? Strategies.defensif : Strategies.offensif;
             etudiants[i].setStrategie(strat);
         }
-        // zone au hasard
-        for (Etudiant e : etudiants) {
-            if (e.isReserviste())
-                continue;
-            int zoneChoisie = (int) Math.floor(Math.random() * 5);
-            // int zoneChoisie = (int) Math.floor(Math.random() * 2);
-            champ.getZones()[zoneChoisie].getCombatantsJ(joueur.getNumero()).add(e);
-            e.setZone(champ.getZones()[zoneChoisie]);
-        }
         // reservistes aléatoires
         ArrayList<Integer> indiceReserviste = new ArrayList<>();
         while (indiceReserviste.size() < 5) {
@@ -114,6 +111,16 @@ public class ArmeController {
         for (int i : indiceReserviste)
             etudiants[i].setReserviste(true);
         System.out.println(etudiants[0].getReserviste());
+        // zone au hasard
+        for (Etudiant e : etudiants) {
+            if (e.isReserviste())
+                continue;
+            int zoneChoisie = (int) Math.floor(Math.random() * 5);
+            // int zoneChoisie = (int) Math.floor(Math.random() * 2);
+            champ.getZones()[zoneChoisie].getCombatantsJ(joueur.getNumero()).add(e);
+            e.setZone(champ.getZones()[zoneChoisie]);
+        }
+
     }
 
     public void valider() throws Exception {
@@ -126,7 +133,7 @@ public class ArmeController {
                 throw new Exception("l'etudiant " + i + "n'a pas été affecté à une zone");
         }
         if (nbReservistes != 5)
-            throw new Exception("vous devez selectionner exactement 5 réservistes");
+            throw new Exception("vous devez selectionner exactement 5 réservistes (actuellement : " + nbReservistes + ")");
         if (getPointsRestants() != 0)
             throw new Exception("vous devez répartir les 400 points");
         System.out.println("validation armée J" + joueur.getNumero());
