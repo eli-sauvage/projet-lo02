@@ -5,12 +5,12 @@ import models.*;
 import views.*;
 
 public class CombatsController {
-    ArrayList<Zone> zonesDeCombat;
+    ArrayList<Zone> zones;
     ArrayList<Combat> combats;
     CombatsView cv;
-    boolean ready = false;
+    boolean ready = false, continuer = false;
     public void init(ArrayList<Zone> zonesDeCombat, ArrayList<Combat> combats){
-        this.zonesDeCombat = zonesDeCombat;
+        this.zones = zonesDeCombat;
         this.combats = combats;
     }
     public void display(){
@@ -21,14 +21,21 @@ public class CombatsController {
     }
     public void combatsFinis(Zone zone, int gagnant){
         cv.finDuCombat(zone.getNomZone(), gagnant);
+        while(!continuer){
+            Utils.sleep(50);
+        }
     }
     public int[] survivantsZone(int zoneIndex){
         int J1 = 0;
-        for(Etudiant e:zonesDeCombat.get(zoneIndex).getCombatantsJ(1)){
+        Zone zone = null;
+        for(Zone z:zones){
+            if(z.getIndiceZone() == zoneIndex) zone = z;
+        }
+        for(Etudiant e:zone.getCombatantsJ(1)){
             if(e.getCredits() > 0)J1++;
         }
         int J2 = 0;
-        for (Etudiant e : zonesDeCombat.get(zoneIndex).getCombatantsJ(2)) {
+        for (Etudiant e : zone.getCombatantsJ(2)) {
             if (e.getCredits() > 0)
                 J2++;
         }
@@ -40,5 +47,8 @@ public class CombatsController {
     }
     public void lancerCombat(){
         ready = true;
+    }
+    public void continuer(){
+        continuer = true;
     }
 }

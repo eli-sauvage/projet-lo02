@@ -24,7 +24,7 @@ public class CombatsView {
     public CombatsView(CombatsController controller) {
         this.controller = controller;
 
-        JFrame frame = new JFrame("Overlay App");
+        frame = new JFrame("Overlay App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLayeredPane panel = new JLayeredPane();
@@ -47,7 +47,7 @@ public class CombatsView {
         frame.setBounds(0, 0, mapIcon.getIconWidth(), mapIcon.getIconHeight() + 100);
 
         JButton lancerCombat = new JButton("lancer le combat");
-        lancerCombat.setBounds(0, mapIcon.getIconHeight(), 200, 100);
+        lancerCombat.setBounds(0, mapIcon.getIconHeight(), 200, 30);
         lancerCombat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -153,7 +153,7 @@ public class CombatsView {
     }
 
     public void update() {
-        JLabel[] labels = { scoreBU, scoreBDE, scoreQA, scoreHI, scoreHS };
+        JLabel[] labels = {scoreBU, scoreBDE, scoreQA, scoreHI, scoreHS};
         int i = 0;
         for (JLabel label : labels) {
             int[] survivants = controller.survivantsZone(i++);
@@ -161,22 +161,24 @@ public class CombatsView {
         }
     }
 
-    public void finDuCombat(String nomZone, int gagnant){
+    public void finDuCombat(String nomZone, int gagnant) {
         JFrame f = new JFrame();
-					JDialog d;
-					d = new JDialog(f, "Dialog Example", true);
-					d.setLayout(new FlowLayout());
-					JButton b = new JButton("OK");
-					b.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							d.setVisible(false);
-						}
-					});
-					d.add(new JLabel("Gagnant du combat : J" + gagnant + " controle la zone "+nomZone));
-					d.add(b);
-					d.setSize(300, 100);
-					d.setLocationRelativeTo(null);
-					d.setVisible(true);
+        JDialog d;
+        d = new JDialog(f, "Fin du combat", true);
+        d.setLayout(new FlowLayout());
+        JButton b = new JButton("OK");
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                d.setVisible(false);
+                frame.setVisible(false);
+                controller.continuer();
+            }
+        });
+        d.add(new JLabel("Gagnant du combat : J" + gagnant + " controle la zone " + nomZone));
+        d.add(b);
+        d.setSize(500, 70);
+        d.setLocationRelativeTo(null);
+        d.setVisible(true);
     }
 
     public void fermer() {

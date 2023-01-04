@@ -6,6 +6,7 @@ import java.util.*;
 import controllers.ArmeController;
 import controllers.CombatsController;
 import controllers.MenuController;
+import controllers.VictoireController;
 
 public class Partie {
     private Joueur[] joueurs = new Joueur[2];
@@ -14,6 +15,7 @@ public class Partie {
     public Partie(boolean repartition) {
         MenuController mc = new MenuController();
         mc.display();
+        new VictoireController();
         System.out.println("Init Partie");
         joueurs[0] = new Joueur(1);
         joueurs[1] = new Joueur(2);
@@ -42,6 +44,9 @@ public class Partie {
             combats();
             gagnant = chercherGagnant();
         }
+
+        new VictoireController();
+        
         System.out.println("---------LA PARTIE EST TERMINEE------------");
         System.out.println();
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -49,7 +54,6 @@ public class Partie {
         System.out.println("@      GAGNANT  :    J" + gagnant + "      @");
         System.out.println("@                            @");
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        Utils.attendreEntree("retouner au menu");
     }
 
     public void combats() {
@@ -63,7 +67,7 @@ public class Partie {
         for (Zone z : zonesDeCombat)
             combats.add(z.getCombat(cc));
         boolean combatsFinis = false;
-        cc.init(zonesDeCombat, combats);
+        cc.init(new ArrayList<Zone>(Arrays.asList(champ.getZones())), combats);
         cc.display();
         for (Zone z : zonesDeCombat)// obligé de le faire en deux temps car il faut d'abord la liste de tous les
                                     // combats avant de pouvoir les lancer
@@ -74,8 +78,8 @@ public class Partie {
                 if (z.getCombat(null).getState() != State.TERMINATED) // tous les threads doivent etre termines
                     combatsFinis = false;
         }
-        Utils.sleep(150);// on laisse le temps a tous les threads de bien s'arreter
-        Utils.attendreEntree("avoir les status des Zones");
+        //c'est le CombatController qui bloque le thread principal, en attendant que le thread du combat gagnant se finisse
+        //      celui ci se termine lorsque la méthode CombatsController.combatsFini return, càd quand l'utilisateur clique OK
         System.out.println();
         for (Zone z : champ.getZones()) {
             int c = z.getControlee();
@@ -84,27 +88,11 @@ public class Partie {
             else
                 System.out.println("zone " + z.getNomZone() + " controllee par J" + c);
         }
-        Utils.attendreEntree("lancer la treve");
         Utils.clearConsole();
     }
 
     public void treve(Joueur joueur) {
-        Utils.clearConsole();
-        System.out.println("----------------------TREVE--------------------");
-        System.out.println("-------------JOUEUR " + joueur.getNumero() + "-----------");
-        String msg = "";
-        do {
-            System.out.println(
-                    "souhaitez vous : \n| 1 - affecter un reserviste\n| 2 - redeployer des survivants\n| 3 - afficher votre armee\n| ENTREE - continuer");
-            msg = Utils.input();
-            if (msg.equals("1"))
-                champ.affecterReservistes(joueur);
-            if (msg.equals("2"))
-                champ.redeployerSurvivants(joueur);
-            ;
-            if (msg.equals("3"))
-                System.out.println(joueur.getArmee());
-        } while (!msg.isEmpty());
+        System.out.println("treve joueur " + joueur.getNumero());
     }
 
     public int chercherGagnant() {
