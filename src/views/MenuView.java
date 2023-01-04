@@ -50,6 +50,7 @@ public class MenuView {
         btnRules.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("rules");
+                controller.afficherRegles();
             }
         });
     }

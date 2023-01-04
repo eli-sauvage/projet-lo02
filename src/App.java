@@ -32,7 +32,5 @@ public class App {
                     printRegles(true);
             }
         }
-        
     }
-    
 }
