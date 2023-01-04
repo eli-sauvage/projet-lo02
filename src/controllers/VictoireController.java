@@ -5,7 +5,10 @@ import models.*;
 public class VictoireController {
     VictoireView vv;
     private boolean continuer = false;
-    public VictoireController(){
+    private String gagnant;
+
+    public VictoireController(String gagnant){
+        this.gagnant = gagnant;
         vv = new VictoireView(this);
         while(!continuer){
             Utils.sleep(50);
@@ -13,5 +16,8 @@ public class VictoireController {
     }
     public void continuer(){
         continuer = true;
+    }
+    public String getGagnant(){
+        return gagnant;
     }
 }

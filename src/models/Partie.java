@@ -15,7 +15,6 @@ public class Partie {
     public Partie(boolean repartition) {
         MenuController mc = new MenuController();
         mc.display();
-        new VictoireController();
         System.out.println("Init Partie");
         joueurs[0] = new Joueur(1);
         joueurs[1] = new Joueur(2);
@@ -45,7 +44,7 @@ public class Partie {
             gagnant = chercherGagnant();
         }
 
-        new VictoireController();
+        new VictoireController(Integer.toString(gagnant));
         
         System.out.println("---------LA PARTIE EST TERMINEE------------");
         System.out.println();
