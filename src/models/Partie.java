@@ -74,7 +74,6 @@ public class Partie {
                 if (z.getCombat(null).getState() != State.TERMINATED) // tous les threads doivent etre termines
                     combatsFinis = false;
         }
-        cc.combatsFinis();
         Utils.sleep(150);// on laisse le temps a tous les threads de bien s'arreter
         Utils.attendreEntree("avoir les status des Zones");
         System.out.println();

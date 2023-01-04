@@ -161,6 +161,24 @@ public class CombatsView {
         }
     }
 
+    public void finDuCombat(String nomZone, int gagnant){
+        JFrame f = new JFrame();
+					JDialog d;
+					d = new JDialog(f, "Dialog Example", true);
+					d.setLayout(new FlowLayout());
+					JButton b = new JButton("OK");
+					b.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							d.setVisible(false);
+						}
+					});
+					d.add(new JLabel("Gagnant du combat : J" + gagnant + " controle la zone "+nomZone));
+					d.add(b);
+					d.setSize(300, 100);
+					d.setLocationRelativeTo(null);
+					d.setVisible(true);
+    }
+
     public void fermer() {
         frame.setVisible(false);
     }

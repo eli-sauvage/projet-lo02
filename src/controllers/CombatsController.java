@@ -19,8 +19,8 @@ public class CombatsController {
             Utils.sleep(50);
         }
     }
-    public void combatsFinis(){
-
+    public void combatsFinis(Zone zone, int gagnant){
+        cv.finDuCombat(zone.getNomZone(), gagnant);
     }
     public int[] survivantsZone(int zoneIndex){
         int J1 = 0;
