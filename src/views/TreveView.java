@@ -112,7 +112,7 @@ public class TreveView {
 		//selection du survivant
 		choixSurvivants = new Choice();
 		choixSurvivants.setFont(new Font("Tahoma", Font.BOLD, 20));
-		choixSurvivants.setBounds(896, 300, 200, 26);
+		choixSurvivants.setBounds(896, 200, 300, 26);
 		for(Etudiant etuReserviste:survivants){
 			choixSurvivants.add(etuReserviste.getNom());
 		}
@@ -120,11 +120,11 @@ public class TreveView {
 		//label
 		JLabel lblZoneActuel = new JLabel("Zone : ");
 		lblZoneActuel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblZoneActuel.setBounds(1200, 200, 600, 36);
+		lblZoneActuel.setBounds(1200, 190, 600, 36);
 		treveView.add(lblZoneActuel);
 		//condition si plus de survivant dans la liste
 		if(survivants.size()>0){
-			//lblZoneActuel.setText("Zone : " + Utils.zoneIndexToString(survivants.get(choixSurvivants.getSelectedIndex()).getZone().getIndiceZone()));
+			lblZoneActuel.setText("Zone : " + Utils.zoneIndexToString(survivants.get(0).getZone().getIndiceZone()));
 		}
 		else{
 			lblZoneActuel.setText("Zone : ");
@@ -149,12 +149,40 @@ public class TreveView {
         deployerSurvivant.setBounds(896, 350, 200, 40);
         deployerSurvivant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               //deployer survivant sur une zone
-			   
-            }
+				//deployer survivant sur une zone
+				etuSelect = survivants.get(choixSurvivants.getSelectedIndex());
+				System.out.println(etuSelect.getNom());
+				//demande au controller d'effectuer le deploiment
+				if(etuSelect.getZone().getIndiceZone() == zoneDeploiementSurvivant.getSelectedIndex()){
+					System.out.println("erreur");
+				}
+				else{
+					System.out.println("OK");
+					System.out.println(etuSelect.getNom());
+					controller.deployerSurvivant(etuSelect, zoneDeploiementSurvivant.getSelectedIndex());
+					//update de la liste des survivants
+					choixSurvivants.removeAll();
+					survivants = controller.getSurvivants();
+					for(Etudiant etu:survivants){
+						choixSurvivants.add(etu.getNom());
+					}
+					choixSurvivants.update(null);
+				}	
+			}
         });
         treveView.add(deployerSurvivant);
-		
+
+		//bouton valider 
+		JButton btnValider = new JButton("Valider ");
+        btnValider.setBounds(500, 600, 200, 40);
+        btnValider.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+				controller.arreter();
+
+
+            }
+        });
+        treveView.add(btnValider);
 	}
 		
 }

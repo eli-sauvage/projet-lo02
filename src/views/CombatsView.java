@@ -47,7 +47,7 @@ public class CombatsView {
         frame.setBounds(0, 0, mapIcon.getIconWidth(), mapIcon.getIconHeight() + 100);
 
         JButton lancerCombat = new JButton("lancer le combat");
-        lancerCombat.setBounds(0, mapIcon.getIconHeight(), 200, 30);
+        lancerCombat.setBounds(0, mapIcon.getIconHeight()-200, 200, 30);
         lancerCombat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -152,7 +152,7 @@ public class Combat implements Runnable {
                 gagnant = 0;
             // System.out.println("------FIN TOUR" + nbTours++ + "
             // -------------------------------");
-            Utils.sleep(500);
+            Utils.sleep(50);
         } while (gagnant == 0);
         combatsController.combatsFinis(zone, gagnant);
         zone.setControlee(gagnant);

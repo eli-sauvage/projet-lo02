@@ -13,6 +13,7 @@ public class TreveController {
     private Joueur joueur;
     private ChampDeBataille champ;
     private Etudiant etuTemporaire;
+    private Zone zoneBernard; 
     public TreveController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
         this.champ = champ;
@@ -38,6 +39,12 @@ public class TreveController {
          //System.out.println(Utils.zoneIndexToString(etudiant.getZone().getIndiceZone()));
     }
 
+    public void deployerSurvivant(Etudiant etudiant, int indexZone){
+        etudiant.setZone(champ.getZone(indexZone));
+        System.out.println("sa nouvelle zone " + etudiant.getZone().getControlee());
+    }
+
+
     public ArrayList<Etudiant> getReserviste(){
         ArrayList<Etudiant> reservistes = new ArrayList<>();
         for(Etudiant etu:joueur.getArmee().getEtudiants()){
@@ -53,16 +60,15 @@ public class TreveController {
     public ArrayList<Etudiant> getSurvivants(){
         ArrayList<Etudiant> survivants = new ArrayList<>();
         for(Etudiant etu:joueur.getArmee().getEtudiants()){
-            if((!etu.isReserviste())&&(etu.getZone().getControlee() != 0)&&(etu.getCredits()!=0)){
+            if((etu.isReserviste()==false)&&(etu.getZone().getControlee() != 0)&&(etu.getCredits()!=0)&&!(etu.getZone().getCombatantsJ(etu.getJoueur()).size() == 1)){
                 survivants.add(etu);
             }
-
-
-
+            //if(etu.getZone().getControlee() != 0){
+            //    survivants.add(etu);
+            ///}
         }
-        etuTemporaire = new Etudiant(1, 21);
-        etuTemporaire.setNom("Bernard l'etudiant");
-        survivants.add(etuTemporaire);
+       
+       
         return survivants;
     }
 
@@ -70,4 +76,7 @@ public class TreveController {
         return joueur.getArmee().getEtudiants()[indiceEtu].getNom();
     }
 
+    public void arreter(){
+        this.running = false;
+    }
 }

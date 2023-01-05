@@ -44,7 +44,6 @@ public class ArmeController {
         if (!e.isReserviste()) {// pas de zone si reserviste
             try {// possibilité d'un champ null
                 e.setZone(champ.getZone(zoneIndex));
-                champ.getZone(zoneIndex).getCombatantsJ(joueur.getNumero()).add(e);
             } catch (Exception exept) {
             }
         }
@@ -116,7 +115,6 @@ public class ArmeController {
                 continue;
             int zoneChoisie = (int) Math.floor(Math.random() * 5);
             // int zoneChoisie = (int) Math.floor(Math.random() * 2);
-            champ.getZones()[zoneChoisie].getCombatantsJ(joueur.getNumero()).add(e);
             e.setZone(champ.getZones()[zoneChoisie]);
         }
 

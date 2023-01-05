@@ -1,6 +1,7 @@
 package models;
 
 import java.lang.Thread.State;
+import java.time.temporal.JulianFields;
 import java.util.*;
 
 import controllers.ArmeController;
@@ -16,6 +17,8 @@ public class Partie {
     public Partie(boolean repartition) {
         MenuController mc = new MenuController();
         mc.display();
+        
+
         System.out.println("Init Partie");
         joueurs[0] = new Joueur(1);
         joueurs[1] = new Joueur(2);
@@ -23,21 +26,8 @@ public class Partie {
         ArmeController ac = new ArmeController(joueurs[0], champ);
         ac.display();
         ac = new ArmeController(joueurs[1], champ);
-        ac.display();
-        //combat controller
-        TreveController tc = new TreveController(joueurs[0], champ);
-        tc.display();
-        /*
-         * joueurs[0].getArmee().statsAleatoires();
-         * joueurs[1].getArmee().statsAleatoires();
-         * 
-         * joueurs[0].getArmee().reservistesAleatoires();
-         * joueurs[1].getArmee().reservistesAleatoires();
-         * 
-         * champ.repartirTroupeAleatoirement(joueurs[0].getArmee().getEtudiants(), 1);
-         * champ.repartirTroupeAleatoirement(joueurs[1].getArmee().getEtudiants(), 2);
-         */
-
+        ac.display(); 
+        
         System.out.println("---DEBUT DE LA PARTIE---");
         combats();
         int gagnant = chercherGagnant();
@@ -95,7 +85,8 @@ public class Partie {
     }
 
     public void treve(Joueur joueur) {
-        System.out.println("treve joueur " + joueur.getNumero());
+        TreveController tc = new TreveController(joueur, this.champ);
+        tc.display();
     }
 
     public int chercherGagnant() {

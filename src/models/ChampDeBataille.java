@@ -54,7 +54,6 @@ public class ChampDeBataille {
             throw new Exception("impossible de redéployer ici, zone controlee par J" + zones[indice].getControlee());
         }
         // -------MAJ DES ZONES ---------------
-        zones[indice].getCombatantsJ(joueur.getNumero()).add(etu);
         etu.setZone(zones[indice]);
         etu.setReserviste(false);
         System.out.println("l'étudiant a bien été déployé");

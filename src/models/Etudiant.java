@@ -149,7 +149,19 @@ public class Etudiant {
     }
 
     public void setZone(Zone zone) {
+        if(zone == null){
+            this.zone = null;
+            return;
+        }
+        if(!(this.zone == null))
+        this.zone.getCombatantsJ(this.joueur).remove(this);
         this.zone = zone;
+        this.zone.getCombatantsJ(this.joueur).add(this);
+
+    }
+
+    public int getJoueur(){
+        return this.joueur;
     }
 
     public Zone getZone() {
