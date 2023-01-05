@@ -1,9 +1,10 @@
 package models;
 import java.io.*;
 import java.util.*;
-
+import java.awt.*;
 public class Utils {
     public static final Scanner sc = new Scanner(System.in);
+    public static final Color bgColor = new Color(255, 128, 192);
 
     public static String input() {
         System.out.print("> ");

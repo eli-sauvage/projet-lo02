@@ -7,7 +7,6 @@ public class MenuView {
 	private  JFrame menu = new JFrame();
 	private Color bgColor = new Color(255, 128, 192);
 
-
     private MenuController controller;
 
     public MenuView(MenuController controller){

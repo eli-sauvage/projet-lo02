@@ -29,7 +29,7 @@ public class ArmeeView {
 	private JLabel lblElite;
 	// private TextField nom;
 	// private Choice programme;
-	private Color bgColor = new Color(255, 128, 192);
+
 
 	private ArmeController controller;
 
@@ -48,7 +48,7 @@ public class ArmeeView {
 		System.out.println("print interface armee");
 		interfaceArmee.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		interfaceArmee.setBounds(10, 10, 1500, 800);
-		interfaceArmee.getContentPane().setBackground(bgColor);
+		interfaceArmee.getContentPane().setBackground(Utils.bgColor);
 		interfaceArmee.setLayout(null);
 		JLabel label11 = new JLabel("Interface Armee -- Joueur " + controller.getNumeroJoueur());
 		label11.setBounds(46, 35, 400, 31);
@@ -77,7 +77,7 @@ public class ArmeeView {
 		panelImage.setLayout(new GridLayout(1, 1, 0, 0)); // politique de placement des composants dans ce panel
 		JButton jb1 = new JButton(); // pour représenter un personnage, utilisation d'un JButton
 		panelImage.add(jb1);
-		jb1.setForeground(bgColor);
+		jb1.setForeground(Utils.bgColor);
 		// Image imEtudiant = new ImageIcon("ressources\\etudiant.png").getImage();
 		// Image imElite = new ImageIcon("ressources\\etudiant.png").getImage();
 		// Image imMaitre = new ImageIcon("ressources\\etudiant.png").getImage();
@@ -199,7 +199,7 @@ public class ArmeeView {
 
 		// Réserviste ?
 		reserviste = new JCheckBox("Reserviste");
-		reserviste.setBackground(bgColor);
+		reserviste.setBackground(Utils.bgColor);
 		reserviste.setForeground(Color.BLACK);
 		reserviste.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		reserviste.setBounds(579, 513, 187, 26);
@@ -224,7 +224,7 @@ public class ArmeeView {
 		interfaceArmee.add(valider);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(bgColor);
+		panel.setBackground(Utils.bgColor);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 		panel.setBounds(51, 345, 769, 261);
 		interfaceArmee.add(panel);

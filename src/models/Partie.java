@@ -5,6 +5,7 @@ import java.util.*;
 import controllers.ArmeController;
 import controllers.CombatsController;
 import controllers.MenuController;
+import controllers.TreveController;
 
 public class Partie {
     private Joueur[] joueurs = new Joueur[2];
@@ -21,6 +22,10 @@ public class Partie {
         ac.display();
         ac = new ArmeController(joueurs[1], champ);
         ac.display();
+        //combat controller
+
+        TreveController tc = new TreveController(joueurs[0], champ);
+        tc.display();
         /*
         joueurs[0].getArmee().statsAleatoires();
         joueurs[1].getArmee().statsAleatoires();
