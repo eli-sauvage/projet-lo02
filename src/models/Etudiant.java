@@ -14,7 +14,7 @@ public class Etudiant {
         this.resetStats();
     }
 
-
+    
 
     public int soigner(Etudiant etudiant) {
         int x = (int) Math.random() * 100;

@@ -52,7 +52,6 @@ public class CombatsView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.lancerCombat();
-
             }
         });
         panel.add(lancerCombat, 4, 0);

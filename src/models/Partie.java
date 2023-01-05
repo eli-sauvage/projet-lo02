@@ -7,6 +7,7 @@ import controllers.ArmeController;
 import controllers.CombatsController;
 import controllers.MenuController;
 import controllers.TreveController;
+import controllers.VictoireController;
 
 public class Partie {
     private Joueur[] joueurs = new Joueur[2];
@@ -24,7 +25,6 @@ public class Partie {
         ac = new ArmeController(joueurs[1], champ);
         ac.display();
         //combat controller
-
         TreveController tc = new TreveController(joueurs[0], champ);
         tc.display();
         /*

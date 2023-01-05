@@ -12,7 +12,7 @@ public class TreveController {
     private boolean running = true;
     private Joueur joueur;
     private ChampDeBataille champ;
-
+    private Etudiant etuTemporaire;
     public TreveController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
         this.champ = champ;
@@ -31,6 +31,13 @@ public class TreveController {
     public int getNumeroJoueur() {
         return joueur.getNumero();
     }
+    
+    public void deployerReserviste(Etudiant etudiant, int indexZone){
+         etudiant.setZone(champ.getZone(indexZone));
+         etudiant.setReserviste(false);
+         //System.out.println(Utils.zoneIndexToString(etudiant.getZone().getIndiceZone()));
+    }
+
     public ArrayList<Etudiant> getReserviste(){
         ArrayList<Etudiant> reservistes = new ArrayList<>();
         for(Etudiant etu:joueur.getArmee().getEtudiants()){
@@ -53,7 +60,9 @@ public class TreveController {
 
 
         }
-
+        etuTemporaire = new Etudiant(1, 21);
+        etuTemporaire.setNom("Bernard l'etudiant");
+        survivants.add(etuTemporaire);
         return survivants;
     }
 
