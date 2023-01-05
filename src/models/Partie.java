@@ -1,4 +1,5 @@
 package models;
+
 import java.lang.Thread.State;
 import java.util.*;
 
@@ -12,8 +13,8 @@ public class Partie {
     private ChampDeBataille champ = new ChampDeBataille();
 
     public Partie(boolean repartition) {
-       MenuController mc =  new MenuController();
-       mc.display();
+        MenuController mc = new MenuController();
+        mc.display();
         System.out.println("Init Partie");
         joueurs[0] = new Joueur(1);
         joueurs[1] = new Joueur(2);
@@ -27,16 +28,16 @@ public class Partie {
         TreveController tc = new TreveController(joueurs[0], champ);
         tc.display();
         /*
-        joueurs[0].getArmee().statsAleatoires();
-        joueurs[1].getArmee().statsAleatoires();
+         * joueurs[0].getArmee().statsAleatoires();
+         * joueurs[1].getArmee().statsAleatoires();
+         * 
+         * joueurs[0].getArmee().reservistesAleatoires();
+         * joueurs[1].getArmee().reservistesAleatoires();
+         * 
+         * champ.repartirTroupeAleatoirement(joueurs[0].getArmee().getEtudiants(), 1);
+         * champ.repartirTroupeAleatoirement(joueurs[1].getArmee().getEtudiants(), 2);
+         */
 
-        joueurs[0].getArmee().reservistesAleatoires();
-        joueurs[1].getArmee().reservistesAleatoires();
-
-        champ.repartirTroupeAleatoirement(joueurs[0].getArmee().getEtudiants(), 1);
-        champ.repartirTroupeAleatoirement(joueurs[1].getArmee().getEtudiants(), 2);
-        */
-       
         System.out.println("---DEBUT DE LA PARTIE---");
         combats();
         int gagnant = chercherGagnant();
@@ -46,6 +47,9 @@ public class Partie {
             combats();
             gagnant = chercherGagnant();
         }
+
+        new VictoireController(Integer.toString(gagnant));
+        
         System.out.println("---------LA PARTIE EST TERMINEE------------");
         System.out.println();
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -53,33 +57,32 @@ public class Partie {
         System.out.println("@      GAGNANT  :    J" + gagnant + "      @");
         System.out.println("@                            @");
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        Utils.attendreEntree("retouner au menu");
     }
 
     public void combats() {
         ArrayList<Zone> zonesDeCombat = new ArrayList<>();
+        CombatsController cc = new CombatsController();
         zonesDeCombat.addAll(Arrays.asList(champ.getZones()));
         zonesDeCombat.removeIf(z -> (z.getControlee() != 0));// on retire si zone controllee
         for (Zone z : zonesDeCombat)// remise à zero des combats précedents
             z.resetCombat();
         ArrayList<Combat> combats = new ArrayList<>();
         for (Zone z : zonesDeCombat)
-            combats.add(z.getCombat());
+            combats.add(z.getCombat(cc));
+        boolean combatsFinis = false;
+        cc.init(new ArrayList<Zone>(Arrays.asList(champ.getZones())), combats);
+        cc.display();
         for (Zone z : zonesDeCombat)// obligé de le faire en deux temps car il faut d'abord la liste de tous les
                                     // combats avant de pouvoir les lancer
             z.lancerCombat(combats);
-        boolean combatsFinis = false;
-        CombatsController cc = new CombatsController(zonesDeCombat, combats);
-        cc.display();
         while (!combatsFinis) {
             combatsFinis = true;
             for (Zone z : zonesDeCombat)
-                if (z.getCombat().getState() != State.TERMINATED) // tous les threads doivent etre termines
+                if (z.getCombat(null).getState() != State.TERMINATED) // tous les threads doivent etre termines
                     combatsFinis = false;
         }
-        cc.combatsFinis();
-        Utils.sleep(150);// on laisse le temps a tous les threads de bien s'arreter
-        Utils.attendreEntree("avoir les status des Zones");
+        //c'est le CombatController qui bloque le thread principal, en attendant que le thread du combat gagnant se finisse
+        //      celui ci se termine lorsque la méthode CombatsController.combatsFini return, càd quand l'utilisateur clique OK
         System.out.println();
         for (Zone z : champ.getZones()) {
             int c = z.getControlee();
@@ -88,27 +91,11 @@ public class Partie {
             else
                 System.out.println("zone " + z.getNomZone() + " controllee par J" + c);
         }
-        Utils.attendreEntree("lancer la treve");
         Utils.clearConsole();
     }
 
     public void treve(Joueur joueur) {
-        Utils.clearConsole();
-        System.out.println("----------------------TREVE--------------------");
-        System.out.println("-------------JOUEUR " + joueur.getNumero() + "-----------");
-        String msg = "";
-        do {
-            System.out.println(
-                    "souhaitez vous : \n| 1 - affecter un reserviste\n| 2 - redeployer des survivants\n| 3 - afficher votre armee\n| ENTREE - continuer");
-            msg = Utils.input();
-            if (msg.equals("1"))
-                champ.affecterReservistes(joueur);
-            if (msg.equals("2"))
-                champ.redeployerSurvivants(joueur);
-            ;
-            if (msg.equals("3"))
-                System.out.println(joueur.getArmee());
-        } while (!msg.isEmpty());
+        System.out.println("treve joueur " + joueur.getNumero());
     }
 
     public int chercherGagnant() {
@@ -135,14 +122,14 @@ public class Partie {
 
     public void setup() {
         System.out.println("ddsqsdfdsf---");
-        
+
     }
-    
-    public Joueur getJoueur(int i){
+
+    public Joueur getJoueur(int i) {
         return this.joueurs[i];
     }
-    
-    public ChampDeBataille getChamp(){
+
+    public ChampDeBataille getChamp() {
         return champ;
     }
 }

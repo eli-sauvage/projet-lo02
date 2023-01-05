@@ -2,6 +2,7 @@ package models;
 import java.io.*;
 import java.lang.Thread.State;
 import java.util.*;
+import controllers.*;
 
 public class Combat implements Runnable {
     private ArrayList<Etudiant> combattants;
@@ -9,8 +10,10 @@ public class Combat implements Runnable {
     private Thread t;
     private Zone zone;
     private ArrayList<Combat> autresCombats;
+    private CombatsController combatsController;
 
-    public Combat(ArrayList<Etudiant> etudiantsJ1, ArrayList<Etudiant> etudiantsJ2, Zone zone) {
+    public Combat(ArrayList<Etudiant> etudiantsJ1, ArrayList<Etudiant> etudiantsJ2, Zone zone, CombatsController combatsController) {
+        this.combatsController = combatsController;
         this.combattants = new ArrayList<>();
         this.combattants.addAll(etudiantsJ1);
         this.combattants.addAll(etudiantsJ2);
@@ -122,8 +125,10 @@ public class Combat implements Runnable {
                         writer.close();
                     } catch (Exception e) {
                     }
-                    if (cible.getCredits() == 0)
+                    if (cible.getCredits() == 0){
                         System.out.println(etu + "\n| a tue \n| " + cible);
+                        combatsController.combatUpdate();
+                    }
                 }
             }
             // ---------determination si joueur gagnant------------
@@ -149,8 +154,7 @@ public class Combat implements Runnable {
             // -------------------------------");
             Utils.sleep(500);
         } while (gagnant == 0);
-        System.out.println("combat de la zone \"" + Utils.zoneIndexToString(zone.getIndiceZone())
-                + "\" termine, gagnant : joueur" + gagnant);
+        combatsController.combatsFinis(zone, gagnant);
         zone.setControlee(gagnant);
     }
 
