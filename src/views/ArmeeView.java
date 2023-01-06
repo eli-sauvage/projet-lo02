@@ -14,7 +14,6 @@ import models.*;
 public class ArmeeView {
 
 	public JFrame interfaceArmee = new JFrame();
-	private JTextField textField;
 
 	private JSpinner force;
 	private JSpinner dexterite;
@@ -305,7 +304,6 @@ public class ArmeeView {
 		resistance.setValue(selectedEtudiant.getResistance());
 		initiative.setValue(selectedEtudiant.getInitiative());
 		reserviste.setSelected(selectedEtudiant.getReserviste());
-		int a = 0;
 		if (selectedEtudiant.getStrategie() instanceof Defensif)
 			strategy.select("Défensive");
 		if (selectedEtudiant.getStrategie() instanceof Offensif)

@@ -1,5 +1,4 @@
 package models;
-import models.strategies.*;
 public class Armee {
     private Etudiant[] etudiants;
     private int joueur;

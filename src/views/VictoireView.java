@@ -1,22 +1,16 @@
 package views;
 
 import java.io.*;
-import java.util.*;
-import javax.swing.Timer;
-import javax.swing.GroupLayout.Alignment;
-import javax.imageio.*;
 import javax.swing.*;
 
 import controllers.VictoireController;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
 
 public class VictoireView {
     private JFrame frame;
     private VictoireController controller;
-    private JLabel feu;
 
     public VictoireView(VictoireController controller) {
         this.controller = controller;
@@ -33,7 +27,7 @@ public class VictoireView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = (JPanel) frame.getContentPane();
         panel.setLayout(new java.awt.BorderLayout());
-        frame.setTitle("Your Job Crashed!");
+        frame.setTitle("VICTOIRE");
 
         JLabel label = new JLabel("Gagnant : J" + gagnant);
         label.setFont(new Font("Tahoma", Font.PLAIN, 36));
