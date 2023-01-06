@@ -1,10 +1,12 @@
 package models;
+import models.strategies.*;
 public class Etudiant {
     protected int credits, dexterite, force, resistance, consitution, initiative, joueur, id;
     private Zone zone;
     private boolean reserviste;
-    private Strategies strategie;
+    //private Strategies strategie;
     private String nom;
+    private Strategie strategie;
 
     public Etudiant(int joueur, int id) {
         this.credits = 30;
@@ -16,28 +18,8 @@ public class Etudiant {
 
     
 
-    public int soigner(Etudiant etudiant) {
-        int x = (int) Math.random() * 100;
-        if (x < 20 + this.dexterite * 6) {// soin réussi
-            int soin = (int) Math.floor(Math.random() * 0.6 * (10 + etudiant.consitution));
-            // System.out.println("soin réussi : " + soin);
-            etudiant.addCredits(soin);
-            return soin;
-        }
-        return 0;
-    }
-
-    public int attaquer(Etudiant etudiant) {
-        int x = (int) Math.random() * 100;
-        int degatReference = 10;
-        double coeffDegats = Math.max(0, Math.min(100, 10 * force - 5 * etudiant.resistance)) / 100;
-        if (x < 40 + 3 * dexterite) {// attaque réussie
-            int degats = (int) Math.floor(Math.random() * (1 + coeffDegats) * degatReference);
-            // System.out.println("attaque reussie : " + degats);
-            etudiant.addCredits(-degats);
-            return degats;
-        }
-        return 0;
+    public int action(Etudiant cible){
+        return strategie.action(this, cible);
     }
 
     public void resetStats(){
@@ -140,11 +122,11 @@ public class Etudiant {
         this.reserviste = reserviste;
     }
 
-    public Strategies getStrategie() {
+    public Strategie getStrategie() {
         return strategie;
     }
 
-    public void setStrategie(Strategies strategie) {
+    public void setStrategie(Strategie strategie) {
         this.strategie = strategie;
     }
 

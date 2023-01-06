@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 import controllers.*;
 
+import models.strategies.*;
 import models.*;
 
 public class ArmeeView {
@@ -29,7 +30,6 @@ public class ArmeeView {
 	private JLabel lblElite;
 	// private TextField nom;
 	// private Choice programme;
-
 
 	private ArmeController controller;
 
@@ -54,14 +54,13 @@ public class ArmeeView {
 		label11.setBounds(46, 35, 400, 31);
 		label11.setFont(new Font("Tahoma", Font.BOLD, 25));
 		interfaceArmee.add(label11);
-		
 
 		// selection etudiants
 		lblElite = new JLabel("Type : Etudiant");
 		lblElite.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblElite.setBounds(550, 300, 300, 26);
 		interfaceArmee.add(lblElite);
-		//liste etudiants
+		// liste etudiants
 		choixEtudiant = new Choice();
 		choixEtudiant.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		choixEtudiant.setBounds(300, 300, 224, 31);
@@ -206,8 +205,6 @@ public class ArmeeView {
 
 		interfaceArmee.add(reserviste);
 
-		
-
 		JButton randomStats = new JButton("Stats Aleatoire");
 		randomStats.setBounds(500, 650, 250, 80);
 		randomStats.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -241,14 +238,14 @@ public class ArmeeView {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("BTN appliquer ");
 				String stratStr = strategy.getSelectedItem();
-				Strategies strat = null;
+				Strategie strat = null;
+
 				if (stratStr.equals("offensif"))
-					strat = Strategies.offensif;
+					strat = new Offensif();
 				if (stratStr.equals("defensif"))
-					strat = Strategies.defensif;
-				// TODO aléatoire---------------------------------------------
-				if (stratStr.equals("offensif"))
-					strat = Strategies.defensif;
+					strat = new Defensif();
+				if (stratStr.equals("aleatoire"))
+					strat = new Aleatoire();
 
 				controller.appliquerStats(
 						choixEtudiant.getSelectedIndex(),
@@ -264,11 +261,11 @@ public class ArmeeView {
 				pointsDistribuer.setText(Integer.toString(controller.getPointsRestants()));
 			}
 		});
-		valider.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				try{
+		valider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
 					controller.valider();
-				}catch(Exception exept){
+				} catch (Exception exept) {
 					JFrame f = new JFrame();
 					JDialog d;
 					d = new JDialog(f, "Dialog Example", true);
@@ -308,6 +305,13 @@ public class ArmeeView {
 		resistance.setValue(selectedEtudiant.getResistance());
 		initiative.setValue(selectedEtudiant.getInitiative());
 		reserviste.setSelected(selectedEtudiant.getReserviste());
+		int a = 0;
+		if (selectedEtudiant.getStrategie() instanceof Defensif)
+			strategy.select("Défensive");
+		if (selectedEtudiant.getStrategie() instanceof Offensif)
+			strategy.select("Offensive");
+		if (selectedEtudiant.getStrategie() instanceof Aleatoire)
+			strategy.select("Aléatoire");
 		// update image
 		if (selectedEtudiant instanceof MaitreDuGobi)
 			lblElite.setText("Type : Maitre du Gobi");

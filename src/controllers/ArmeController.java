@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import models.*;
+import models.strategies.*;
 
 public class ArmeController {
     private boolean running = true;
@@ -31,7 +32,7 @@ public class ArmeController {
         return Integer.toString(joueur.getNumero());
     }
 
-    public void appliquerStats(int indiceEtu, int f, int d, int r, int i, int c, boolean reserviste, Strategies strat,
+    public void appliquerStats(int indiceEtu, int f, int d, int r, int i, int c, boolean reserviste, Strategie strat,
             int zoneIndex) {
         Etudiant e = joueur.getArmee().getEtudiants()[indiceEtu];
         e.setForce(f);
@@ -96,8 +97,13 @@ public class ArmeController {
                 etudiants[etu].incrInitiative();
         }
         for (int i = 0; i < 20; i++) {// choisit une stratedie aleatoire
-            Strategies strat = (Math.random() > .7) ? Strategies.defensif : Strategies.offensif;
-            etudiants[i].setStrategie(strat);
+            double rand = Math.random();
+            if (rand < .33)
+                etudiants[i].setStrategie(new Defensif());
+            else if (rand > .5)
+                etudiants[i].setStrategie(new Offensif());
+            else
+                etudiants[i].setStrategie(new Aleatoire());
         }
         // reservistes aléatoires
         ArrayList<Integer> indiceReserviste = new ArrayList<>();
