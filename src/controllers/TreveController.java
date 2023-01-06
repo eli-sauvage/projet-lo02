@@ -41,7 +41,7 @@ public class TreveController {
 
     public void deployerSurvivant(Etudiant etudiant, int indexZone){
         etudiant.setZone(champ.getZone(indexZone));
-        System.out.println("sa nouvelle zone " + etudiant.getZone().getControlee());
+       
     }
 
 
@@ -76,7 +76,25 @@ public class TreveController {
         return joueur.getArmee().getEtudiants()[indiceEtu].getNom();
     }
 
+    public String getNomJoueur(){
+        return Integer.toString(this.joueur.getNumero());
+    }
+
+    public int getCreditRestant(int indiceZone){
+        int creditRestant=0;
+        for(Etudiant etu:joueur.getArmee().getEtudiants()){
+            if((!etu.getReserviste())&&(etu.getZone().getIndiceZone() == indiceZone)){
+                creditRestant+=etu.getCredits();
+            }
+		}
+        return creditRestant;
+    }
+   
     public void arreter(){
         this.running = false;
+    }
+
+    public int getControllee(int indiceZone){
+        return champ.getZone(indiceZone).getControlee();
     }
 }

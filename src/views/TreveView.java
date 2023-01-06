@@ -19,14 +19,17 @@ public class TreveView {
 	private Choice zoneDeploiementReserviste;
 	private Choice zoneDeploiementSurvivant;
 	private Color bgColor = new Color(255, 128, 192);
-
+	private int totalCredit;
 	private TreveController controller;
 	private ArrayList<Etudiant> reservistes = new ArrayList<>();
 	private ArrayList<Etudiant> survivants = new ArrayList<>();
-	private Etudiant etuSelect;;
+	private Etudiant etuSelect;
+	private String[] controleZoneString = new String[] {"--", "J1", "J2"};
+
 	public TreveView(TreveController controller) {
 		this.controller = controller;
 		affTreveView();
+		treveView.setVisible(true);
 	}
 
 	public void fermer() {
@@ -35,15 +38,14 @@ public class TreveView {
 
 	private void affTreveView() {
 		// interface treve
-		treveView.setVisible(true);
 		System.out.println("print treve view");
 		treveView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		treveView.getContentPane().setBackground(Utils.bgColor);
 		treveView.setBounds(10, 10, 1500, 800);
 		treveView.setBackground(bgColor);
 		treveView.setLayout(null);
-		JLabel label11 = new JLabel("Treve - Joueur ");
-		label11.setBounds(46, 35, 400, 31);
+		JLabel label11 = new JLabel("Treve - Joueur " + controller.getNomEtudiant(0));
+		label11.setBounds(46, 35, 500, 31);
 		label11.setFont(new Font("Tahoma", Font.BOLD, 25));
 		treveView.add(label11);
 		
@@ -96,6 +98,7 @@ public class TreveView {
 						choixReservistes.add(etu.getNom());
 					}
 					choixReservistes.update(null);
+					affCreditZone();
 					}
             }
         });
@@ -144,45 +147,82 @@ public class TreveView {
 			zoneDeploiementSurvivant.addItem(Utils.zoneIndexToString(i));
 		}
 		treveView.add(zoneDeploiementSurvivant);
+
 		//bouton valider reserviste
 		JButton deployerSurvivant = new JButton("Deployer");
         deployerSurvivant.setBounds(896, 350, 200, 40);
         deployerSurvivant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-				//deployer survivant sur une zone
-				etuSelect = survivants.get(choixSurvivants.getSelectedIndex());
-				System.out.println(etuSelect.getNom());
-				//demande au controller d'effectuer le deploiment
-				if(etuSelect.getZone().getIndiceZone() == zoneDeploiementSurvivant.getSelectedIndex()){
-					System.out.println("erreur");
-				}
-				else{
-					System.out.println("OK");
+				if(choixSurvivants.getItemCount()>0){
+					//deployer survivant sur une zone
+					etuSelect = survivants.get(choixSurvivants.getSelectedIndex());
 					System.out.println(etuSelect.getNom());
-					controller.deployerSurvivant(etuSelect, zoneDeploiementSurvivant.getSelectedIndex());
-					//update de la liste des survivants
-					choixSurvivants.removeAll();
-					survivants = controller.getSurvivants();
-					for(Etudiant etu:survivants){
-						choixSurvivants.add(etu.getNom());
+					//demande au controller d'effectuer le deploiment
+					if(etuSelect.getZone().getIndiceZone() == zoneDeploiementSurvivant.getSelectedIndex()){
+						System.out.println("erreur");
 					}
-					choixSurvivants.update(null);
-				}	
+					else{
+						System.out.println("OK");
+						System.out.println(etuSelect.getNom());
+						controller.deployerSurvivant(etuSelect, zoneDeploiementSurvivant.getSelectedIndex());
+						//update de la liste des survivants
+						choixSurvivants.removeAll();
+						survivants = controller.getSurvivants();
+						for(Etudiant etu:survivants){
+							choixSurvivants.add(etu.getNom());
+						}
+						choixSurvivants.update(null);
+						
+					}
+					affCreditZone();	
+				}
 			}
         });
         treveView.add(deployerSurvivant);
 
 		//bouton valider 
-		JButton btnValider = new JButton("Valider ");
-        btnValider.setBounds(500, 600, 200, 40);
+
+		JButton btnValider = new JButton("Valider");
+		btnValider.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnValider.setBounds(896, 525, 200, 50);
+		btnValider.updateUI();
+		treveView.add(btnValider);
         btnValider.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 				controller.arreter();
-
-
             }
         });
-        treveView.add(btnValider);
+
+		affCreditZone();
+		
+		treveView.validate();
 	}
+
+	private void affCreditZone(){
+		//affichage des credits restants par zone 
+		JLabel lblCreditRestant = new JLabel("Credit Restant par zone");
+		lblCreditRestant.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblCreditRestant.setBounds(196, 460, 500, 26);
+		treveView.add(lblCreditRestant);
+		JLabel[] lblCreditZone = new JLabel[5];
+		this.totalCredit=0;
+		for(byte i = 0;i<5;i++){
+			int credit = controller.getCreditRestant(i);
+			this.totalCredit += credit;
+			lblCreditZone[i] = new JLabel();
+			lblCreditZone[i].setFont(new Font("Tahoma", Font.BOLD, 20));
+			lblCreditZone[i].setBounds(210, 500+i*25, 500, 26);
+			lblCreditZone[i].setText(controleZoneString[controller.getControllee(i)] + "  " + Utils.zoneIndexToString(i) + " = " + credit);
+			treveView.add(lblCreditZone[i]);
+		}
+		//affichage total credit
+		JLabel lblCreditTotal = new JLabel("Total = " + this.totalCredit);
+		lblCreditTotal.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblCreditTotal.setBounds(210, 650, 500, 26);
+		treveView.add(lblCreditTotal);
+		
+	}
+
+	
 		
 }

@@ -15,7 +15,6 @@ public class App {
     public static void lancerPartie(boolean reparition) {
         System.out.println("lancement de la partie");
         new Partie(false);
-
     }
 
     private static void printRegles(boolean inSrc) {
