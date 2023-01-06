@@ -12,8 +12,7 @@ public class TreveController {
     private boolean running = true;
     private Joueur joueur;
     private ChampDeBataille champ;
-    private Etudiant etuTemporaire;
-    private Zone zoneBernard; 
+
     public TreveController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
         this.champ = champ;
@@ -22,7 +21,7 @@ public class TreveController {
     TreveView armeeV;
 
     public void display() {
-        armeeV = new TreveView(this);
+        armeeV = new TreveView(this, joueur.getNumero());
         while (running) {
             Utils.sleep(50);
         }
@@ -41,6 +40,7 @@ public class TreveController {
 
     public void deployerSurvivant(Etudiant etudiant, int indexZone){
         etudiant.setZone(champ.getZone(indexZone));
+        etudiant.setReserviste(false);
        
     }
 

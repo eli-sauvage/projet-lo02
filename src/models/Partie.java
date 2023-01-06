@@ -1,7 +1,6 @@
 package models;
 
 import java.lang.Thread.State;
-import java.time.temporal.JulianFields;
 import java.util.*;
 
 import controllers.ArmeController;
@@ -60,7 +59,7 @@ public class Partie {
         for (Zone z : zonesDeCombat)
             combats.add(z.getCombat(cc));
         boolean combatsFinis = false;
-        cc.init(new ArrayList<Zone>(Arrays.asList(champ.getZones())), combats);
+        cc.init(champ, combats);
         cc.display();
         for (Zone z : zonesDeCombat)// obligé de le faire en deux temps car il faut d'abord la liste de tous les
                                     // combats avant de pouvoir les lancer

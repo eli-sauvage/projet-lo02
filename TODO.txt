@@ -1,9 +1,8 @@
-repartition à la main des stats / strat
-ETAPE 2
-    répartition sur le champ de bataille ESTEBAN -> reste à faire la repartition à la main
-ETAPE 3 -> OK ?
-ETAPE 4 - treve
-    affectation des reservistes
-    redeployement
-    nb de crédits / zone
-ETAPE 5 - répétition des étapes 3&4
+laisser la possibilité de changer de strat à la trève
+strategie aléatoire
+
+passer en patron de conception Strategy ??
+
+
+optionnel
+    tableau qui montre les stats de tous les etudiants pour plus de lisibilité
