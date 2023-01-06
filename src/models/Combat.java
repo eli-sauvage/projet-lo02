@@ -154,8 +154,8 @@ public class Combat implements Runnable {
             // -------------------------------");
             Utils.sleep(50);
         } while (gagnant == 0);
-        combatsController.combatsFinis(zone, gagnant);
         zone.setControlee(gagnant);
+        combatsController.combatsFinis(zone, gagnant);
     }
 
     public boolean finished() {

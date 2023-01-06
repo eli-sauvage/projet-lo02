@@ -1,16 +1,20 @@
 package controllers;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import models.*;
 import views.*;
 
 public class CombatsController {
     ArrayList<Zone> zones;
     ArrayList<Combat> combats;
+    ChampDeBataille champ;
     CombatsView cv;
     boolean ready = false, continuer = false;
-    public void init(ArrayList<Zone> zonesDeCombat, ArrayList<Combat> combats){
-        this.zones = zonesDeCombat;
+    public void init(ChampDeBataille champ, ArrayList<Combat> combats){
+        this.zones = new ArrayList<Zone>(Arrays.asList(champ.getZones()));
+        this.champ = champ;
         this.combats = combats;
     }
     public void display(){
@@ -50,5 +54,8 @@ public class CombatsController {
     }
     public void continuer(){
         continuer = true;
+    }
+    public boolean isZoneControlee(int indiceZone){
+        return champ.getZone(indiceZone).getControlee() != 0;
     }
 }

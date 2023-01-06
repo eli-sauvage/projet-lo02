@@ -40,13 +40,6 @@ public class Armee {
         }
     }
 
-
-
-
-
-    
-
-
     public Etudiant[] getEtudiants() {
         return etudiants;
     }

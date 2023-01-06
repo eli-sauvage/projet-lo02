@@ -11,15 +11,6 @@ public class Utils {
         return Utils.sc.nextLine();
     }
 
-    public static void attendreEntree() {
-        System.out.print("[ENTREE pour continuer]");
-        Utils.sc.nextLine();
-    }
-
-    public static void attendreEntree(String msg) {
-        System.out.print("[ENTREE pour " + msg + "]");
-        Utils.sc.nextLine();
-    }
 
     public static void clearConsole() {
         for (int i = 0; i < 50; i++)
