@@ -1,5 +1,4 @@
 package models;
-
 public class Armee {
     private Etudiant[] etudiants;
     private int joueur;
@@ -18,39 +17,19 @@ public class Armee {
         etudiants[19] = new MaitreDuGobi(joueur, id++);
     }
 
-    public void statsAleatoires() {
-        System.out.println("stat aleatoire");
-        for (int i = 0; i < 400; i++) {// répartit les 400 points aléatoirement dans l'armée
-            int etu = (int) Math.floor(Math.random() * 20);
-            int stat = (int) Math.floor(Math.random() * 5);
-            if (stat == 0)
-                this.etudiants[etu].incrForce();
-            else if (stat == 1)
-                this.etudiants[etu].incrDexterite();
-            else if (stat == 2)
-                this.etudiants[etu].incrResistance();
-            else if (stat == 3)
-                this.etudiants[etu].incrConstitution();
-            else if (stat == 4)
-                this.etudiants[etu].incrInitiative();
-        }
-        for (int i = 0; i < 20; i++) {// choisit une stratedie aleatoire
-            Strategies strat = (Math.random() > .7) ? Strategies.defensif : Strategies.offensif;
-            this.etudiants[i].setStrategie(strat);
-        }
-    }
-
-
-
-
 
     
-
-
+    /** 
+     * @return Etudiant[]
+     */
     public Etudiant[] getEtudiants() {
         return etudiants;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         String ret = "\nARMEE : ----------------------\n";

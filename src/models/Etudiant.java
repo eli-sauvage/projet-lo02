@@ -1,10 +1,12 @@
 package models;
+import models.strategies.*;
 public class Etudiant {
     protected int credits, dexterite, force, resistance, consitution, initiative, joueur, id;
     private Zone zone;
     private boolean reserviste;
-    private Strategies strategie;
+    //private Strategies strategie;
     private String nom;
+    private Strategie strategie;
 
     public Etudiant(int joueur, int id) {
         this.credits = 30;
@@ -16,28 +18,13 @@ public class Etudiant {
 
     
 
-    public int soigner(Etudiant etudiant) {
-        int x = (int) Math.random() * 100;
-        if (x < 20 + this.dexterite * 6) {// soin réussi
-            int soin = (int) Math.floor(Math.random() * 0.6 * (10 + etudiant.consitution));
-            // System.out.println("soin réussi : " + soin);
-            etudiant.addCredits(soin);
-            return soin;
-        }
-        return 0;
-    }
-
-    public int attaquer(Etudiant etudiant) {
-        int x = (int) Math.random() * 100;
-        int degatReference = 10;
-        double coeffDegats = Math.max(0, Math.min(100, 10 * force - 5 * etudiant.resistance)) / 100;
-        if (x < 40 + 3 * dexterite) {// attaque réussie
-            int degats = (int) Math.floor(Math.random() * (1 + coeffDegats) * degatReference);
-            // System.out.println("attaque reussie : " + degats);
-            etudiant.addCredits(-degats);
-            return degats;
-        }
-        return 0;
+    
+    /** 
+     * @param cible
+     * @return int
+     */
+    public int action(Etudiant cible){
+        return strategie.action(this, cible);
     }
 
     public void resetStats(){
@@ -49,19 +36,35 @@ public class Etudiant {
         this.reserviste = false;
     }
 
+    
+    /** 
+     * @return int
+     */
     // ----------getters/setters-------------
     public int getCredits() {
         return credits;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getNom() {
         return this.nom;
     }
 
+    
+    /** 
+     * @param nom
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    
+    /** 
+     * @param credits
+     */
     public void addCredits(int credits) {
         if (this.credits + credits > 30 + this.consitution) {
             this.credits = 30 + this.consitution;
@@ -72,10 +75,18 @@ public class Etudiant {
         }
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getDexterite() {
         return dexterite;
     }
 
+    
+    /** 
+     * @param dexterite
+     */
     public void setDexterite(int dexterite) {
         this.dexterite = dexterite;
     }
@@ -84,10 +95,18 @@ public class Etudiant {
         this.dexterite++;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getForce() {
         return force;
     }
 
+    
+    /** 
+     * @param force
+     */
     public void setForce(int force) {
         this.force = force;
     }
@@ -96,10 +115,18 @@ public class Etudiant {
         this.force++;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getResistance() {
         return resistance;
     }
 
+    
+    /** 
+     * @param resistance
+     */
     public void setResistance(int resistance) {
         this.resistance = resistance;
     }
@@ -108,10 +135,18 @@ public class Etudiant {
         this.resistance++;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getConsitution() {
         return consitution;
     }
 
+    
+    /** 
+     * @param consitution
+     */
     public void setConsitution(int consitution) {
         this.consitution = consitution;
     }
@@ -120,10 +155,18 @@ public class Etudiant {
         this.consitution++;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getInitiative() {
         return initiative;
     }
 
+    
+    /** 
+     * @param initiative
+     */
     public void setInitiative(int initiative) {
         this.initiative = initiative;
     }
@@ -132,22 +175,42 @@ public class Etudiant {
         this.initiative++;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isReserviste() {
         return reserviste;
     }
 
+    
+    /** 
+     * @param reserviste
+     */
     public void setReserviste(boolean reserviste) {
         this.reserviste = reserviste;
     }
 
-    public Strategies getStrategie() {
+    
+    /** 
+     * @return Strategie
+     */
+    public Strategie getStrategie() {
         return strategie;
     }
 
-    public void setStrategie(Strategies strategie) {
+    
+    /** 
+     * @param strategie
+     */
+    public void setStrategie(Strategie strategie) {
         this.strategie = strategie;
     }
 
+    
+    /** 
+     * @param zone
+     */
     public void setZone(Zone zone) {
         if(zone == null){
             this.zone = null;
@@ -160,18 +223,34 @@ public class Etudiant {
 
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getJoueur(){
         return this.joueur;
     }
 
+    
+    /** 
+     * @return Zone
+     */
     public Zone getZone() {
         return this.zone;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean getReserviste() {
         return this.reserviste;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Etudiant j" + joueur + "#" + id + ( this.zone != null ? " z:" + Utils.zoneIndexToString(this.zone.getIndiceZone()) : "")+ " [credits=" + credits + ", d=" + dexterite

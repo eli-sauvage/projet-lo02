@@ -1,7 +1,6 @@
 package views;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -25,8 +24,12 @@ public class TreveView {
 	private ArrayList<Etudiant> survivants = new ArrayList<>();
 	private Etudiant etuSelect;
 	private String[] controleZoneString = new String[] {"--", "J1", "J2"};
+	private JLabel[] lblCreditZone;
+	private JLabel lblCreditTotal;
+	private int numeroJoueur;
 
-	public TreveView(TreveController controller) {
+	public TreveView(TreveController controller, int numeroJoueur) {
+		this.numeroJoueur = numeroJoueur;
 		this.controller = controller;
 		affTreveView();
 		treveView.setVisible(true);
@@ -44,7 +47,7 @@ public class TreveView {
 		treveView.setBounds(10, 10, 1500, 800);
 		treveView.setBackground(bgColor);
 		treveView.setLayout(null);
-		JLabel label11 = new JLabel("Treve - Joueur " + controller.getNomEtudiant(0));
+		JLabel label11 = new JLabel("Treve - Joueur " + this.numeroJoueur);
 		label11.setBounds(46, 35, 500, 31);
 		label11.setFont(new Font("Tahoma", Font.BOLD, 25));
 		treveView.add(label11);
@@ -98,8 +101,8 @@ public class TreveView {
 						choixReservistes.add(etu.getNom());
 					}
 					choixReservistes.update(null);
-					affCreditZone();
-					}
+					update();
+				}
             }
         });
         treveView.add(deployerReserviste);
@@ -174,7 +177,7 @@ public class TreveView {
 						choixSurvivants.update(null);
 						
 					}
-					affCreditZone();	
+					update();	
 				}
 			}
         });
@@ -204,7 +207,7 @@ public class TreveView {
 		lblCreditRestant.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblCreditRestant.setBounds(196, 460, 500, 26);
 		treveView.add(lblCreditRestant);
-		JLabel[] lblCreditZone = new JLabel[5];
+		lblCreditZone = new JLabel[5];
 		this.totalCredit=0;
 		for(byte i = 0;i<5;i++){
 			int credit = controller.getCreditRestant(i);
@@ -216,13 +219,17 @@ public class TreveView {
 			treveView.add(lblCreditZone[i]);
 		}
 		//affichage total credit
-		JLabel lblCreditTotal = new JLabel("Total = " + this.totalCredit);
+		lblCreditTotal = new JLabel("Total = " + this.totalCredit);
 		lblCreditTotal.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblCreditTotal.setBounds(210, 650, 500, 26);
 		treveView.add(lblCreditTotal);
-		treveView.validate();
 	}
-
-	
-		
+treveView.validate();
+	public void update(){
+		for(byte i = 0;i<5;i++){
+			int credit = controller.getCreditRestant(i);
+			this.totalCredit += credit;
+			lblCreditZone[i].setText(controleZoneString[controller.getControllee(i)] + "  " + Utils.zoneIndexToString(i) + " = " + credit);
+		}
+	}
 }

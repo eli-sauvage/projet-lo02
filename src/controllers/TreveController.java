@@ -2,9 +2,7 @@ package controllers;
 
 import views.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import models.*;
 
@@ -12,39 +10,59 @@ public class TreveController {
     private boolean running = true;
     private Joueur joueur;
     private ChampDeBataille champ;
-    private Etudiant etuTemporaire;
-    private Zone zoneBernard; 
+
     public TreveController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
         this.champ = champ;
     }
 
     TreveView armeeV;
-
+    /**
+     * affiche la vue
+     */
     public void display() {
-        armeeV = new TreveView(this);
+        armeeV = new TreveView(this, joueur.getNumero());
         while (running) {
             Utils.sleep(50);
         }
         armeeV.fermer();
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getNumeroJoueur() {
         return joueur.getNumero();
     }
     
+    
+    /** 
+     * @param etudiant
+     * @param indexZone
+     */
     public void deployerReserviste(Etudiant etudiant, int indexZone){
          etudiant.setZone(champ.getZone(indexZone));
          etudiant.setReserviste(false);
          //System.out.println(Utils.zoneIndexToString(etudiant.getZone().getIndiceZone()));
     }
 
+    
+    /** 
+     * @param etudiant
+     * @param indexZone
+     */
     public void deployerSurvivant(Etudiant etudiant, int indexZone){
         etudiant.setZone(champ.getZone(indexZone));
+        etudiant.setReserviste(false);
        
     }
 
 
+    
+    /** 
+     * @return ArrayList<Etudiant>
+     */
     public ArrayList<Etudiant> getReserviste(){
         ArrayList<Etudiant> reservistes = new ArrayList<>();
         for(Etudiant etu:joueur.getArmee().getEtudiants()){
@@ -53,10 +71,19 @@ public class TreveController {
         return reservistes; 
     }
 
+    
+    /** 
+     * @param i
+     * @return Etudiant
+     */
     public Etudiant getEtudiant(int i) {
         return joueur.getArmee().getEtudiants()[i];
     }
 
+    
+    /** 
+     * @return ArrayList<Etudiant>
+     */
     public ArrayList<Etudiant> getSurvivants(){
         ArrayList<Etudiant> survivants = new ArrayList<>();
         for(Etudiant etu:joueur.getArmee().getEtudiants()){
@@ -72,14 +99,28 @@ public class TreveController {
         return survivants;
     }
 
+    
+    /** 
+     * @param indiceEtu
+     * @return String
+     */
     public String getNomEtudiant(int indiceEtu) {
         return joueur.getArmee().getEtudiants()[indiceEtu].getNom();
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getNomJoueur(){
         return Integer.toString(this.joueur.getNumero());
     }
 
+    
+    /** 
+     * @param indiceZone
+     * @return int
+     */
     public int getCreditRestant(int indiceZone){
         int creditRestant=0;
         for(Etudiant etu:joueur.getArmee().getEtudiants()){
@@ -94,6 +135,11 @@ public class TreveController {
         this.running = false;
     }
 
+    
+    /** 
+     * @param indiceZone
+     * @return int
+     */
     public int getControllee(int indiceZone){
         return champ.getZone(indiceZone).getControlee();
     }

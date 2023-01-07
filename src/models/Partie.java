@@ -1,7 +1,6 @@
 package models;
 
 import java.lang.Thread.State;
-import java.time.temporal.JulianFields;
 import java.util.*;
 
 import controllers.ArmeController;
@@ -60,7 +59,7 @@ public class Partie {
         for (Zone z : zonesDeCombat)
             combats.add(z.getCombat(cc));
         boolean combatsFinis = false;
-        cc.init(new ArrayList<Zone>(Arrays.asList(champ.getZones())), combats);
+        cc.init(champ, combats);
         cc.display();
         for (Zone z : zonesDeCombat)// obligé de le faire en deux temps car il faut d'abord la liste de tous les
                                     // combats avant de pouvoir les lancer
@@ -84,11 +83,19 @@ public class Partie {
         Utils.clearConsole();
     }
 
+    
+    /** 
+     * @param joueur
+     */
     public void treve(Joueur joueur) {
         TreveController tc = new TreveController(joueur, this.champ);
         tc.display();
     }
 
+    
+    /** 
+     * @return int
+     */
     public int chercherGagnant() {
         ArrayList<Zone> zonesJ1 = new ArrayList<>(); // zones controllees par J1
         ArrayList<Zone> zonesJ2 = new ArrayList<>(); // zones controllees par J2
@@ -116,10 +123,19 @@ public class Partie {
 
     }
 
+    
+    /** 
+     * @param i
+     * @return Joueur
+     */
     public Joueur getJoueur(int i) {
         return this.joueurs[i];
     }
 
+    
+    /** 
+     * @return ChampDeBataille
+     */
     public ChampDeBataille getChamp() {
         return champ;
     }

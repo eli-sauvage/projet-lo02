@@ -7,9 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-
 import models.*;
 
 import controllers.*;
@@ -19,18 +16,21 @@ public class CombatsView {
     JFrame frame;
     ImageIcon map;
     JLabel scoreBU, scoreHS, scoreQA, scoreBDE, scoreHI;
-    private Color bgColor = new Color(255, 128, 192);
+    JLabel BUCercle, HSCercle, QACercle, BDECercle, HICercle;
+    private int offsetMap;
 
     public CombatsView(CombatsController controller) {
         this.controller = controller;
 
         frame = new JFrame("Overlay App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(10, 10, 1500, 800);
+        frame.getContentPane().setBackground(Utils.bgColor);
+
 
         JLayeredPane panel = new JLayeredPane();
 
         panel.setLayout(null);
-
         File mapFile = new File("ressources/map.png");
         BufferedImage mapBI = null;
         try {
@@ -41,13 +41,14 @@ public class CombatsView {
         ImageIcon mapIcon = new ImageIcon(mapBI);
         JLabel map = new JLabel(mapIcon);
 
-        map.setBounds(0, 0, mapIcon.getIconWidth(), mapIcon.getIconHeight());
+        offsetMap = (frame.getWidth()-mapIcon.getIconWidth())/2;
+        map.setBounds(offsetMap, 0, mapIcon.getIconWidth(), mapIcon.getIconHeight());
         panel.add(map, 1, 0);
 
-        frame.setBounds(0, 0, mapIcon.getIconWidth(), mapIcon.getIconHeight() + 100);
 
         JButton lancerCombat = new JButton("lancer le combat");
-        lancerCombat.setBounds(0, mapIcon.getIconHeight()-200, 200, 30);
+        lancerCombat.setFont(new Font("Tahoma", Font.BOLD, 20));
+        lancerCombat.setBounds(offsetMap+mapIcon.getIconWidth(), frame.getHeight()/2-50, offsetMap-50, 100);
         lancerCombat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,93 +57,61 @@ public class CombatsView {
         });
         panel.add(lancerCombat, 4, 0);
 
-        File HSF = new File("ressources/cercle.png");
-        BufferedImage HSBI = null;
+        File cercleFile = new File("ressources/cercle_rouge.png");
+        BufferedImage cercleBI = null;
         try {
-            HSBI = ImageIO.read(HSF);
+            cercleBI = ImageIO.read(cercleFile);
         } catch (Exception e) {
             System.out.println(e);
         }
-        ImageIcon HSImage = new ImageIcon(HSBI);
-        JLabel HSCercle = new JLabel(HSImage);
-        HSCercle.setBounds(250, 65, HSImage.getIconWidth(), HSImage.getIconHeight());
+        ImageIcon cercle = new ImageIcon(cercleBI);
+        HSCercle = new JLabel(cercle);
+        HSCercle.setBounds(250+offsetMap, 65, cercle.getIconWidth(), cercle.getIconHeight());
         panel.add(HSCercle, 2, 0);
 
         scoreHS = new JLabel("<html>J1:0<br/>J2:0</html>");
         scoreHS.setFont(new Font("Tahoma", Font.BOLD, 20));
-        scoreHS.setBounds(285, 85, 50, 50);
+        scoreHS.setBounds(285+offsetMap, 85, 50, 50);
         scoreHS.setVisible(true);
         panel.add(scoreHS, 3, 0);
 
-        File BDEF = new File("ressources/cercle.png");
-        BufferedImage BDEBI = null;
-        try {
-            BDEBI = ImageIO.read(BDEF);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        ImageIcon BDEImage = new ImageIcon(BDEBI);
-        JLabel BDECercle = new JLabel(BDEImage);
-        BDECercle.setBounds(390, 400, BDEImage.getIconWidth(), BDEImage.getIconHeight());
+        BDECercle = new JLabel(cercle);
+        BDECercle.setBounds(390+offsetMap, 400, cercle.getIconWidth(), cercle.getIconHeight());
         panel.add(BDECercle, 2, 0);
 
         scoreBDE = new JLabel("<html>J1:0<br/>J2:0</html>");
         scoreBDE.setFont(new Font("Tahoma", Font.BOLD, 20));
-        scoreBDE.setBounds(425, 420, 50, 50);
+        scoreBDE.setBounds(425+offsetMap, 420, 50, 50);
         scoreBDE.setVisible(true);
         panel.add(scoreBDE, 3, 0);
 
-        File BUF = new File("ressources/cercle.png");
-        BufferedImage BUI = null;
-        try {
-            BUI = ImageIO.read(BUF);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        ImageIcon BUImage = new ImageIcon(BUI);
-        JLabel BUCercle = new JLabel(BUImage);
-        BUCercle.setBounds(440, 510, BUImage.getIconWidth(), BUImage.getIconHeight());
+        BUCercle = new JLabel(cercle);
+        BUCercle.setBounds(440+offsetMap, 510, cercle.getIconWidth(), cercle.getIconHeight());
         panel.add(BUCercle, 2, 0);
 
         scoreBU = new JLabel("<html>J1:0<br/>J2:0</html>");
         scoreBU.setFont(new Font("Tahoma", Font.BOLD, 20));
-        scoreBU.setBounds(475, 530, 50, 50);
+        scoreBU.setBounds(475+offsetMap, 530, 50, 50);
         scoreBU.setVisible(true);
         panel.add(scoreBU, 3, 0);
 
-        File QAF = new File("ressources/cercle.png");
-        BufferedImage QAI = null;
-        try {
-            QAI = ImageIO.read(QAF);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        ImageIcon QAImage = new ImageIcon(QAI);
-        JLabel QACercle = new JLabel(QAImage);
-        QACercle.setBounds(475, 630, QAImage.getIconWidth(), QAImage.getIconHeight());
+        QACercle = new JLabel(cercle);
+        QACercle.setBounds(475+offsetMap, 630, cercle.getIconWidth(), cercle.getIconHeight());
         panel.add(QACercle, 2, 0);
 
         scoreQA = new JLabel("<html>J1:0<br/>J2:0</html>");
         scoreQA.setFont(new Font("Tahoma", Font.BOLD, 20));
-        scoreQA.setBounds(510, 650, 50, 50);
+        scoreQA.setBounds(510+offsetMap, 650, 50, 50);
         scoreQA.setVisible(true);
         panel.add(scoreQA, 3, 0);
 
-        File HIF = new File("ressources/cercle.png");
-        BufferedImage HII = null;
-        try {
-            HII = ImageIO.read(HIF);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        ImageIcon HIImage = new ImageIcon(HII);
-        JLabel HICercle = new JLabel(HIImage);
-        HICercle.setBounds(700, 600, HIImage.getIconWidth(), HIImage.getIconHeight());
+        HICercle = new JLabel(cercle);
+        HICercle.setBounds(700+offsetMap, 600, cercle.getIconWidth(), cercle.getIconHeight());
         panel.add(HICercle, 2, 0);
 
         scoreHI = new JLabel("<html>J1:0<br/>J2:0</html>");
         scoreHI.setFont(new Font("Tahoma", Font.BOLD, 20));
-        scoreHI.setBounds(735, 620, 50, 50);
+        scoreHI.setBounds(735+offsetMap, 620, 50, 50);
         scoreHI.setVisible(true);
         panel.add(scoreHI, 3, 0);
 
@@ -153,14 +122,34 @@ public class CombatsView {
 
     public void update() {
         JLabel[] labels = {scoreBU, scoreBDE, scoreQA, scoreHI, scoreHS};
-        int i = 0;
-        for (JLabel label : labels) {
-            int[] survivants = controller.survivantsZone(i++);
-            label.setText("<html>J1:" + survivants[0] + "<br/>J2:" + survivants[1] + "</html>");
+        for (int i=0; i<labels.length; i++) {
+            int[] survivants = controller.survivantsZone(i);
+            labels[i].setText("<html>J1:" + survivants[0] + "<br/>J2:" + survivants[1] + "</html>");
+        }
+        JLabel[] zones = {BUCercle, BDECercle, QACercle, HICercle, HSCercle};
+        for(int i = 0; i<zones.length; i++){
+            if(controller.isZoneControlee(i)){
+                File cercleFile = new File("ressources/cercle_noir.png");
+                BufferedImage cercleBI = null;
+                try {
+                    cercleBI = ImageIO.read(cercleFile);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                ImageIcon cercleNoir = new ImageIcon(cercleBI);
+                zones[i].setIcon(cercleNoir);
+                labels[i].setForeground(Color.red);
+            }
         }
     }
 
+    
+    /** 
+     * @param nomZone
+     * @param gagnant
+     */
     public void finDuCombat(String nomZone, int gagnant) {
+        update();
         JFrame f = new JFrame();
         JDialog d;
         d = new JDialog(f, "Fin du combat", true);

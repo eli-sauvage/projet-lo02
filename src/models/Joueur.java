@@ -9,19 +9,35 @@ public class Joueur {
         armee.initDefaut();
     }
 
+    
+    /** 
+     * @return Armee
+     */
     public Armee getArmee() {
         return armee;
     }
 
+    
+    /** 
+     * @param armee
+     */
     public void setArmee(Armee armee) {
         this.armee = armee;
     }
 
 
+    
+    /** 
+     * @return int
+     */
     public int getNumero(){
         return this.numeroJoueur;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Joueur [armee=" + armee + "]";

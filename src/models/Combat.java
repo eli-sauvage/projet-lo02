@@ -3,6 +3,7 @@ import java.io.*;
 import java.lang.Thread.State;
 import java.util.*;
 import controllers.*;
+import models.strategies.*;
 
 public class Combat implements Runnable {
     private ArrayList<Etudiant> combattants;
@@ -20,6 +21,10 @@ public class Combat implements Runnable {
         this.zone = zone;
     }
 
+    
+    /** 
+     * @param combatsEnCours
+     */
     public void start(ArrayList<Combat> combatsEnCours) {
         this.autresCombats = new ArrayList<>();
         this.autresCombats.addAll(combatsEnCours);
@@ -29,10 +34,18 @@ public class Combat implements Runnable {
         t.start();
     }
 
+    
+    /** 
+     * @return State
+     */
     public State getState() {
         return this.t.getState();
     }
 
+    
+    /** 
+     * @return Combat
+     */
     public Combat chercherCombatFini() {
         Combat fini = null;
         Iterator<Combat> c = autresCombats.iterator();
@@ -54,7 +67,7 @@ public class Combat implements Runnable {
         }
         ArrayList<Etudiant> offensifs = new ArrayList<>();
         offensifs.addAll(combattants);
-        offensifs.removeIf(e -> (e.getStrategie() == Strategies.defensif));
+        offensifs.removeIf(e -> (e.getStrategie() instanceof Defensif));
         if (offensifs.isEmpty()) {
             System.out.println("egalité dans la zone " + zone.getIndiceZone()
                     + " car tous les etudiants sont defensifs");
@@ -88,10 +101,10 @@ public class Combat implements Runnable {
                 combattantsCopy.addAll(combattants);
                 combattantsCopy.removeIf(e -> (e.credits == 0)); // on retire les morts dans le choix de la
                                                                  // cible
-                if (etu.getStrategie() == Strategies.offensif)
+                if (etu.getStrategie() instanceof Offensif)
                     combattantsCopy.removeIf(e -> (e.joueur == etu.joueur));
                 else if ( // offensif -> on retire les etudiants de la meme equipe
-                etu.getStrategie() == Strategies.defensif)
+                etu.getStrategie() instanceof Defensif)
                     combattantsCopy.removeIf(e -> (e.joueur != etu.joueur)); // defensif -> on retire les
                                                                              // etudiants de
                 if (combattantsCopy.size() != 0) { // seulement si une cible existe
@@ -110,12 +123,9 @@ public class Combat implements Runnable {
                     });
                     // ------attaque/soins--------------
                     int score = 0;
-                    if (etu.getStrategie() == Strategies.offensif)
-                        score = etu.attaquer(cible);
-                    else if (etu.getStrategie() == Strategies.defensif)
-                        score = etu.soigner(cible);
+                    etu.action(cible);
                     String msg = etu
-                            + ((etu.getStrategie() == Strategies.offensif) ? "\nattaque\n"
+                            + ((etu.getStrategie() instanceof Offensif) ? "\nattaque\n"
                                     : "\nsoigne\n")
                             + cible + ": " + score + "\n----------------------------------";
                     try {
@@ -154,10 +164,14 @@ public class Combat implements Runnable {
             // -------------------------------");
             Utils.sleep(50);
         } while (gagnant == 0);
-        combatsController.combatsFinis(zone, gagnant);
         zone.setControlee(gagnant);
+        combatsController.combatsFinis(zone, gagnant);
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean finished() {
         return gagnant != 0;
     }

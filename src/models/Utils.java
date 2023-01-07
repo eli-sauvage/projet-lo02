@@ -6,26 +6,27 @@ public class Utils {
     public static final Scanner sc = new Scanner(System.in);
     public static final Color bgColor = new Color(255, 128, 192);
 
+    
+    /** 
+     * @return String
+     */
     public static String input() {
         System.out.print("> ");
         return Utils.sc.nextLine();
     }
 
-    public static void attendreEntree() {
-        System.out.print("[ENTREE pour continuer]");
-        Utils.sc.nextLine();
-    }
-
-    public static void attendreEntree(String msg) {
-        System.out.print("[ENTREE pour " + msg + "]");
-        Utils.sc.nextLine();
-    }
 
     public static void clearConsole() {
         for (int i = 0; i < 50; i++)
             System.out.println();
     }
 
+    
+    /** 
+     * @param array
+     * @param elemnt
+     * @return boolean
+     */
     public static <T> boolean containsArray(T[] array, T elemnt) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == elemnt || array[i].equals(elemnt)) {
@@ -35,6 +36,11 @@ public class Utils {
         return false;
     }
 
+    
+    /** 
+     * @param zone
+     * @return String
+     */
     public static String zoneIndexToString(int zone) {
         if (zone == 0)
             return "BU";
@@ -57,6 +63,10 @@ public class Utils {
         }
     }
 
+    
+    /** 
+     * @param t
+     */
     public static void sleep(int t) {
         try {
             Thread.sleep(t);
