@@ -18,10 +18,18 @@ public class Armee {
     }
 
 
+    
+    /** 
+     * @return Etudiant[]
+     */
     public Etudiant[] getEtudiants() {
         return etudiants;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         String ret = "\nARMEE : ----------------------\n";

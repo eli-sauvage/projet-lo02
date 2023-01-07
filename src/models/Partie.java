@@ -83,11 +83,19 @@ public class Partie {
         Utils.clearConsole();
     }
 
+    
+    /** 
+     * @param joueur
+     */
     public void treve(Joueur joueur) {
         TreveController tc = new TreveController(joueur, this.champ);
         tc.display();
     }
 
+    
+    /** 
+     * @return int
+     */
     public int chercherGagnant() {
         ArrayList<Zone> zonesJ1 = new ArrayList<>(); // zones controllees par J1
         ArrayList<Zone> zonesJ2 = new ArrayList<>(); // zones controllees par J2
@@ -115,10 +123,19 @@ public class Partie {
 
     }
 
+    
+    /** 
+     * @param i
+     * @return Joueur
+     */
     public Joueur getJoueur(int i) {
         return this.joueurs[i];
     }
 
+    
+    /** 
+     * @return ChampDeBataille
+     */
     public ChampDeBataille getChamp() {
         return champ;
     }

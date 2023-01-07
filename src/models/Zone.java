@@ -11,14 +11,26 @@ public class Zone {
   private String nomZone;
 
 
+  
+  /** 
+   * @return String
+   */
   public String getNomZone() {
     return nomZone;
   }
 
+  
+  /** 
+   * @return int
+   */
   public int getControlee() {
     return controlee;
   }
 
+  
+  /** 
+   * @param controlee
+   */
   public void setControlee(int controlee) {
     this.controlee = controlee;
   }
@@ -43,6 +55,11 @@ public class Zone {
     combatantsJ2 = new ArrayList<Etudiant>();
   }
 
+  
+  /** 
+   * @param joueurSelect
+   * @return ArrayList<Etudiant>
+   */
   public ArrayList<Etudiant> getCombatantsJ(int joueurSelect) {
     if (joueurSelect == 1)
       return combatantsJ1;
@@ -52,10 +69,19 @@ public class Zone {
       return null;
   }
 
+  
+  /** 
+   * @return int
+   */
   public int getIndiceZone() {
     return indiceZone;
   }
 
+  
+  /** 
+   * @param cc
+   * @return Combat
+   */
   public Combat getCombat(CombatsController cc) {
     if (this.combat == null)
       this.combat = new Combat(combatantsJ1, combatantsJ2, this, cc);
@@ -65,6 +91,10 @@ public class Zone {
     this.combat = null;
   }
 
+  
+  /** 
+   * @param combatsEnCours
+   */
   public void lancerCombat(ArrayList<Combat> combatsEnCours) {
     if(this.combat==null){
       System.err.println("combat lance sans avoir ete cree");

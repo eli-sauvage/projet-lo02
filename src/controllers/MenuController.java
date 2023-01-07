@@ -9,7 +9,9 @@ import java.io.IOException;
 public class MenuController {
     private boolean running = true;
     MenuView menuV;
-
+    /*
+     * affiche la vue
+     */
     public void display() {
         menuV = new MenuView(this);
         while (running) {
@@ -18,10 +20,16 @@ public class MenuController {
         menuV.fermer();
     }
 
+    /*
+     * sort de la boucle afin de debloquer le thread principal lorsque le joueur souhaite lancer la partie
+     */
     public void startGame() {
         running = false;
     }
 
+    /*
+     * ouvre les regles en format pdf dans le navigateur de la machine
+     */
     public void afficherRegles() {
 
         // Définissez le chemin d'accès au fichier PDF

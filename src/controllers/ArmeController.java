@@ -12,13 +12,18 @@ public class ArmeController {
     private Joueur joueur;
     private ChampDeBataille champ;
 
+    /**
+     * @param joueur 
+     */
     public ArmeController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
         this.champ = champ;
     }
 
     ArmeeView armeeV;
-
+    /**
+     * affiche la vue
+     */
     public void display() {
         armeeV = new ArmeeView(this);
         while (running) {
@@ -27,10 +32,30 @@ public class ArmeController {
         armeeV.fermer();
     }
 
+
+    
+    /** 
+     * retourne le numéro du joueur
+     * @return String 
+     */
     public String getNumeroJoueur() {
         return Integer.toString(joueur.getNumero());
     }
 
+
+    
+    /** 
+     * applique les stats a l'etudiant selectionne par l'indice
+     * @param indiceEtu
+     * @param f
+     * @param d
+     * @param r
+     * @param i
+     * @param c
+     * @param reserviste
+     * @param strat
+     * @param zoneIndex
+     */
     public void appliquerStats(int indiceEtu, int f, int d, int r, int i, int c, boolean reserviste, Strategie strat,
             int zoneIndex) {
         Etudiant e = joueur.getArmee().getEtudiants()[indiceEtu];
@@ -47,18 +72,38 @@ public class ArmeController {
             } catch (Exception exept) {
             }
         }
-
-        // TODO : gérer si total > 400 (msg erreur par exp)
     }
 
+
+    
+    /** 
+     * retourne l'etudiant a l'indice specifie
+     * @param i
+     * @return Etudiant
+     */
     public Etudiant getEtudiant(int i) {
         return joueur.getArmee().getEtudiants()[i];
     }
 
+
+    
+    /**
+     * retourne le nom de l'etudiant a l'indice specifie
+     * 
+     * @param indiceEtu
+     * @return String
+     */
     public String getNomEtudiant(int indiceEtu) {
         return joueur.getArmee().getEtudiants()[indiceEtu].getNom();
     }
 
+
+    
+    /**
+     * retourne les points possibles restants a repartir
+     * 
+     * @return int
+     */
     public int getPointsRestants() {
         int total = 0;
         for (Etudiant e : joueur.getArmee().getEtudiants()) {
@@ -71,6 +116,9 @@ public class ArmeController {
         return 454 - total; // 454 = 400 + (4*1+5) elite+ (4*2+10) gobi
     }
 
+    /*
+     * applique des statistiques aleatoires a tous les etudiants du joueur
+     */
     public void randomStats() {
         Etudiant[] etudiants = joueur.getArmee().getEtudiants();
         for (Etudiant e : etudiants) {
@@ -125,6 +173,11 @@ public class ArmeController {
 
     }
 
+    
+    /** 
+     * valide l'armee et passe au joueur suivant ou au combat
+     * @throws Exception
+     */
     public void valider() throws Exception {
         int nbReservistes = 0, i = 0;
         for (Etudiant e : joueur.getArmee().getEtudiants()) {

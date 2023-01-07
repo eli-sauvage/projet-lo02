@@ -17,6 +17,10 @@ public class VictoireController {
     public void continuer(){
         continuer = true;
     }
+    
+    /** 
+     * @return String
+     */
     public String getGagnant(){
         return gagnant;
     }

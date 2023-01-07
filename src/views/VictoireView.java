@@ -21,6 +21,11 @@ public class VictoireView {
         }
     }
 
+    
+    /** 
+     * @param gagnant
+     * @throws IOException
+     */
     public void showView(String gagnant) throws IOException {
 
         frame = new JFrame();

@@ -3,6 +3,12 @@ import models.*;
 
 public class Offensif implements Strategie{
 
+    
+    /** 
+     * @param etudiant
+     * @param cible
+     * @return int
+     */
     static public int attaquer(Etudiant etudiant, Etudiant cible) {
         int x = (int) Math.random() * 100;
         int degatReference = 10;
@@ -16,6 +22,12 @@ public class Offensif implements Strategie{
         return 0;
     }
 
+    
+    /** 
+     * @param etudiant
+     * @param cible
+     * @return int
+     */
     public int action(Etudiant etudiant, Etudiant cible){
         return Offensif.attaquer(etudiant, cible);
     }

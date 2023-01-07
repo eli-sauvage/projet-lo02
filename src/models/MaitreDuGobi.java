@@ -8,6 +8,10 @@ public class MaitreDuGobi extends Etudiant{
         this.resetStats();
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "MaitreDuGobi :" + super.toString();

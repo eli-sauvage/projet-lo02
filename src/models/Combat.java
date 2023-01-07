@@ -21,6 +21,10 @@ public class Combat implements Runnable {
         this.zone = zone;
     }
 
+    
+    /** 
+     * @param combatsEnCours
+     */
     public void start(ArrayList<Combat> combatsEnCours) {
         this.autresCombats = new ArrayList<>();
         this.autresCombats.addAll(combatsEnCours);
@@ -30,10 +34,18 @@ public class Combat implements Runnable {
         t.start();
     }
 
+    
+    /** 
+     * @return State
+     */
     public State getState() {
         return this.t.getState();
     }
 
+    
+    /** 
+     * @return Combat
+     */
     public Combat chercherCombatFini() {
         Combat fini = null;
         Iterator<Combat> c = autresCombats.iterator();
@@ -156,6 +168,10 @@ public class Combat implements Runnable {
         combatsController.combatsFinis(zone, gagnant);
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean finished() {
         return gagnant != 0;
     }

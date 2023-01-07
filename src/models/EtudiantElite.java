@@ -7,6 +7,10 @@ public class EtudiantElite extends Etudiant {
         this.resetStats();
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "EtudiantElite :" + super.toString();

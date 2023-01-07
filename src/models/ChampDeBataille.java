@@ -10,9 +10,18 @@ public class ChampDeBataille {
         }
         return;
     }
+    
+    /** 
+     * @param i
+     * @return Zone
+     */
     public Zone getZone(int i) {
         return zones[i];
     }
+    
+    /** 
+     * @return Zone[]
+     */
     public Zone[] getZones(){
         return zones;
     }

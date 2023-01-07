@@ -143,6 +143,11 @@ public class CombatsView {
         }
     }
 
+    
+    /** 
+     * @param nomZone
+     * @param gagnant
+     */
     public void finDuCombat(String nomZone, int gagnant) {
         update();
         JFrame f = new JFrame();
