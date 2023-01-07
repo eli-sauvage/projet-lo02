@@ -224,7 +224,7 @@ public class TreveView {
 		lblCreditTotal.setBounds(210, 650, 500, 26);
 		treveView.add(lblCreditTotal);
 	}
-treveView.validate();
+
 	public void update(){
 		for(byte i = 0;i<5;i++){
 			int credit = controller.getCreditRestant(i);
