@@ -220,7 +220,7 @@ public class TreveView {
 		lblCreditTotal.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblCreditTotal.setBounds(210, 650, 500, 26);
 		treveView.add(lblCreditTotal);
-		
+		treveView.validate();
 	}
 
 	
