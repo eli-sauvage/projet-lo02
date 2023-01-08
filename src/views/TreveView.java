@@ -9,12 +9,17 @@ import java.util.ArrayList;
 import controllers.*;
 
 import models.*;
+import models.strategies.Aleatoire;
+import models.strategies.Defensif;
+import models.strategies.Offensif;
+import models.strategies.Strategie;
 
 public class TreveView {
 
 	public JFrame treveView = new JFrame();
 	private Choice choixReservistes;
 	private Choice choixSurvivants;
+	private Choice choixStrategie;
 	private Choice zoneDeploiementReserviste;
 	private Choice zoneDeploiementSurvivant;
 	private Color bgColor = new Color(255, 128, 192);
@@ -22,12 +27,14 @@ public class TreveView {
 	private TreveController controller;
 	private ArrayList<Etudiant> reservistes = new ArrayList<>();
 	private ArrayList<Etudiant> survivants = new ArrayList<>();
-	private Etudiant etuSelect;
+	private Etudiant etuSelect = new Etudiant(1,1);
 	private String[] controleZoneString = new String[] {"--", "J1", "J2"};
 	private JLabel[] lblCreditZone;
 	private JLabel lblCreditTotal;
 	private int numeroJoueur;
-
+	private int nbCreditEtuSelect;
+	
+	JLabel lblNbCredit;
 	public TreveView(TreveController controller, int numeroJoueur) {
 		this.numeroJoueur = numeroJoueur;
 		this.controller = controller;
@@ -65,7 +72,14 @@ public class TreveView {
 		choixReservistes = new Choice();
 		choixReservistes.setFont(new Font("Tahoma", Font.BOLD, 20));
 		choixReservistes.setBounds(196, 200, 200, 26);
-		
+		choixReservistes.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				//update de l'affichage du nb de credit
+				etuSelect = reservistes.get(choixReservistes.getSelectedIndex());
+				nbCreditEtuSelect = reservistes.get(choixReservistes.getSelectedIndex()).getCredits();
+				update();
+			}
+		});
 		for(Etudiant etuReserviste:reservistes){
 			choixReservistes.add(etuReserviste.getNom());
 		}
@@ -90,7 +104,6 @@ public class TreveView {
             public void actionPerformed(ActionEvent e) {
 				if(choixReservistes.getItemCount()>0){
 					//controller.deployerReserviste();
-					etuSelect = reservistes.get(choixReservistes.getSelectedIndex());
 					System.out.println(etuSelect.getNom());
 					//demande au controller d'effectuer le deploiment
 					controller.deployerReserviste(etuSelect, zoneDeploiementReserviste.getSelectedIndex());
@@ -119,6 +132,14 @@ public class TreveView {
 		choixSurvivants = new Choice();
 		choixSurvivants.setFont(new Font("Tahoma", Font.BOLD, 20));
 		choixSurvivants.setBounds(896, 200, 300, 26);
+		choixSurvivants.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				//update de l'affichage du nb de credit
+				etuSelect = survivants.get(choixSurvivants.getSelectedIndex());
+				nbCreditEtuSelect = survivants.get(choixSurvivants.getSelectedIndex()).getCredits();
+				update();
+			}
+		});
 		for(Etudiant etuReserviste:survivants){
 			choixSurvivants.add(etuReserviste.getNom());
 		}
@@ -149,6 +170,13 @@ public class TreveView {
 		for (int i = 0; i < 5; i++) {
 			zoneDeploiementSurvivant.addItem(Utils.zoneIndexToString(i));
 		}
+		zoneDeploiementSurvivant.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				//update de l'affichage du nb de credit
+				nbCreditEtuSelect = survivants.get(choixSurvivants.getSelectedIndex()).getCredits();
+				update();
+			}
+		});
 		treveView.add(zoneDeploiementSurvivant);
 
 		//bouton valider reserviste
@@ -158,7 +186,6 @@ public class TreveView {
             public void actionPerformed(ActionEvent e) {
 				if(choixSurvivants.getItemCount()>0){
 					//deployer survivant sur une zone
-					etuSelect = survivants.get(choixSurvivants.getSelectedIndex());
 					System.out.println(etuSelect.getNom());
 					//demande au controller d'effectuer le deploiment
 					if(etuSelect.getZone().getIndiceZone() == zoneDeploiementSurvivant.getSelectedIndex()){
@@ -188,16 +215,58 @@ public class TreveView {
 		JButton btnValider = new JButton("Valider");
 		btnValider.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnValider.setBounds(896, 525, 200, 50);
-		btnValider.updateUI();
 		treveView.add(btnValider);
         btnValider.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 				controller.arreter();
             }
         });
-
 		affCreditZone();
 		
+		//-------------------------------------------------------//
+
+		//affichage profil etu selectionner
+		
+		//label 
+		JLabel lblCurrentEtu = new JLabel("Profil Etudiant :");
+		lblCurrentEtu.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblCurrentEtu.setBounds(550, 150, 300, 26);
+		treveView.add(lblCurrentEtu);
+		//label 
+		lblNbCredit = new JLabel("Credits : " + nbCreditEtuSelect);
+		lblNbCredit.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNbCredit.setBounds(550, 200, 300, 26);
+		treveView.add(lblNbCredit);
+		//label 
+		JLabel lnlStrategie = new JLabel("Stategie : ");
+		lnlStrategie.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lnlStrategie.setBounds(550, 250, 300, 26);
+		treveView.add(lnlStrategie);
+		//choix de sa strategie
+		choixStrategie = new Choice();
+		choixStrategie.setFont(new Font("Tahoma", Font.BOLD, 20));
+		choixStrategie.setBounds(550, 300, 250, 30);
+		choixStrategie.add("         ");
+		choixStrategie.add("Defensive");
+		choixStrategie.add("Offensive");
+		choixStrategie.add("Aleatoire");
+		choixStrategie.select(0);
+		treveView.add(choixStrategie);
+		//bouton changer sa strategie 
+		JButton btnAppliquerStragie = new JButton("Changer Strategie");
+		btnAppliquerStragie.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnAppliquerStragie.setBounds(550, 350, 300, 50);
+        btnAppliquerStragie.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+				String stratStr = choixStrategie.getSelectedItem(); 
+				Strategie strat = null;
+				if (stratStr.equals("Offensive"))strat = new Offensif();	
+				if (stratStr.equals("Defensive"))strat = new Defensif();	
+				if (stratStr.equals("Aleatoire"))strat = new Aleatoire();	
+				etuSelect.setStrategie(strat);
+            }
+        });
+		treveView.add(btnAppliquerStragie);
 		treveView.validate();
 	}
 
@@ -231,5 +300,13 @@ public class TreveView {
 			this.totalCredit += credit;
 			lblCreditZone[i].setText(controleZoneString[controller.getControllee(i)] + "  " + Utils.zoneIndexToString(i) + " = " + credit);
 		}
+		//update nb credit 
+		lblNbCredit.setText("Credits : " + nbCreditEtuSelect);
+		System.out.println("credit" + nbCreditEtuSelect);
+		//update strategie
+		if(etuSelect.getStrategie() instanceof Defensif)choixStrategie.select("Defensive");
+		if(etuSelect.getStrategie() instanceof Offensif)choixStrategie.select("Offensive");
+		if(etuSelect.getStrategie() instanceof Aleatoire)choixStrategie.select("Aleatoire");
+		treveView.validate();
 	}
 }

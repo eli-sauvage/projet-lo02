@@ -29,6 +29,7 @@ public class ArmeeView {
 	private JLabel lblElite;
 	// private TextField nom;
 	// private Choice programme;
+	
 
 	private ArmeController controller;
 
@@ -68,19 +69,6 @@ public class ArmeeView {
 		}
 		interfaceArmee.add(choixEtudiant);
 		// image joueur en cours
-		JPanel panelImage = new JPanel();
-		panelImage.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-		panelImage.setBackground(Color.CYAN);
-		panelImage.setBounds(79, 102, 70, 122);
-		panelImage.setLayout(new GridLayout(1, 1, 0, 0)); // politique de placement des composants dans ce panel
-		JButton jb1 = new JButton(); // pour représenter un personnage, utilisation d'un JButton
-		panelImage.add(jb1);
-		jb1.setForeground(Utils.bgColor);
-		// Image imEtudiant = new ImageIcon("ressources\\etudiant.png").getImage();
-		// Image imElite = new ImageIcon("ressources\\etudiant.png").getImage();
-		// Image imMaitre = new ImageIcon("ressources\\etudiant.png").getImage();
-
-		interfaceArmee.add(panelImage);
 
 		// Compteur des points à distribuer
 		JLabel lblNewLabel_4 = new JLabel("Points a distribuer : ");
@@ -191,8 +179,8 @@ public class ArmeeView {
 		strategy.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		strategy.setBounds(562, 455, 224, 31);
 		strategy.add("Offensive");
-		strategy.add("Défensive");
-		strategy.add("Aléatoire");
+		strategy.add("Defensive");
+		strategy.add("Aleatoire");
 		interfaceArmee.add(strategy);
 
 		// Réserviste ?
@@ -239,11 +227,11 @@ public class ArmeeView {
 				String stratStr = strategy.getSelectedItem();
 				Strategie strat = null;
 
-				if (stratStr.equals("offensif"))
+				if (stratStr.equals("Offensive"))
 					strat = new Offensif();
-				if (stratStr.equals("defensif"))
+				if (stratStr.equals("Defensive"))
 					strat = new Defensif();
-				if (stratStr.equals("aleatoire"))
+				if (stratStr.equals("Aleatoire"))
 					strat = new Aleatoire();
 
 				controller.appliquerStats(
@@ -305,11 +293,11 @@ public class ArmeeView {
 		initiative.setValue(selectedEtudiant.getInitiative());
 		reserviste.setSelected(selectedEtudiant.getReserviste());
 		if (selectedEtudiant.getStrategie() instanceof Defensif)
-			strategy.select("Défensive");
+			strategy.select("Defensive");
 		if (selectedEtudiant.getStrategie() instanceof Offensif)
 			strategy.select("Offensive");
 		if (selectedEtudiant.getStrategie() instanceof Aleatoire)
-			strategy.select("Aléatoire");
+			strategy.select("Aleatoire");
 		// update image
 		if (selectedEtudiant instanceof MaitreDuGobi)
 			lblElite.setText("Type : Maitre du Gobi");

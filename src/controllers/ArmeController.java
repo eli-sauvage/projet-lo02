@@ -143,7 +143,7 @@ public class ArmeController {
             else if (stat == 4)
                 etudiants[etu].incrInitiative();
         }
-        for (int i = 0; i < 20; i++) {// choisit une stratedie aleatoire
+        for (int i = 0; i < 20; i++) {// choisit une strategie aleatoire
             double rand = Math.random();
             if (rand < .33)
                 etudiants[i].setStrategie(new Defensif());

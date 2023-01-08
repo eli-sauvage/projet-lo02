@@ -43,13 +43,13 @@ public class Utils {
      */
     public static String zoneIndexToString(int zone) {
         if (zone == 0)
-            return "BU";
+            return "BU            ";
         else if (zone == 1)
-            return "BDE";
+            return "BDE           ";
         else if (zone == 2)
-            return "Q. Admin";
+            return "Quartier Admin";
         else if (zone == 3)
-            return "Halle Indus";
+            return "Halle Indus   ";
         else if (zone == 4)
             return "Halle Sportive";
         else

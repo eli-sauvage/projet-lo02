@@ -15,7 +15,7 @@ public class Etudiant {
         this.nom = "Etudiant " + (id+1);
         this.resetStats();
     }
-
+    
     
 
     

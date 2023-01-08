@@ -5,6 +5,7 @@ public class EtudiantElite extends Etudiant {
     public EtudiantElite(int joueur, int id) {
         super(joueur, id);
         this.resetStats();
+        setNom("Elite " + id);
     }
 
     

@@ -6,6 +6,7 @@ public class MaitreDuGobi extends Etudiant{
     public MaitreDuGobi(int joueur, int id) {
         super(joueur, id);
         this.resetStats();
+        setNom("Maitre " + id);
     }
 
     
