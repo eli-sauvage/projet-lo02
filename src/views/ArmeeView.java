@@ -255,7 +255,7 @@ public class ArmeeView {
 				} catch (Exception exept) {
 					JFrame f = new JFrame();
 					JDialog d;
-					d = new JDialog(f, "Dialog Example", true);
+					d = new JDialog(f, "Erreur", true);
 					d.setLayout(new FlowLayout());
 					JButton b = new JButton("OK");
 					b.addActionListener(new ActionListener() {
