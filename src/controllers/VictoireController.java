@@ -1,4 +1,5 @@
 package controllers;
+
 import views.*;
 import models.*;
 
@@ -7,21 +8,25 @@ public class VictoireController {
     private boolean continuer = false;
     private String gagnant;
 
-    public VictoireController(String gagnant){
+    public VictoireController(String gagnant) {
         this.gagnant = gagnant;
         vv = new VictoireView(this);
-        while(!continuer){
+        while (!continuer) {
             Utils.sleep(50);
         }
     }
-    public void continuer(){
+
+    /**
+     * debloque laa boucle afin de liberer le thread principal pour finir la partie
+     */
+    public void continuer() {
         continuer = true;
     }
-    
-    /** 
-     * @return String
+
+    /**
+     * @return String le nom du gagnant
      */
-    public String getGagnant(){
+    public String getGagnant() {
         return gagnant;
     }
 }

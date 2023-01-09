@@ -13,7 +13,8 @@ public class ArmeController {
     private ChampDeBataille champ;
 
     /**
-     * @param joueur 
+     * @param joueur le joueur actuel
+     * @param champ  le champ de bataille
      */
     public ArmeController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
@@ -21,6 +22,7 @@ public class ArmeController {
     }
 
     ArmeeView armeeV;
+
     /**
      * affiche la vue
      */
@@ -32,29 +34,27 @@ public class ArmeController {
         armeeV.fermer();
     }
 
-
-    
-    /** 
+    /**
      * retourne le numéro du joueur
-     * @return String 
+     * 
+     * @return String le numero du joueur actuel
      */
     public String getNumeroJoueur() {
         return Integer.toString(joueur.getNumero());
     }
 
-
-    
-    /** 
+    /**
      * applique les stats a l'etudiant selectionne par l'indice
-     * @param indiceEtu
-     * @param f
-     * @param d
-     * @param r
-     * @param i
-     * @param c
-     * @param reserviste
-     * @param strat
-     * @param zoneIndex
+     * 
+     * @param indiceEtu  l'indice de l'etudiant
+     * @param f          la force a appliquer
+     * @param d          la dexterite a appliquer
+     * @param r          la resistance a appliquer
+     * @param i          l'initiative a appliquer
+     * @param c          la constitution a appliquer
+     * @param reserviste l'attibut boolen reserviste a appliquer
+     * @param strat      la strategie a appliquer
+     * @param zoneIndex  la zone ou l'etudiant sera deploye
      */
     public void appliquerStats(int indiceEtu, int f, int d, int r, int i, int c, boolean reserviste, Strategie strat,
             int zoneIndex) {
@@ -74,35 +74,30 @@ public class ArmeController {
         }
     }
 
-
-    
-    /** 
+    /**
      * retourne l'etudiant a l'indice specifie
-     * @param i
-     * @return Etudiant
+     * 
+     * @param i l'index de l'etudiant
+     * @return Etudiant l'objet Etudiant correspondant
      */
     public Etudiant getEtudiant(int i) {
         return joueur.getArmee().getEtudiants()[i];
     }
 
-
-    
     /**
      * retourne le nom de l'etudiant a l'indice specifie
      * 
-     * @param indiceEtu
-     * @return String
+     * @param indiceEtu l'indice de l'etudiant
+     * @return String le nom de l'etudiant
      */
     public String getNomEtudiant(int indiceEtu) {
         return joueur.getArmee().getEtudiants()[indiceEtu].getNom();
     }
 
-
-    
     /**
      * retourne les points possibles restants a repartir
      * 
-     * @return int
+     * @return int les points restants a repartir
      */
     public int getPointsRestants() {
         int total = 0;
@@ -125,7 +120,7 @@ public class ArmeController {
             e.resetStats();
             e.setZone(null);
         }
-        for(Zone z:champ.getZones()){
+        for (Zone z : champ.getZones()) {
             z.getCombatantsJ(joueur.getNumero()).clear();
         }
 
@@ -173,10 +168,10 @@ public class ArmeController {
 
     }
 
-    
-    /** 
+    /**
      * valide l'armee et passe au joueur suivant ou au combat
-     * @throws Exception
+     * 
+     * @throws Exception si un parametre n'est pas valide
      */
     public void valider() throws Exception {
         int nbReservistes = 0, i = 0;
@@ -188,7 +183,8 @@ public class ArmeController {
                 throw new Exception("l'etudiant " + i + "n'a pas été affecté à une zone");
         }
         if (nbReservistes != 5)
-            throw new Exception("vous devez selectionner exactement 5 réservistes (actuellement : " + nbReservistes + ")");
+            throw new Exception(
+                    "vous devez selectionner exactement 5 réservistes (actuellement : " + nbReservistes + ")");
         if (getPointsRestants() != 0)
             throw new Exception("vous devez répartir les 400 points");
         System.out.println("validation armée J" + joueur.getNumero());
