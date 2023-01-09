@@ -7,6 +7,9 @@ public class Armee {
         this.joueur = joueur;
     }
 
+    /**
+     * initialise l'armee avec des nouveaux etudiants
+     */
     public void initDefaut() {
         int id = 0;
         etudiants = new Etudiant[20];
@@ -20,7 +23,7 @@ public class Armee {
 
     
     /** 
-     * @return Etudiant[]
+     * @return Etudiant[] les etudiants qui composent l'armee
      */
     public Etudiant[] getEtudiants() {
         return etudiants;
@@ -28,7 +31,7 @@ public class Armee {
 
     
     /** 
-     * @return String
+     * @return String l'armee au format texte
      */
     @Override
     public String toString() {

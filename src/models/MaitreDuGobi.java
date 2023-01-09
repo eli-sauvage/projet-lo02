@@ -11,13 +11,16 @@ public class MaitreDuGobi extends Etudiant{
 
     
     /** 
-     * @return String
+     * @return String l'etudiant sous forme de texte
      */
     @Override
     public String toString() {
         return "MaitreDuGobi :" + super.toString();
     }
 
+    /**
+     * remet a 0 les stats de l'etudiant
+     */
     @Override
     public void resetStats(){
         this.force = 2;

@@ -20,13 +20,16 @@ public class Etudiant {
 
     
     /** 
-     * @param cible
-     * @return int
+     * effectue l'action (soin / attaque)
+     * @param cible la cible
+     * @return int le nombre de degats infliges / de points de vie soignes
      */
     public int action(Etudiant cible){
         return strategie.action(this, cible);
     }
-
+    /**
+     * remet a 0 toutes les statistiques de l'etudiant
+     */
     public void resetStats(){
         this.force = 0;
         this.resistance = 0;
@@ -63,7 +66,8 @@ public class Etudiant {
 
     
     /** 
-     * @param credits
+     * met a jour les credits (possiblement une quantite negative)
+     * @param credits les credits a ajouter (retirer si negatif)
      */
     public void addCredits(int credits) {
         if (this.credits + credits > 30 + this.consitution) {
@@ -249,7 +253,7 @@ public class Etudiant {
 
     
     /** 
-     * @return String
+     * @return String l'etudiant sous forme de texte
      */
     @Override
     public String toString() {

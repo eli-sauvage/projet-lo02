@@ -47,7 +47,9 @@ public class Partie {
         System.out.println("@                            @");
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     }
-
+    /**
+     * lance un nouveau tour de combats
+     */
     public void combats() {
         ArrayList<Zone> zonesDeCombat = new ArrayList<>();
         CombatsController cc = new CombatsController();
@@ -85,7 +87,8 @@ public class Partie {
 
     
     /** 
-     * @param joueur
+     * lance une nouvelle treve pour le joueur specifie
+     * @param joueur le joueur en question
      */
     public void treve(Joueur joueur) {
         TreveController tc = new TreveController(joueur, this.champ);
@@ -94,7 +97,8 @@ public class Partie {
 
     
     /** 
-     * @return int
+     * cherche si un joueur est gagnat
+     * @return int le numero du joueur gagnant (0 si personne ne gagne encore / le numero du joueur gagnant sinon)
      */
     public int chercherGagnant() {
         ArrayList<Zone> zonesJ1 = new ArrayList<>(); // zones controllees par J1
@@ -118,15 +122,11 @@ public class Partie {
 
     }
 
-    public void setup() {
-        System.out.println("ddsqsdfdsf---");
-
-    }
-
     
     /** 
-     * @param i
-     * @return Joueur
+     * retourne l'objet du joueur correspondant a l'index
+     * @param i l'indexe du joueur
+     * @return Joueur le joueur
      */
     public Joueur getJoueur(int i) {
         return this.joueurs[i];
@@ -134,7 +134,8 @@ public class Partie {
 
     
     /** 
-     * @return ChampDeBataille
+     * retoune le champ de bataille
+     * @return ChampDeBataille le champ de bataille
      */
     public ChampDeBataille getChamp() {
         return champ;

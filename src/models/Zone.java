@@ -11,9 +11,16 @@ public class Zone {
   private String nomZone;
 
 
-  
+  public Zone(int indice) {
+    this.indiceZone = indice;
+    this.nomZone = Utils.zoneIndexToString(indice);
+    combatantsJ1 = new ArrayList<Etudiant>();
+    combatantsJ2 = new ArrayList<Etudiant>();
+  }
+
   /** 
-   * @return String
+   * retourne le nom de la zone
+   * @return String le nom de la zone
    */
   public String getNomZone() {
     return nomZone;
@@ -21,7 +28,8 @@ public class Zone {
 
   
   /** 
-   * @return int
+   * pour savoir si la zone est controlee
+   * @return int 0 si personne ne controlle la zone / le numero du joueur qui controle sinon
    */
   public int getControlee() {
     return controlee;
@@ -34,31 +42,11 @@ public class Zone {
   public void setControlee(int controlee) {
     this.controlee = controlee;
   }
-  /*
-  public void calculerControlee(){
-    int survivantJ1 = 0, survivantJ2 = 0;
-    for(Etudiant e:combatantsJ1){
-      if(e.getCredits()>0)survivantJ1++;
-    }
-    for(Etudiant e:combatantsJ2){
-      if(e.getCredits()>0)survivantJ2++;
-    }
-    if(survivantJ1 > 0 && survivantJ2 == 0)controlee = 1;
-    if(survivantJ2 > 0 && survivantJ1 == 0)controlee = 2;
-    System.out.println("ZONE " + indiceZone + " CONTROLEE");
-  }
- */
-  public Zone(int indice) {
-    this.indiceZone = indice;
-    this.nomZone = Utils.zoneIndexToString(indice);
-    combatantsJ1 = new ArrayList<Etudiant>();
-    combatantsJ2 = new ArrayList<Etudiant>();
-  }
-
   
   /** 
-   * @param joueurSelect
-   * @return ArrayList<Etudiant>
+   * retourne la liste des combattants de la zone pour un joueur donne
+   * @param joueurSelect l'indice du joueur
+   * @return ArrayList<Etudiant> la liste des combattants
    */
   public ArrayList<Etudiant> getCombatantsJ(int joueurSelect) {
     if (joueurSelect == 1)
@@ -71,6 +59,7 @@ public class Zone {
 
   
   /** 
+   * retoune l'indice de la zone
    * @return int
    */
   public int getIndiceZone() {
@@ -79,8 +68,9 @@ public class Zone {
 
   
   /** 
-   * @param cc
-   * @return Combat
+   * retourne un combat specifique (pattern singleton)
+   * @param cc le controller (necessaire pour l'initialisation, pour les notifications)
+   * @return Combat le combat en question
    */
   public Combat getCombat(CombatsController cc) {
     if (this.combat == null)

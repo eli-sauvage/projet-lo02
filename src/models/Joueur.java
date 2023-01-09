@@ -28,7 +28,8 @@ public class Joueur {
 
     
     /** 
-     * @return int
+     * retourne le numero du joueur
+     * @return int le numero du joueur
      */
     public int getNumero(){
         return this.numeroJoueur;
@@ -36,7 +37,7 @@ public class Joueur {
 
     
     /** 
-     * @return String
+     * @return String le joueur sous forme de texte
      */
     @Override
     public String toString() {

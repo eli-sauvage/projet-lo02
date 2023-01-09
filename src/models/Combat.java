@@ -1,4 +1,5 @@
 package models;
+
 import java.io.*;
 import java.lang.Thread.State;
 import java.util.*;
@@ -13,7 +14,8 @@ public class Combat implements Runnable {
     private ArrayList<Combat> autresCombats;
     private CombatsController combatsController;
 
-    public Combat(ArrayList<Etudiant> etudiantsJ1, ArrayList<Etudiant> etudiantsJ2, Zone zone, CombatsController combatsController) {
+    public Combat(ArrayList<Etudiant> etudiantsJ1, ArrayList<Etudiant> etudiantsJ2, Zone zone,
+            CombatsController combatsController) {
         this.combatsController = combatsController;
         this.combattants = new ArrayList<>();
         this.combattants.addAll(etudiantsJ1);
@@ -21,9 +23,10 @@ public class Combat implements Runnable {
         this.zone = zone;
     }
 
-    
-    /** 
-     * @param combatsEnCours
+    /**
+     * demarre les combats
+     * 
+     * @param combatsEnCours la liste des combats a demarrer
      */
     public void start(ArrayList<Combat> combatsEnCours) {
         this.autresCombats = new ArrayList<>();
@@ -34,17 +37,20 @@ public class Combat implements Runnable {
         t.start();
     }
 
-    
-    /** 
+    /**
+     * retoune l'etat du thread actuel
+     * 
      * @return State
      */
     public State getState() {
         return this.t.getState();
     }
 
-    
-    /** 
-     * @return Combat
+    /**
+     * cherche si un des combats est termine, auquel cas on arrete egalement
+     * celui-ci
+     * 
+     * @return Combat le combat fini, null si aucun combat n'est termine
      */
     public Combat chercherCombatFini() {
         Combat fini = null;
@@ -57,13 +63,16 @@ public class Combat implements Runnable {
         return fini;
     }
 
+    /**
+     * demarre le thread et lance la boucle qui s'arretera si ce combat ou un autre se termine
+     */
     public void run() {
         if (combattants.isEmpty()) {
             System.out.println(
                     "egalité dans la zone " + zone.getIndiceZone() + " car pas de combattants");
             while (chercherCombatFini() != null) {
             }
-            return; //pas de gagnant si pas de combattants
+            return; // pas de gagnant si pas de combattants
         }
         ArrayList<Etudiant> offensifs = new ArrayList<>();
         offensifs.addAll(combattants);
@@ -73,7 +82,7 @@ public class Combat implements Runnable {
                     + " car tous les etudiants sont defensifs");
             while (chercherCombatFini() != null) {
             }
-            return;//si il n'y a que du soin -> egalité
+            return;// si il n'y a que du soin -> egalité
         }
         do { // tant que pas de gagnant (ou qu'un autre combat soit fini)
             combattants.removeIf(e -> (e.credits == 0));
@@ -90,7 +99,8 @@ public class Combat implements Runnable {
             while (i.hasNext()) {
                 Combat fini = chercherCombatFini();
                 if (fini != null) {
-                    //System.out.println("arret car le combat " + fini.zone.getIndiceZone() + " est fini");
+                    // System.out.println("arret car le combat " + fini.zone.getIndiceZone() + " est
+                    // fini");
                     return;
                 }
                 Etudiant etu = i.next();
@@ -135,7 +145,7 @@ public class Combat implements Runnable {
                         writer.close();
                     } catch (Exception e) {
                     }
-                    if (cible.getCredits() == 0){
+                    if (cible.getCredits() == 0) {
                         System.out.println(etu + "\n| a tue \n| " + cible);
                         combatsController.combatUpdate();
                     }
@@ -162,15 +172,16 @@ public class Combat implements Runnable {
                 gagnant = 0;
             // System.out.println("------FIN TOUR" + nbTours++ + "
             // -------------------------------");
-            Utils.sleep(50 + (int)Math.floor(50*Math.random()));//pour eviter que deux combats se finissent en meme temps
+            Utils.sleep(50 + (int) Math.floor(50 * Math.random()));// pour eviter que deux combats se finissent en meme
+                                                                   // temps
         } while (gagnant == 0);
         zone.setControlee(gagnant);
         combatsController.combatsFinis(zone, gagnant);
     }
 
-    
-    /** 
-     * @return boolean
+    /**
+     * retourne true si le combat est fini
+     * @return boolean true si le combat est fini
      */
     public boolean finished() {
         return gagnant != 0;
