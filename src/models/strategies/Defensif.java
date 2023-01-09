@@ -1,12 +1,13 @@
 package models.strategies;
+
 import models.*;
 
-public class Defensif implements Strategie{
-    
-    /** 
-     * @param etudiant
-     * @param cible
-     * @return int
+public class Defensif implements Strategie {
+
+    /**
+     * @param etudiant l'etudiant qui soignera
+     * @param cible    la cible
+     * @return int le nombre de points de vie soignes
      */
     static public int soigner(Etudiant etudiant, Etudiant cible) {
         int x = (int) Math.random() * 100;
@@ -18,14 +19,12 @@ public class Defensif implements Strategie{
         return 0;
     }
 
-
-    
-    /** 
-     * @param etudiant
-     * @param cible
-     * @return int
+    /**
+     * @param etudiant l'etudiant qui soignera
+     * @param cible    la cible
+     * @return int le nombre de points de vie soignes
      */
-    public int action(Etudiant etudiant, Etudiant cible){
+    public int action(Etudiant etudiant, Etudiant cible) {
         return Defensif.soigner(etudiant, cible);
     }
 }

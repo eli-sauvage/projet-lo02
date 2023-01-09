@@ -1,13 +1,13 @@
 package models.strategies;
+
 import models.*;
 
-public class Offensif implements Strategie{
+public class Offensif implements Strategie {
 
-    
-    /** 
-     * @param etudiant
-     * @param cible
-     * @return int
+    /**
+     * @param etudiant l'etudiant qui attaquera
+     * @param cible    la cible
+     * @return int le nombre de degats infliges
      */
     static public int attaquer(Etudiant etudiant, Etudiant cible) {
         int x = (int) Math.random() * 100;
@@ -22,13 +22,12 @@ public class Offensif implements Strategie{
         return 0;
     }
 
-    
-    /** 
-     * @param etudiant
-     * @param cible
-     * @return int
+    /**
+     * @param etudiant l'etudiant qui attaquera
+     * @param cible    la cible
+     * @return int le nombre de degats infliges
      */
-    public int action(Etudiant etudiant, Etudiant cible){
+    public int action(Etudiant etudiant, Etudiant cible) {
         return Offensif.attaquer(etudiant, cible);
     }
 }
