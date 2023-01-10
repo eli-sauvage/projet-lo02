@@ -14,6 +14,9 @@ import models.strategies.Defensif;
 import models.strategies.Offensif;
 import models.strategies.Strategie;
 
+/**
+ * la vue qui affiche les treves
+ */
 public class TreveView {
 
 	public JFrame treveView = new JFrame();
@@ -37,18 +40,25 @@ public class TreveView {
 	private int nbCreditEtuSelect;
 
 	JLabel lblNbCredit;
-
+	/**
+	 * @param controller le controller associe a la vue
+	 * @param numeroJoueur le numero du joueur actuel
+	 */
 	public TreveView(TreveController controller, int numeroJoueur) {
 		this.numeroJoueur = numeroJoueur;
 		this.controller = controller;
 		affTreveView();
 		treveView.setVisible(true);
 	}
-
+	/**
+	 * ferme la fenetre de la treve
+	 */
 	public void fermer() {
 		treveView.setVisible(false);
 	}
-
+	/**
+	 * affiche la vuex de la treve
+	 */
 	private void affTreveView() {
 		// interface treve
 		System.out.println("print treve view");
@@ -270,25 +280,13 @@ public class TreveView {
 		choixStrategie.add("Aleatoire");
 		choixStrategie.select(0);
 		treveView.add(choixStrategie);
-		//bouton changer sa strategie 
-		// JButton btnAppliquerStragie = new JButton("Changer Strategie");
-		// btnAppliquerStragie.setFont(new Font("Tahoma", Font.BOLD, 20));
-		// btnAppliquerStragie.setBounds(550, 350, 300, 50);
-		// btnAppliquerStragie.addActionListener(new ActionListener() {
-		//     public void actionPerformed(ActionEvent e) {
-		// 		String stratStr = choixStrategie.getSelectedItem(); 
-		// 		Strategie strat = null;
-		// 		if (stratStr.equals("Offensive"))strat = new Offensif();	
-		// 		if (stratStr.equals("Defensive"))strat = new Defensif();	
-		// 		if (stratStr.equals("Aleatoire"))strat = new Aleatoire();	
-		// 		etuSelect.setStrategie(strat);
-		//     }
-		// });
-		// treveView.add(btnAppliquerStragie);
 		treveView.validate();
 		update();
 	}
 
+	/**
+	 * affiche les credits restants par zone
+	 */
 	private void affCreditZone() {
 		//affichage des credits restants par zone 
 		JLabel lblCreditRestant = new JLabel("Credit Restant par zone");
@@ -313,8 +311,11 @@ public class TreveView {
 		lblCreditTotal.setBounds(210, 650, 500, 26);
 		treveView.add(lblCreditTotal);
 	}
-
+	/**
+	 * met a jour la vue lorque l'utilisateur effectue une action
+	 */
 	public void update() {
+		affCreditZone();
 		int survivantIndex = choixSurvivants.getSelectedIndex();
 		if (survivantIndex != -1) {
 			survivantSelect = survivants.get(survivantIndex);

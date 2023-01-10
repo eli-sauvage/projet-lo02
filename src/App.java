@@ -1,25 +1,22 @@
 import models.Partie;
 import models.Utils;
-
+/**
+ * main class
+ */
 public class App {
-    
-    /** 
-     * @param args
-     * @throws Exception
-     */
     public static void main(String[] args) throws Exception {
         Utils.removeLogfiles();
-        lancerPartie(true);
+        lancerPartie();
         Utils.sc.close();
     }
 
     
-    /** 
-     * @param reparition
+    /**
+     * lance la partie
      */
-    public static void lancerPartie(boolean reparition) {
+    public static void lancerPartie() {
         System.out.println("lancement de la partie");
-        new Partie(false);
+        new Partie();
     }
 
    

@@ -1,7 +1,9 @@
 package models;
 import java.util.*;
 import controllers.*;
-
+/**
+ * une zone est le lieu ou les combats ont lieu, chaque zone comporte les etudiants de chaque joueur qui y ont ete assignes
+ */
 public class Zone {
 
   private ArrayList<Etudiant> combatantsJ1, combatantsJ2;
@@ -10,7 +12,9 @@ public class Zone {
   private int controlee = 0; //0 = personne
   private String nomZone;
 
-
+  /**
+   * @param indice l'indice de la zone, qui la relie a son nom via Utils.zoneIndexToString(indice)
+   */
   public Zone(int indice) {
     this.indiceZone = indice;
     this.nomZone = Utils.zoneIndexToString(indice);
@@ -37,7 +41,7 @@ public class Zone {
 
   
   /** 
-   * @param controlee
+   * @param controlee le nouvel etat de control de la zone
    */
   public void setControlee(int controlee) {
     this.controlee = controlee;
@@ -46,7 +50,7 @@ public class Zone {
   /** 
    * retourne la liste des combattants de la zone pour un joueur donne
    * @param joueurSelect l'indice du joueur
-   * @return ArrayList<Etudiant> la liste des combattants
+   * @return ArrayList la liste des combattants
    */
   public ArrayList<Etudiant> getCombatantsJ(int joueurSelect) {
     if (joueurSelect == 1)
@@ -83,7 +87,8 @@ public class Zone {
 
   
   /** 
-   * @param combatsEnCours
+   * lance les combats
+   * @param combatsEnCours les combats en cours
    */
   public void lancerCombat(ArrayList<Combat> combatsEnCours) {
     if(this.combat==null){

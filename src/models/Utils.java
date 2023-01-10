@@ -2,6 +2,9 @@ package models;
 import java.io.*;
 import java.util.*;
 import java.awt.*;
+/**
+ * une classe ne comportant que des membres statiques, regrouppant les fonctions et attributs utiles pour les differentes classes
+ */
 public class Utils {
     public static final Scanner sc = new Scanner(System.in);
     public static final Color bgColor = new Color(255, 128, 192);
@@ -20,6 +23,7 @@ public class Utils {
      * @param array la liste
      * @param elemnt l'element a chercher
      * @return boolean true si l'element se trouve dans la liste
+     * @param <T> le type de l'element
      */
     public static <T> boolean containsArray(T[] array, T elemnt) {
         for (int i = 0; i < array.length; i++) {

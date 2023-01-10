@@ -8,12 +8,13 @@ import controllers.CombatsController;
 import controllers.MenuController;
 import controllers.TreveController;
 import controllers.VictoireController;
-
+/**
+ * c'est l'objet principal qui gere les differentes etapes de la partie
+ */
 public class Partie {
     private Joueur[] joueurs = new Joueur[2];
     private ChampDeBataille champ = new ChampDeBataille();
-
-    public Partie(boolean repartition) {
+    public Partie() {
         MenuController mc = new MenuController();
         mc.display();
         

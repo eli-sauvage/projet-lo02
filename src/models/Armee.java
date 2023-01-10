@@ -1,8 +1,13 @@
 package models;
+/**
+ * une armee est un objet contenant une liste d'etudiants repartis sur plusieurs zones
+ */
 public class Armee {
     private Etudiant[] etudiants;
     private int joueur;
-
+    /**
+     * @param joueur le joueur a qui appartient l'armee
+     */
     public Armee(int joueur) {
         this.joueur = joueur;
     }

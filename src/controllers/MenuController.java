@@ -5,7 +5,9 @@ import views.*;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * le controller pour la vue du Menu
+ */
 public class MenuController {
     private boolean running = true;
     MenuView menuV;

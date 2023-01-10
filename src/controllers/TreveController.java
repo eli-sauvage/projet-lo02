@@ -6,11 +6,19 @@ import java.util.ArrayList;
 
 import models.*;
 
+/**
+ * le controller pour la vue Treve, permet d'effectuer le lien entre la vue et les models utilises
+ * pour la treve
+ */
 public class TreveController {
     private boolean running = true;
     private Joueur joueur;
     private ChampDeBataille champ;
 
+    /**
+     * @param joueur le joueur dont c'est la treve
+     * @param champ le champ de bataille de la partie
+     */
     public TreveController(Joueur joueur, ChampDeBataille champ) {
         this.joueur = joueur;
         this.champ = champ;
@@ -41,7 +49,7 @@ public class TreveController {
     /**
      * deploie l'étudiant dans la zone specifiee
      * 
-     * @param etudiant  l'etudiant a deployer
+     * @param etudiant l'etudiant a deployer
      * @param indexZone la zone dans laquelle le deployer
      */
     public void deployerReserviste(Etudiant etudiant, int indexZone) {
@@ -53,7 +61,7 @@ public class TreveController {
     /**
      * deploie l'etudiant dans la zone specifiee
      * 
-     * @param etudiant  l'etudiant a deployer
+     * @param etudiant l'etudiant a deployer
      * @param indexZone la zone dans laquelle le deployer
      */
     public void deployerSurvivant(Etudiant etudiant, int indexZone) {
@@ -65,7 +73,7 @@ public class TreveController {
     /**
      * retourne un ArrayList contenant les reservistes
      * 
-     * @return ArrayList<Etudiant> la liste des reservistes
+     * @return ArrayList la liste des reservistes
      */
     public ArrayList<Etudiant> getReserviste() {
         ArrayList<Etudiant> reservistes = new ArrayList<>();
@@ -89,12 +97,13 @@ public class TreveController {
     /**
      * retourne un Arraylist contenant les survivants
      * 
-     * @return ArrayList<Etudiant> les survivants
+     * @return ArrayList les survivants
      */
     public ArrayList<Etudiant> getSurvivants() {
         ArrayList<Etudiant> survivants = new ArrayList<>();
         for (Etudiant etu : joueur.getArmee().getEtudiants()) {
-            if ((etu.isReserviste() == false) && (etu.getZone().getControlee() != 0) && (etu.getCredits() != 0)
+            if ((etu.isReserviste() == false) && (etu.getZone().getControlee() != 0)
+                    && (etu.getCredits() != 0)
                     && !(etu.getZone().getCombatantsJ(etu.getJoueur()).size() == 1)) {
                 survivants.add(etu);
             }
@@ -142,8 +151,8 @@ public class TreveController {
     }
 
     /**
-     * stoppe la boucle bloquant le thread principal afin de continuer vers le
-     * joueur suivant ou vers le prochain combat
+     * stoppe la boucle bloquant le thread principal afin de continuer vers le joueur suivant ou
+     * vers le prochain combat
      */
     public void arreter() {
         this.running = false;

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import models.*;
 import models.strategies.*;
 
+/**
+ * le controller pour la vue Armee, permet d'effectuer le lien entre la vue et le model de l'armee du joueur
+ */
 public class ArmeController {
     private boolean running = true;
     private Joueur joueur;

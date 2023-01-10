@@ -11,6 +11,9 @@ import models.*;
 
 import controllers.*;
 
+/**
+ * la vue qui affiche les combats
+ */
 public class CombatsView {
     CombatsController controller;
     JFrame frame;
@@ -18,7 +21,9 @@ public class CombatsView {
     JLabel scoreBU, scoreHS, scoreQA, scoreBDE, scoreHI;
     JLabel BUCercle, HSCercle, QACercle, BDECercle, HICercle;
     private int offsetMap;
-
+	/**
+	 * @param controller le controller associe a la vue
+	 */
     public CombatsView(CombatsController controller) {
         this.controller = controller;
 
@@ -119,7 +124,9 @@ public class CombatsView {
         update();
         frame.setVisible(true);
     }
-
+    /**
+     * met a jour l'interface lorsque l'utilisateur fait un action ou que le combat evolue
+     */
     public void update() {
         JLabel[] labels = {scoreBU, scoreBDE, scoreQA, scoreHI, scoreHS};
         for (int i=0; i<labels.length; i++) {
@@ -145,8 +152,9 @@ public class CombatsView {
 
     
     /** 
-     * @param nomZone
-     * @param gagnant
+     * marque la fin du combat (affiche le popup)
+     * @param nomZone le nom de la Zone ou le combat s'est termine
+     * @param gagnant le numero du joueur gagnant
      */
     public void finDuCombat(String nomZone, int gagnant) {
         update();
@@ -168,7 +176,9 @@ public class CombatsView {
         d.setLocationRelativeTo(null);
         d.setVisible(true);
     }
-
+    /**
+     * ferme la fenetre principale de combat
+     */
     public void fermer() {
         frame.setVisible(false);
     }

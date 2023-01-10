@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import models.*;
 import views.*;
-
+/**
+ * le controller pour la vue Combats, permet d'effectuer le lien entre la vue et le model du combat en cours
+ */
 public class CombatsController {
     ArrayList<Zone> zones;
     ArrayList<Combat> combats;
@@ -13,7 +15,6 @@ public class CombatsController {
     boolean ready = false, continuer = false;
 
     /**
-     * initialise le controller
      * 
      * @param champ   le champ de bataille
      * @param combats la liste des combats

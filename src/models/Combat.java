@@ -5,7 +5,11 @@ import java.lang.Thread.State;
 import java.util.*;
 import controllers.*;
 import models.strategies.*;
-
+/**
+ * une instance de Combats est cree a pour chaque zone, a chaque tour de jeu
+ * elle permet de calculer l'issu d'un combat, les etudiants morts, les points de vie restant aux autres etc
+ * u ncombat s'arrete si tous les etudiants d'un joueur sont morts, ou si un autre combat s'est termine avant
+ */
 public class Combat implements Runnable {
     private ArrayList<Etudiant> combattants;
     private int gagnant = 0;// 0 = aucun gagnant
@@ -13,7 +17,12 @@ public class Combat implements Runnable {
     private Zone zone;
     private ArrayList<Combat> autresCombats;
     private CombatsController combatsController;
-
+    /**
+     * @param etudiantsJ1 les etudiants du J1 dans la zone du combat
+     * @param etudiantsJ2 les etudiants du J2 dans la zone du combat
+     * @param zone la zone de combat
+     * @param combatsController le controller de la view Combats, pour le notifier des differents evenements lors du combat
+     */
     public Combat(ArrayList<Etudiant> etudiantsJ1, ArrayList<Etudiant> etudiantsJ2, Zone zone,
             CombatsController combatsController) {
         this.combatsController = combatsController;

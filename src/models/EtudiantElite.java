@@ -1,7 +1,12 @@
 package models;
-
+/**
+ * un etudiant d'elite est un etudiant qui a des statistiques plus eleves de base
+ */
 public class EtudiantElite extends Etudiant {
-
+    /**
+     * @param joueur le joueur a qui appartient le maitre du gobi
+     * @param id un identifiant unique
+     */
     public EtudiantElite(int joueur, int id) {
         super(joueur, id);
         this.resetStats();

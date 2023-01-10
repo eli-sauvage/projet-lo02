@@ -1,5 +1,7 @@
 package models;
-
+/**
+ * le champ de bataille regroupe toutes les zones
+ */
 public class ChampDeBataille {
     private Zone[] zones = new Zone[5];
 

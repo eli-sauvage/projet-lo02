@@ -2,9 +2,13 @@ package models.strategies;
 
 import models.*;
 
+/**
+ * la strategie offensive permet d'attaquer un autre etudiant pour lui infliger des degats
+ */
 public class Offensif implements Strategie {
 
     /**
+     * l'etudiant attaque l'etudiant cible
      * @param etudiant l'etudiant qui attaquera
      * @param cible    la cible
      * @return int le nombre de degats infliges
@@ -23,6 +27,7 @@ public class Offensif implements Strategie {
     }
 
     /**
+     * effectue l'action (ici, attaquer)
      * @param etudiant l'etudiant qui attaquera
      * @param cible    la cible
      * @return int le nombre de degats infliges

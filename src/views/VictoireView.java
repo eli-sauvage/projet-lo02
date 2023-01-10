@@ -8,10 +8,15 @@ import controllers.VictoireController;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * la vue qui affiche le popup de victoire
+ */
 public class VictoireView {
     private JFrame frame;
     private VictoireController controller;
-
+	/**
+	 * @param controller le controller associe a la vue
+	 */
     public VictoireView(VictoireController controller) {
         this.controller = controller;
         try {
@@ -23,8 +28,9 @@ public class VictoireView {
 
     
     /** 
-     * @param gagnant
-     * @throws IOException
+     * affiche la fenetre de victoire
+     * @param gagnant le nom du gagant
+     * @throws IOException si le fichier gif n'est pas trouvé
      */
     public void showView(String gagnant) throws IOException {
 

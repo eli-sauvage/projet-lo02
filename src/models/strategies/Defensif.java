@@ -1,10 +1,13 @@
 package models.strategies;
 
 import models.*;
-
+/**
+ * la strategie defensive permet a l'etudiant de soigner un autre etudiant
+ */
 public class Defensif implements Strategie {
 
     /**
+     * l'etudiant soigne l'etudiant cible
      * @param etudiant l'etudiant qui soignera
      * @param cible    la cible
      * @return int le nombre de points de vie soignes
@@ -20,6 +23,7 @@ public class Defensif implements Strategie {
     }
 
     /**
+     * effectue l'action (ici, soin)
      * @param etudiant l'etudiant qui soignera
      * @param cible    la cible
      * @return int le nombre de points de vie soignes

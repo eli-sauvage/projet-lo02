@@ -11,6 +11,9 @@ import controllers.*;
 import models.strategies.*;
 import models.*;
 
+/**
+ * affiche l'interface pour la creation d'une armee
+ */
 public class ArmeeView {
 
 	public JFrame interfaceArmee = new JFrame();
@@ -32,16 +35,22 @@ public class ArmeeView {
 	
 
 	private ArmeController controller;
-
+	/**
+	 * @param controller le controller associe a la vue
+	 */
 	public ArmeeView(ArmeController controller) {
 		this.controller = controller;
 		affInterfaceArmee();
 	}
-
+	/**
+	 * ferme la fenettre actuelle
+	 */
 	public void fermer() {
 		interfaceArmee.setVisible(false);
 	}
-
+	/**
+	 * affiche l'interface de l'armee
+	 */
 	private void affInterfaceArmee() {
 		// interface armee
 
@@ -278,6 +287,9 @@ public class ArmeeView {
 		});
 	}
 
+	/**
+	 * met a jour les differrents elements lorsque l'utilisateur fait une action
+	 */
 	public void update() {
 		final Etudiant selectedEtudiant = controller.getEtudiant(choixEtudiant.getSelectedIndex());
 		// set de tout les stats de l'étudiant a l'affichage

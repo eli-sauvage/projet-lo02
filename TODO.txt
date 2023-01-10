@@ -1,8 +1,0 @@
-laisser la possibilité de changer de strat à la trève
-strategie aléatoire
-
-passer en patron de conception Strategy ??
-
-
-optionnel
-    tableau qui montre les stats de tous les etudiants pour plus de lisibilité

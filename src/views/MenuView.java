@@ -3,17 +3,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import controllers.*;
+/**
+ * la vue qui affiche le menu principal
+ */
 public class MenuView {
 	private  JFrame menu = new JFrame();
 	private Color bgColor = new Color(255, 128, 192);
 
     private MenuController controller;
-
+	/**
+	 * @param controller le controller associe a la vue
+	 */
     public MenuView(MenuController controller){
         this.controller = controller;
         interfaceMenu();
     }
 
+    /**
+     * affiche l'interface du menu
+     */
     private void interfaceMenu() {
         // menu
         menu.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 30));
@@ -53,6 +61,9 @@ public class MenuView {
             }
         });
     }
+    /**
+     * ferme la fenetre du menu
+     */
     public void fermer(){
         menu.setVisible(false);
     }

@@ -1,7 +1,13 @@
 package models;
+/**
+ * la partie est composee de deux joueurs, gerant chacun son armee
+ */
 public class Joueur {
     private Armee armee;
     private int numeroJoueur;
+    /**
+     * @param numero le numero de ce joueur
+     */
     public Joueur(int numero) {
         this.numeroJoueur = numero;
         System.out.println("init joueur");
@@ -15,14 +21,6 @@ public class Joueur {
      */
     public Armee getArmee() {
         return armee;
-    }
-
-    
-    /** 
-     * @param armee
-     */
-    public void setArmee(Armee armee) {
-        this.armee = armee;
     }
 
 

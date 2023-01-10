@@ -1,8 +1,13 @@
 package models;
 
-
+/**
+ * un maitre du gobi est un etudiant avec des statistiques plus eleves de base
+ */
 public class MaitreDuGobi extends Etudiant{
-
+    /**
+     * @param joueur le joueur a qui appartient le maitre du gobi
+     * @param id un identifiant unique pour cet etudiant
+     */
     public MaitreDuGobi(int joueur, int id) {
         super(joueur, id);
         this.resetStats();
