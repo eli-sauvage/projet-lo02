@@ -315,7 +315,6 @@ public class TreveView {
 	 * met a jour la vue lorque l'utilisateur effectue une action
 	 */
 	public void update() {
-		affCreditZone();
 		int survivantIndex = choixSurvivants.getSelectedIndex();
 		if (survivantIndex != -1) {
 			survivantSelect = survivants.get(survivantIndex);
