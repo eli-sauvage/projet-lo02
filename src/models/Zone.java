@@ -81,6 +81,10 @@ public class Zone {
       this.combat = new Combat(combatantsJ1, combatantsJ2, this, cc);
     return this.combat;
   }
+
+  /**
+   * remet a 0 le combat de la zone
+   */
   public void resetCombat(){
     this.combat = null;
   }

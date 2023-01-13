@@ -1,12 +1,13 @@
 package models;
 import java.io.*;
-import java.util.*;
 import java.awt.*;
 /**
  * une classe ne comportant que des membres statiques, regrouppant les fonctions et attributs utiles pour les differentes classes
  */
 public class Utils {
-    public static final Scanner sc = new Scanner(System.in);
+    /**
+     * la couleur de fond pour les views
+     */
     public static final Color bgColor = new Color(255, 128, 192);
 
     /**

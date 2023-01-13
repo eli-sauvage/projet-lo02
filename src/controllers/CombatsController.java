@@ -25,7 +25,7 @@ public class CombatsController {
         this.combats = combats;
     }
 
-    /*
+    /**
      * affiche la vue
      */
     public void display() {
@@ -74,14 +74,14 @@ public class CombatsController {
         return res;
     }
 
-    /*
+    /**
      * notifie la vue d'un changement dans l'etat du combat
      */
     public void combatUpdate() {
         cv.update();
     }
 
-    /*
+    /**
      * sort de la boucle afin de debloquer le thread principal lorsque le joueur
      * lance le combat
      */
@@ -89,7 +89,7 @@ public class CombatsController {
         ready = true;
     }
 
-    /*
+    /**
      * sort de la boucle afin de debloquer le thread principal lorsque le joueur est
      * pret a passer a la treve
      */

@@ -5,6 +5,9 @@ import models.strategies.*;
  * il sont caracterises par differentes statistiques, s'il sont reservistes ou non, une zone, ainsi qu'une strategie
  */
 public class Etudiant {
+    /**
+     * les differentes statistiques de l'etudiant
+     */
     protected int credits, dexterite, force, resistance, consitution, initiative, joueur, id;
     private Zone zone;
     private boolean reserviste;
@@ -99,7 +102,9 @@ public class Etudiant {
     public void setDexterite(int dexterite) {
         this.dexterite = dexterite;
     }
-
+    /**
+     * augmente la dexterite
+     */
     public void incrDexterite() {
         this.dexterite++;
     }
@@ -119,7 +124,9 @@ public class Etudiant {
     public void setForce(int force) {
         this.force = force;
     }
-
+    /**
+     * augmente la force
+     */
     public void incrForce() {
         this.force++;
     }
@@ -139,7 +146,9 @@ public class Etudiant {
     public void setResistance(int resistance) {
         this.resistance = resistance;
     }
-
+    /**
+     * augmente la resistance
+     */
     public void incrResistance() {
         this.resistance++;
     }
@@ -159,7 +168,9 @@ public class Etudiant {
     public void setConsitution(int consitution) {
         this.consitution = consitution;
     }
-
+    /**
+     * augmente la constitution
+     */
     public void incrConstitution() {
         this.consitution++;
     }
@@ -179,7 +190,9 @@ public class Etudiant {
     public void setInitiative(int initiative) {
         this.initiative = initiative;
     }
-
+    /**
+     * augmente l'initiative
+     */
     public void incrInitiative() {
         this.initiative++;
     }

@@ -7,7 +7,6 @@ public class App {
     public static void main(String[] args) throws Exception {
         Utils.removeLogfiles();
         lancerPartie();
-        Utils.sc.close();
     }
 
     

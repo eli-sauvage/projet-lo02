@@ -1,3 +1,3 @@
-cd /workspaces/projet-lo02/src
+cd ./src
 rm -rf ../doc
 javadoc -d ../doc models models.strategies views controllers

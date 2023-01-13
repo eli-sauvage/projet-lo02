@@ -19,13 +19,12 @@ import models.strategies.Strategie;
  */
 public class TreveView {
 
-	public JFrame treveView = new JFrame();
+	private JFrame treveView = new JFrame();
 	private Choice choixReservistes;
 	private Choice choixSurvivants;
 	private Choice choixStrategie;
 	private Choice zoneDeploiementReserviste;
 	private Choice zoneDeploiementSurvivant;
-	private Color bgColor = new Color(255, 128, 192);
 	private int totalCredit;
 	private TreveController controller;
 	private ArrayList<Etudiant> reservistes = new ArrayList<>();
@@ -69,7 +68,7 @@ public class TreveView {
 		treveView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		treveView.getContentPane().setBackground(Utils.bgColor);
 		treveView.setBounds(10, 10, 1500, 800);
-		treveView.setBackground(bgColor);
+		treveView.setBackground(Utils.bgColor);
 		treveView.setLayout(null);
 		JLabel label11 = new JLabel("Treve - Joueur " + this.numeroJoueur);
 		label11.setBounds(46, 35, 500, 31);

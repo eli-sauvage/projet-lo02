@@ -16,7 +16,7 @@ import models.*;
  */
 public class ArmeeView {
 
-	public JFrame interfaceArmee = new JFrame();
+	private JFrame interfaceArmee = new JFrame();
 
 	private JSpinner force;
 	private JSpinner dexterite;

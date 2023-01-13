@@ -114,7 +114,7 @@ public class ArmeController {
         return 454 - total; // 454 = 400 + (4*1+5) elite+ (4*2+10) gobi
     }
 
-    /*
+    /**
      * applique des statistiques aleatoires a tous les etudiants du joueur
      */
     public void randomStats() {

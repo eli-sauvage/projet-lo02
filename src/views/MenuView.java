@@ -3,12 +3,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import controllers.*;
+import models.Utils;
 /**
  * la vue qui affiche le menu principal
  */
 public class MenuView {
 	private  JFrame menu = new JFrame();
-	private Color bgColor = new Color(255, 128, 192);
 
     private MenuController controller;
 	/**
@@ -25,7 +25,7 @@ public class MenuView {
     private void interfaceMenu() {
         // menu
         menu.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 30));
-        menu.getContentPane().setBackground(bgColor);
+        menu.getContentPane().setBackground(Utils.bgColor);
         menu.setBounds(10, 10, 1500, 800);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JLabel label1 = new JLabel("C'est du brutal !");
@@ -38,7 +38,7 @@ public class MenuView {
         menu.getContentPane().setLayout(null);
         menu.getContentPane().add(label1);
         menu.getContentPane().add(btnStart);
-        JButton btnRules = new JButton("Afficher les règles");
+        JButton btnRules = new JButton("Afficher les regles");
         btnRules.setFont(new Font("Tahoma", Font.PLAIN, 15));
         btnRules.setBounds(614, 402, 212, 44);
         menu.getContentPane().add(btnRules);

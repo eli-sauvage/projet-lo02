@@ -14,6 +14,9 @@ import controllers.VictoireController;
 public class Partie {
     private Joueur[] joueurs = new Joueur[2];
     private ChampDeBataille champ = new ChampDeBataille();
+    /**
+     * lance une nouvelle partie
+     */
     public Partie() {
         MenuController mc = new MenuController();
         mc.display();
