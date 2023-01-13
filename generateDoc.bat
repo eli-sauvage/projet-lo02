@@ -1,3 +1,3 @@
-cd ./src
-rm -rf ../doc
+del doc
+cd src
 javadoc -d ../doc models models.strategies views controllers
