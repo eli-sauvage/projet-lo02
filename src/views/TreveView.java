@@ -29,7 +29,6 @@ public class TreveView {
 	private TreveController controller;
 	private ArrayList<Etudiant> reservistes = new ArrayList<>();
 	private ArrayList<Etudiant> survivants = new ArrayList<>();
-	// private Etudiant etuSelect = new Etudiant(1,1);
 	private Etudiant survivantSelect = null;
 	private Etudiant reservisteSelect = null;
 	private String[] controleZoneString = new String[] { "--", "J1", "J2" };
@@ -120,8 +119,12 @@ public class TreveView {
 					// controller.deployerReserviste();
 					System.out.println(reservisteSelect.getNom());
 					// demande au controller d'effectuer le deploiment
-					controller.deployerReserviste(reservisteSelect,
-							zoneDeploiementReserviste.getSelectedIndex());
+					try {
+						controller.deployerEtudiant(reservisteSelect,
+								zoneDeploiementReserviste.getSelectedIndex());
+					} catch (Exception exept) {
+						affErreur(exept.getMessage());
+					}
 					// re affichage de la liste update
 					choixReservistes.removeAll();
 					reservistes = controller.getReserviste();
@@ -201,45 +204,30 @@ public class TreveView {
 					// deployer survivant sur une zone
 					System.out.println(survivantSelect.getNom());
 					// demande au controller d'effectuer le deploiment
-					if (survivantSelect.getZone().getIndiceZone() == zoneDeploiementSurvivant
-							.getSelectedIndex()) {
-						JFrame f = new JFrame();
-						JDialog d;
-						d = new JDialog(f, "Erreur", true);
-						d.setLayout(new FlowLayout());
-						JButton b = new JButton("OK");
-						b.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								d.setVisible(false);
-							}
-						});
-						d.add(new JLabel("l'étudiant est déjà dans cette zone !"));
-						d.add(b);
-						d.setSize(300, 100);
-						d.setLocationRelativeTo(null);
-						d.setVisible(true);
-					} else {
-						System.out.println("OK");
-						System.out.println(survivantSelect.getNom());
-						String stratStr = choixStrategie.getSelectedItem();
-						Strategie strat = null;
-						if (stratStr.equals("Offensive"))
-							strat = new Offensif();
-						if (stratStr.equals("Defensive"))
-							strat = new Defensif();
-						if (stratStr.equals("Aleatoire"))
-							strat = new Aleatoire();
-						survivantSelect.setStrategie(strat);
-						controller.deployerSurvivant(survivantSelect,
+					System.out.println("OK");
+					System.out.println(survivantSelect.getNom());
+					String stratStr = choixStrategie.getSelectedItem();
+					Strategie strat = null;
+					if (stratStr.equals("Offensive"))
+						strat = new Offensif();
+					if (stratStr.equals("Defensive"))
+						strat = new Defensif();
+					if (stratStr.equals("Aleatoire"))
+						strat = new Aleatoire();
+					survivantSelect.setStrategie(strat);
+					try {
+						controller.deployerEtudiant(survivantSelect,
 								zoneDeploiementSurvivant.getSelectedIndex());
-						// update de la liste des survivants
-						choixSurvivants.removeAll();
-						survivants = controller.getSurvivants();
-						for (Etudiant etu : survivants) {
-							choixSurvivants.add(etu.getNom());
-						}
-						choixSurvivants.update(null);
+					} catch (Exception exept) {
+						affErreur(exept.getMessage());
 					}
+					// update de la liste des survivants
+					choixSurvivants.removeAll();
+					survivants = controller.getSurvivants();
+					for (Etudiant etu : survivants) {
+						choixSurvivants.add(etu.getNom());
+					}
+					choixSurvivants.update(null);
 					update();
 				}
 			}
@@ -353,5 +341,25 @@ public class TreveView {
 				choixStrategie.select("Aleatoire");
 		}
 		treveView.validate();
+	}
+	/**
+	 * affiche un popup d'erreur
+	 */
+	public void affErreur(String message) {
+		JFrame f = new JFrame();
+		JDialog d;
+		d = new JDialog(f, "Erreur", true);
+		d.setLayout(new FlowLayout());
+		JButton b = new JButton("OK");
+		b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				d.setVisible(false);
+			}
+		});
+		d.add(new JLabel(message));
+		d.add(b);
+		d.setSize(300, 100);
+		d.setLocationRelativeTo(null);
+		d.setVisible(true);
 	}
 }

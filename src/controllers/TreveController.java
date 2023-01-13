@@ -47,24 +47,15 @@ public class TreveController {
     }
 
     /**
-     * deploie l'étudiant dans la zone specifiee
-     * 
-     * @param etudiant l'etudiant a deployer
-     * @param indexZone la zone dans laquelle le deployer
-     */
-    public void deployerReserviste(Etudiant etudiant, int indexZone) {
-        etudiant.setZone(champ.getZone(indexZone));
-        etudiant.setReserviste(false);
-        // System.out.println(Utils.zoneIndexToString(etudiant.getZone().getIndiceZone()));
-    }
-
-    /**
      * deploie l'etudiant dans la zone specifiee
      * 
      * @param etudiant l'etudiant a deployer
      * @param indexZone la zone dans laquelle le deployer
+     * @throws Exception si l'etudiant ne peut pas etre deploye
      */
-    public void deployerSurvivant(Etudiant etudiant, int indexZone) {
+    public void deployerEtudiant(Etudiant etudiant, int indexZone) throws Exception{
+        if(etudiant.getZone().getIndiceZone() == indexZone) throw new Exception("l'etudiant est deja dans la zone !");
+        if(champ.getZone(indexZone).getControlee() != 0) throw new Exception("la zone est controlee, impossible de deployer");
         etudiant.setZone(champ.getZone(indexZone));
         etudiant.setReserviste(false);
 
